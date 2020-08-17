@@ -7,12 +7,20 @@ Tello::UI::UI(sf::RenderWindow& _window)
     window->setFramerateLimit(60);
     ImGui::SFML::Init(*window);
 
+    // Perhaps make some kind if connect dialog where ip and port can be selected, and when we click connect then call this function
+    udp_server.SDK_StartServer();
+
+
+    // This feels unsafe, perhaps there is a better way?
+    terminal_state.udp_server = &udp_server;
+
     terminal = new ImTerm::terminal<Tello_Terminal>(terminal_state);
 }
 
 Tello::UI::~UI()
 {
     delete terminal;
+    udp_server.SDK_StopServer();
     ImGui::SFML::Shutdown();
 }
 

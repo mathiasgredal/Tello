@@ -8,9 +8,11 @@
 #include "imterm/terminal.hpp"
 #include "imterm/terminal_helpers.hpp"
 
+#include "Tello_UDP.h"
 
 struct Terminal_State {
     bool ShouldQuit = false;
+    Tello::UPD* udp_server;
 };
 
 class Tello_Terminal : public ImTerm::basic_terminal_helper<Tello_Terminal, Terminal_State>
@@ -25,6 +27,10 @@ public:
     static void clear(argument_type&);
     static void echo(argument_type&);
     static void exit(argument_type&);
+    static void udp(argument_type&);
+
+    // API
+    static void sdk(argument_type&);
 
 
 };

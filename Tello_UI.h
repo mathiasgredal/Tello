@@ -10,6 +10,7 @@
 #include <SFML/Window/Event.hpp>
 
 #include "Tello_Terminal.h"
+#include "Tello_UDP.h"
 
 namespace Tello {
 
@@ -37,7 +38,7 @@ private:
     Terminal_State terminal_state;
     ImTerm::terminal<Tello_Terminal>* terminal;;
 
-
+    Tello::UPD udp_server;
 };
 
 }

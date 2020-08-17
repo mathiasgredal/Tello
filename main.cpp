@@ -10,12 +10,16 @@
 
 #include "Tello_UI.h"
 
+#include <chrono>
+#include <thread>
+
 int main() {
-    sf::RenderWindow window(sf::VideoMode(640*2, 480+240), "ImGui + SFML = <3");
+    sf::RenderWindow window(sf::VideoMode(640*2, 480+240), "Tello Drone Controller");
 
     Tello::UI application = Tello::UI(window);
 
     application.Run();
+
     return 0;
 }
 

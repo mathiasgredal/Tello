@@ -10,7 +10,6 @@ else()
   set(BUILD_SHARED_LIBS ON)
 endif()
 
-message(STATUS "Fetching third party libraries")
 #======================================
 
 set(SFML_VERSION 2.5.1)
