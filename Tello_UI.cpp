@@ -64,6 +64,15 @@ void Tello::UI::Draw_ImGui()
     }
     ImGui::End();
 
+
+    auto win_size = window->getSize();
+    ImVec2 term_size = { (float)win_size.y, win_size.y*0.5f};
+    ImVec2 term_position = {0, win_size.y-term_size.y};
+
+    ImGui::SetNextWindowSize(term_size);
+    ImGui::SetNextWindowPos(term_position);
+    terminal->set_flags(ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+    terminal->set_level_list_text("Generel", "FFMPEG", "UDP", "stdout", "", "", "");
     terminal->show();
 }
 

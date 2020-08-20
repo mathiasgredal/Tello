@@ -32,7 +32,6 @@ void Tello::UPD::SDK_SendRequest(std::string message, int timeout, std::function
 {
     UDP_Request request;
 
-    request.ID = boost::uuids::random_generator()();
     request.time = system_clock::now().time_since_epoch().count();
     request.timeout = timeout;
     request.callback = callback;

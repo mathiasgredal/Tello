@@ -19,57 +19,41 @@ Tello::Video::Video(std::string url)
 {
     stream_context = avformat_alloc_context();
 
-    // This is supposed to speed up connections
-
 #if ENABLE_LOGGING
     av_log_set_callback(&Logging_Callback);
 #endif
-    std::cout << "A" << std::endl;
+
     if(avformat_open_input(&stream_context, url.c_str(), NULL, NULL))
         throw std::runtime_error("ERROR: Unable to connect to url: " + url);
-    std::cout << "B" << std::endl;
 
     if(avformat_find_stream_info(stream_context, NULL) < 0)
         throw std::runtime_error("ERROR: Unable to find stream info");
-
-    std::cout << "C" << std::endl;
 
     for(uint32_t i =0; i < stream_context->nb_streams; i++){
         if(stream_context->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO)
             video_stream_index = i;
     }
-    std::cout << "D" << std::endl;
 
     if(video_stream_index == -1)
         throw std::runtime_error("ERROR: Unable to find video in requested stream");
-    std::cout << "E" << std::endl;
 
     av_init_packet(&packet);
-    std::cout << "F" << std::endl;
 
     allocation_context = avformat_alloc_context();
-    std::cout << "G" << std::endl;
 
     // Now we can start reading the video packets
     av_read_play(stream_context);
-    std::cout << "H" << std::endl;
 
     // We know the Tello drone sends an encoded h264 stream
     codec = avcodec_find_decoder(AV_CODEC_ID_H264);
     if (!codec)
         throw std::runtime_error("ERROR: The linked ffmpeg library seems not to have an h264 decoder");
-    std::cout << "I" << std::endl;
-
-    video_context = avcodec_alloc_context3(codec);
-    std::cout << "J" << std::endl;
 
     avcodec_get_context_defaults3(video_context, codec);
-    avcodec_copy_context(video_context,stream_context->streams[video_stream_index]->codec);
-    std::cout << "A" << std::endl;
+    avcodec_copy_context(video_context,stream_context->streams[video_stream_index]->codec);    
 
     if (avcodec_open2(video_context, codec, nullptr) < 0)
         throw std::runtime_error("ERROR: Unable to initialize the video context with the given AVCodec");
-    std::cout << "A" << std::endl;
 
     // Initializing the converter that will convert the decoded YUV420P frames to RGB24 frames that we can render with SFML
     yuv420p_to_rgb24_ctx = sws_getContext(video_context->width, video_context->height, video_context->pix_fmt, video_context->width, video_context->height,

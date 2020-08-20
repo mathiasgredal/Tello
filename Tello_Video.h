@@ -1,6 +1,17 @@
 #ifndef TELLO_VIDEO_H
 #define TELLO_VIDEO_H
 
+// This is needed because MSVC is weird and requires you to explicitly link windows libraries
+#pragma comment(lib, "wsock32")
+#pragma comment(lib, "ws2_32")
+#pragma comment(lib, "crypt32")
+#pragma comment(lib, "advapi32")
+#pragma comment(lib, "ole32")
+#pragma comment(lib, "cfgmgr32")
+#pragma comment(lib, "secur32")
+#pragma comment(lib, "bcrypt")
+
+
 #include <iostream>
 #include <string>
 #include <vector>

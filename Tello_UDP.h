@@ -1,6 +1,9 @@
 #ifndef TELLO_UPD_H
 #define TELLO_UPD_H
 
+// This is needed because MSVC is weird and requires you to explicitly link windows libraries
+#pragma comment(lib, "bcrypt")
+
 #include <iostream>
 #include <queue>
 #include <thread>
@@ -12,10 +15,6 @@
 #include <boost/array.hpp>
 #include <boost/bind.hpp>
 #include <boost/asio.hpp>
-
-#include <boost/uuid/uuid.hpp>            // uuid class
-#include <boost/uuid/uuid_generators.hpp> // generators
-#include <boost/uuid/uuid_io.hpp>         // streaming operators etc.
 
 using boost::asio::ip::udp;
 using namespace std::chrono;
@@ -35,7 +34,6 @@ struct UDP_Response {
 };
 
 struct UDP_Request {
-    boost::uuids::uuid ID;
     std::string sentMessage;
     uint64_t time;
     int timeout;
