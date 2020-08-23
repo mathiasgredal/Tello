@@ -45,7 +45,7 @@ private:
     AVFormatContext* stream_context;
     AVPacket packet;
     AVFormatContext* allocation_context;
-    AVStream* stream;
+    AVStream* stream = nullptr;
     AVCodec* codec;
     AVCodecContext* video_context;
 

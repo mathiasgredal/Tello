@@ -12,7 +12,7 @@ Tello::UI::UI(sf::RenderWindow& _window)
     ImGui::GetIO().FontGlobalScale = 2;
 #endif
 
-    video_save_location = std::filesystem::current_path();
+    video_save_location = std::filesystem::current_path().string();
 
     // Perhaps make some kind if connect dialog where ip and port can be selected, and when we click connect then call this function
     //udp_server.SDK_StartServer();
@@ -71,6 +71,8 @@ void Tello::UI::Start_Video()
     video_connected = true;
 
     auto video_size = video_server->getVideo_size();
+    std::cout << "Sprite size: " << video_size.x << ", " << video_size.y << std::endl;
+
     if (!video_texture.create(video_size.x, video_size.y))
         throw std::runtime_error("ERROR: Unable to initialize a texture");
 
@@ -79,6 +81,15 @@ void Tello::UI::Start_Video()
 
 void Tello::UI::Draw_SFML()
 {
+    // We need to calculate the scale for the sprite, such that it fits half the screen height and 2/3 the screen width
+    auto win_size = window->getSize();
+   // auto sprite_size = video_sprite.getTexture()->getSize();
+//    sf::Vector2f sprite_scaling = {sprite_size.width/win_size.x, sprite_size.height/win_size.y};
+
+
+    video_sprite.setScale((win_size.x*0.666667)/video_texture.getSize().x, (win_size.y*0.5)/video_texture.getSize().y);
+
+
     window->draw(video_sprite);
 }
 
@@ -165,7 +176,7 @@ void Tello::UI::Draw_ImGui()
     ImGui::SameLine();
     ImGui::PushItemWidth(200);
     if (ImGui::InputInt("##send", (int*)&udp_send_port) && udp_connected && udp_server != nullptr)
-        udp_server->SDK_SendPort = static_cast<ushort>(udp_send_port);
+        udp_server->SDK_SendPort = static_cast<uint8_t>(udp_send_port);
     ImGui::PopItemWidth();
     ImGui::Spacing();
 

@@ -7,5 +7,3 @@ add_library(ImTerm::terminal ALIAS ImTerm)
 target_include_directories(ImTerm INTERFACE
     $<INSTALL_INTERFACE:include/>
 )
-
-#add_subdirectory(example EXCLUDE_FROM_ALL)

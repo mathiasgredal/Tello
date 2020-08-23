@@ -26,6 +26,19 @@
 #include <type_traits>
 #include <system_error>
 
+// Even more MSVC weirdness https://stackoverflow.com/a/27443191
+template<class T>
+const T& max(const T& a, const T& b)
+{
+    return (a < b) ? b : a;
+}
+
+template<class T>
+const T& min(const T& a, const T& b)
+{
+    return (b < a) ? b : a;
+}
+
 namespace misc {
 
 	// std::identity is c++20

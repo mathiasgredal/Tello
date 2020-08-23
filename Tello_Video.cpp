@@ -128,7 +128,7 @@ void Tello::Video::Decode_Stream()
         // Check whether this packet belongs to the videostream
         if (packet.stream_index == video_stream_index) {
 
-            if (stream == NULL) { // This will only be run once
+            if (stream == nullptr) { // This will only be run once
                 stream = avformat_new_stream(allocation_context, stream_context->streams[video_stream_index]->codec->codec);
                 avcodec_copy_context(stream->codec, stream_context->streams[video_stream_index]->codec);
                 stream->sample_aspect_ratio = stream_context->streams[video_stream_index]->codec->sample_aspect_ratio;

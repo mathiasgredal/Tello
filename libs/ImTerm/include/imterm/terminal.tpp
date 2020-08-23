@@ -15,6 +15,8 @@
 ///                                                                                                                                     ///
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
 #include <imgui.h>
 #include <imgui_internal.h>
 #include <array>
@@ -24,6 +26,7 @@
 #include <optional>
 #include <iterator>
 #include <algorithm>
+#include <limits>
 #ifdef IMTERM_ENABLE_REGEX
 #include <regex>
 #endif
@@ -530,7 +533,7 @@ void terminal<TerminalHelper>::display_settings_bar(const std::vector<config_pan
 		}
 	}
 
-	float consumer_width = std::max((ImGui::GetContentRegionAvail().x - required_space) / static_cast<float>(space_consumer_count), 0.1f);
+    float consumer_width = std::max((ImGui::GetContentRegionAvail().x - required_space) / static_cast<float>(space_consumer_count), 0.1f);
 
 	bool same_line_req{false};
 	auto same_line = [&same_line_req]() {
@@ -1269,7 +1272,7 @@ int terminal<TerminalHelper>::command_line_callback(ImGuiInputTextCallbackData* 
 
 	auto paste_buffer = [data](auto begin, auto end, auto buffer_shift) {
 		misc::copy(begin, end, data->Buf + buffer_shift, data->Buf + data->BufSize - 1);
-		data->BufTextLen = std::min(static_cast<int>(std::distance(begin, end) + buffer_shift), data->BufSize - 1);
+        data->BufTextLen = std::min(static_cast<int>(std::distance(begin, end) + buffer_shift), data->BufSize - 1);
 		data->Buf[data->BufTextLen] = '\0';
 		data->BufDirty = true;
 		data->SelectionStart = data->SelectionEnd;
@@ -1284,7 +1287,7 @@ int terminal<TerminalHelper>::command_line_callback(ImGuiInputTextCallbackData* 
 		data->Buf[data->BufTextLen] = '\0';
 		data->BufDirty = true;
 		data->SelectionStart = data->SelectionEnd;
-		data->CursorPos = std::min(static_cast<int>(data->CursorPos + str.size() - reference_size), data->BufTextLen);
+        data->CursorPos = std::min(static_cast<int>(data->CursorPos + str.size() - reference_size), data->BufTextLen);
 		m_buffer_usage = static_cast<unsigned>(data->BufTextLen);
 	};
 
