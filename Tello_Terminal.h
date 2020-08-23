@@ -12,7 +12,7 @@
 
 struct Terminal_State {
     bool ShouldQuit = false;
-    Tello::UPD* udp_server;
+    Tello::UDP* udp_server;
 };
 
 class Tello_Terminal : public ImTerm::basic_terminal_helper<Tello_Terminal, Terminal_State>

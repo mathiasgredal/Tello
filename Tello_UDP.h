@@ -4,19 +4,16 @@
 // This is needed because MSVC is weird and requires you to explicitly link windows libraries
 #pragma comment(lib, "bcrypt")
 
+#include <array>
+#include <atomic>
+#include <chrono>
+#include <functional>
 #include <iostream>
 #include <queue>
 #include <thread>
-#include <array>
-#include <functional>
-#include <atomic>
-#include <chrono>
 
-#include <boost/array.hpp>
-#include <boost/bind.hpp>
-#include <boost/asio.hpp>
+#include <uvw.hpp>
 
-using boost::asio::ip::udp;
 using namespace std::chrono;
 
 namespace Tello {
@@ -40,39 +37,38 @@ struct UDP_Request {
     std::function<void(UDP_Response)> callback;
 };
 
-class UPD
-{
-public:
+class UDP {
+private:
+    // Event loop
+    std::thread SDK_thread;
+    std::shared_ptr<uvw::Loop> SDK_loop;
 
-    UPD();
+    // UDP Networking
+    std::shared_ptr<uvw::UDPHandle> SDK_server;
 
-    // SDK UDP Server
-    void SDK_StartServer();
-    void SDK_StopServer();
-
-    void SDK_SendRequest(std::string message, int timeout, std::function<void(UDP_Response)> callback);
+    u_short SDK_ListenPort;
 
     std::queue<UDP_Request> SDK_requestQueue;
 
-    const u_short SDK_SendPort = 8889;
-    const u_short SDK_ListenPort = 8890;
+    // Thread managment and communications
+    std::shared_ptr<uvw::AsyncHandle> async_server;
+    std::atomic_bool is_running = false;
 
-    boost::asio::io_service SDK_io_service;
-    udp::socket SDK_socket;
-    boost::asio::ip::address SDK_Tello_IpAddress = boost::asio::ip::make_address("192.168.1.242");
-    udp::endpoint SDK_listen_endpoint;
-    udp::endpoint SDK_send_endpoint = udp::endpoint(SDK_Tello_IpAddress, SDK_SendPort);
+public:
+    UDP(std::string ip_address, u_short send_port, u_short listen_port);
+    ~UDP();
 
-    std::array<char, 1000> SDK_input_buffer;
-    std::thread SDK_UDP_server_thread;
+    // SDK UDP Server
+    void SDK_SendRequest(std::string message, int timeout, std::function<void(UDP_Response)> callback);
 
-    void SDK_recieve_new();
-    void SDK_handle_recieve(const boost::system::error_code& error, std::size_t message_size);
+    void SDK_handle_recieve(const uvw::UDPDataEvent& data, uvw::UDPHandle& handle);
+    void SDK_handle_error(const uvw::ErrorEvent& error, uvw::UDPHandle& handle);
 
-    // Video UDP Server
+    std::string SDK_Address;
+    u_short SDK_SendPort;
 
-
-
+    // Thread COMS, used to call functions on the SDK_thread.
+    //Mainly used for shutting down the threads, as it can only be done from inside the event thread as libuv isn't thread safe
 };
 
 }
