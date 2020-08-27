@@ -76,7 +76,7 @@ void Tello_Terminal::udp(argument_type& arg)
 
     if (arg.val.udp_server != nullptr)
         arg.val.udp_server->SDK_SendRequest(str, 2000, [arg](Tello::UDP_Response response) {
-            arg.term.add_text(response.message);
+            arg.term.add_text("\t - "+response.message);
         });
     else
         arg.term.add_text("UDP server not connected");

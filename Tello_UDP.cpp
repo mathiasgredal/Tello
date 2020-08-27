@@ -6,6 +6,11 @@ void run_service(std::shared_ptr<uvw::Loop>& loop, std::atomic_bool& is_running)
     loop->run();
 }
 
+std::queue<Tello::UDP_Request> Tello::UDP::getSDK_requestQueue() const
+{
+    return SDK_requestQueue;
+}
+
 Tello::UDP::UDP(std::string ip_address, u_short send_port, u_short listen_port)
 {
     SDK_Address = ip_address;
@@ -24,8 +29,8 @@ Tello::UDP::UDP(std::string ip_address, u_short send_port, u_short listen_port)
 
     // Handle server udp packet recieved. I used a lambda function because referencing the other function directly didn't work
     SDK_server->on<uvw::UDPDataEvent>([this](const uvw::UDPDataEvent& data, uvw::UDPHandle& handle) {
-        std::cout << "SERVER RECIEVED: Got UDP packet from" << data.sender.ip << ":" << data.sender.port << ", of size " << data.length << std::endl;
-        //SDK_handle_recieve(data, handle);
+        //std::cout << "SERVER RECIEVED: Got UDP packet from" << data.sender.ip << ":" << data.sender.port << ", of size " << data.length << std::endl;
+        SDK_handle_recieve(data, handle);
     });
 
     SDK_server->bind("0.0.0.0", listen_port);
@@ -69,36 +74,23 @@ void Tello::UDP::SDK_SendRequest(std::string message, int timeout, std::function
 
 void Tello::UDP::SDK_handle_recieve(const uvw::UDPDataEvent& data, uvw::UDPHandle& handle)
 {
-    std::cout << "RECIEVED: " << data.data.get() << std::endl;
-
     // This is used to stop the event loop from inside the thread, since libuv is not thread safe
-    if (std::string(data.data.get()) == "STOP SERVER" && !is_running) {
-        SDK_loop->stop();
-
-        // Taken from here: https://stackoverflow.com/a/47270400
-        int result = uv_loop_close(handle.raw()->loop);
-
-        if (result == UV_EBUSY)
-            uv_walk(
-                handle.raw()->loop, [](uv_handle_t* handle, void* arg) {
-                    uv_close(handle, [](uv_handle_t* handle) {
-                        if (handle != nullptr) {
-                            delete handle;
-                        }
-                    });
-                },
-                nullptr);
-        return;
-    }
-
-    UDP_Response response;
+    UDP_Response response;    
+    std::string message = std::string(data.data.get(), data.length);
 
     if (SDK_requestQueue.size() > 0) {
         auto first = SDK_requestQueue.front();
         SDK_requestQueue.pop();
-        response.message = std::string(data.data.get());
+        response.message = message;
         first.callback(response);
-    } else {
-        std::cout << "RECIEVED: " << data.data.get() << std::endl;
+    }
+    // else if(is telemetry response) {
+
+    //}
+    else {
+        if(WriteToTerminal == nullptr)
+            std::cout << "RECIEVED: " << message << std::endl;
+        else
+            WriteToTerminal(message);
     }
 }

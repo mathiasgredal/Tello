@@ -70,7 +70,7 @@ void Tello::UI::Start_Video()
 
     video_connected = true;
 
-    auto video_size = video_server->getVideo_size();
+    sf::Vector2f video_size = video_server->getVideo_size();
     std::cout << "Sprite size: " << video_size.x << ", " << video_size.y << std::endl;
 
     if (!video_texture.create(video_size.x, video_size.y))
@@ -81,16 +81,18 @@ void Tello::UI::Start_Video()
 
 void Tello::UI::Draw_SFML()
 {
-    // We need to calculate the scale for the sprite, such that it fits half the screen height and 2/3 the screen width
-    auto win_size = window->getSize();
-   // auto sprite_size = video_sprite.getTexture()->getSize();
-//    sf::Vector2f sprite_scaling = {sprite_size.width/win_size.x, sprite_size.height/win_size.y};
+    // We should only draw the video if we know its size
+    if(video_connected && video_server != nullptr) {
+        // We need to calculate the scale for the sprite, such that it fits half the screen height and 2/3 the screen width
+        auto win_size = window->getSize();
+        auto sprite_size = video_sprite.getTexture()->getSize();
+        sf::Vector2f sprite_scaling = {(float)sprite_size.x/win_size.x, (float)sprite_size.y/win_size.y};
 
+        video_sprite.setScale((win_size.x*0.666667)/video_texture.getSize().x, (win_size.y*0.5)/video_texture.getSize().y);
 
-    video_sprite.setScale((win_size.x*0.666667)/video_texture.getSize().x, (win_size.y*0.5)/video_texture.getSize().y);
+        window->draw(video_sprite);
+    }
 
-
-    window->draw(video_sprite);
 }
 
 void Tello::UI::Draw_ImGui()
@@ -192,6 +194,9 @@ void Tello::UI::Draw_ImGui()
         try {
             if (!udp_connected && udp_server == nullptr) {
                 udp_server = new Tello::UDP(udp_ip_address, udp_send_port, udp_listen_port);
+                udp_server->WriteToTerminal = [this](std::string message){
+                    terminal->add_text("RECIEVED: " + message);
+                };
                 udp_connected = true;
                 terminal_state.udp_server = udp_server;
             } else if (udp_connected && udp_server != nullptr) {
@@ -210,6 +215,48 @@ void Tello::UI::Draw_ImGui()
             std::cout << "response" << std::endl;
         });
     }
+
+    if (ImGui::TreeNode("UDP Request Queue: "))
+    {
+        ImGui::Columns(1, NULL, false);
+        if(udp_connected && udp_server != nullptr)
+        {
+            auto queue = udp_server->getSDK_requestQueue();
+            size_t i = 0;
+
+            while(queue.size() > 0) {
+                std::ostringstream infomessage;
+                infomessage << i << ". {message: \"" << queue.front().sentMessage << "\", timeout: " << queue.front().timeout << "}";
+                ImGui::Text(infomessage.str().c_str());
+                queue.pop();
+                i++;
+                ImGui::NextColumn();
+            }
+        }
+        ImGui::Columns(1);
+        ImGui::TreePop();
+    }
+
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Spacing();
+    ImGui::Spacing();
+
+    ImGui::Text("Telemetry:");
+    ImGui::Separator();
+    ImGui::Spacing();
+
+    ImGui::Columns(4, NULL, false);
+
+    for(int i = 0; i < 12; i++)
+    {
+        ImGui::Text("data");
+        ImGui::NextColumn();
+    }
+
+    ImGui::Columns(1);
 
     ImGui::End();
 

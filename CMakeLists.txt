@@ -18,15 +18,19 @@ add_executable(Tello main.cpp
 if(WIN32) 
     include(${CMAKE_SOURCE_DIR}/cmake/automate-vcpkg.cmake)
     vcpkg_bootstrap()
-    vcpkg_install_packages(ffmpeg imgui-sfml uvw tinyfiledialogs)
+    vcpkg_install_packages(ffmpeg imgui-sfml uvw tinyfiledialogs freetype)
 
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         file(GLOB FFMPEG_LIBRARIES "${CMAKE_BINARY_DIR}/vcpkg/installed/x64-windows-static/debug/lib/*.lib")
+        set(FREETYPE_LIBRARY "${CMAKE_BINARY_DIR}/vcpkg/installed/x64-windows-static/debug/lib/freetyped.lib")
     else()
         file(GLOB FFMPEG_LIBRARIES "${CMAKE_BINARY_DIR}/vcpkg/installed/x64-windows-static/lib/*.lib")
+        set(FREETYPE_LIBRARY "${CMAKE_BINARY_DIR}/vcpkg/installed/x64-windows-static/lib/freetype.lib")
+
     endif()
 
     set(INCLUDE_DIRS "${CMAKE_BINARY_DIR}/vcpkg/installed/x64-windows-static/include"  "${CMAKE_BINARY_DIR}/vcpkg/installed/x64-windows-static/include/tinyfiledialogs")
+    set(FREETYPE_INCLUDE_DIRS "${CMAKE_BINARY_DIR}/vcpkg/installed/x64-windows-static/include")
 
     target_link_libraries(Tello PUBLIC ${FFMPEG_LIBRARIES})
 
@@ -51,6 +55,10 @@ if(WIN32)
 
     # MSVC weirdness when linking staticly compiled libraries
     set_property(TARGET Tello PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
+    # An attempt to speed up the extremely slow compile times on windows
+    #target_precompile_headers(Tello PRIVATE ${CMAKE_SOURCE_DIR}/Tello_Video.h)
+    #add_compile_options("/debug:fastlink /MP /incremental /verbose")
 else()
     add_subdirectory(libs)
 
