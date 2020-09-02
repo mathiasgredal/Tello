@@ -19,6 +19,13 @@
 
 namespace Tello {
 
+struct RCData {
+    float x;
+    float y;
+    float z;
+    float yaw;
+};
+
 struct TelemetryData {
     float pitch;
     float roll;
@@ -53,6 +60,8 @@ private:
 
     // Handle Events for eg. controlling drone
     void HandleEvents(sf::Event event);
+    void GetRCInput();
+    RCData rc_control_input = {0, 0, 0, 0};
 
     sf::Clock deltaClock;
     sf::RenderWindow* window;
@@ -74,7 +83,7 @@ private:
     Tello::Video* video_server = nullptr;
     sf::Sprite video_sprite;
     sf::Texture video_texture;
-    std::string video_url = std::string("udp://192.168.10.1:11111", 1024);
+    std::string video_url = std::string("rtsp://freja.hiof.no:1935/rtplive/definst/hessdalen03.stream", 1024);
     std::string video_save_location = std::string("", 1024);
     bool video_connected = false;
 };

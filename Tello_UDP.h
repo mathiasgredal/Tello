@@ -61,6 +61,7 @@ public:
 
     // SDK UDP Server
     void SDK_SendRequest(std::string message, int timeout, std::function<void(UDP_Response)> callback);
+    void SDK_Transmit(std::string message);
 
     void SDK_handle_recieve(const uvw::UDPDataEvent& data, uvw::UDPHandle& handle);
     void SDK_handle_error(const uvw::ErrorEvent& error, uvw::UDPHandle& handle);

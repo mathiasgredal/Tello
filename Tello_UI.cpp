@@ -5,6 +5,7 @@ Tello::UI::UI(sf::RenderWindow& _window)
     window = &_window;
 
     window->setFramerateLimit(20);
+    window->setKeyRepeatEnabled(true);
     ImGui::SFML::Init(*window);
 
 // handle retina screen, we propably shouldn't assume only apple screens have highdpi
@@ -44,6 +45,8 @@ void Tello::UI::Run()
                 window->close();
             }
         }
+
+        GetRCInput();
 
         if (terminal_state.ShouldQuit)
             window->close();
@@ -272,6 +275,9 @@ void Tello::UI::Draw_ImGui()
 
     ImGui::Columns(1);
 
+    ImGui::Text("RC Input:%.2f, %.2f, %.2f, %.2f", (float)rc_control_input.x, (float)rc_control_input.y, (float)rc_control_input.z, (float)rc_control_input.yaw);
+
+
     ImGui::End();
 
     ImVec2 term_size = { win_size.x * 0.666667f, win_size.y * 0.5f };
@@ -284,44 +290,58 @@ void Tello::UI::Draw_ImGui()
     terminal->show();
 }
 
+
 void Tello::UI::HandleEvents(sf::Event event)
 {
+
+}
+
+void Tello::UI::GetRCInput()
+{
+    rc_control_input = {0, 0, 0, 0};
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        rc_control_input.y = 100;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        rc_control_input.y = -100;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        rc_control_input.x = -100;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        rc_control_input.x = 100;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        rc_control_input.z = 100;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        rc_control_input.z = -100;
+
+    if (sf::Joystick::isConnected(0))
+    {
+        // joystick number 0 is connected
+        rc_control_input.x = -sf::Joystick::getAxisPosition(0, sf::Joystick::X);
+        rc_control_input.y = -sf::Joystick::getAxisPosition(0, sf::Joystick::Y);
+
+        if (sf::Joystick::isButtonPressed(0, 0))
+            rc_control_input.z = 100;
+        if (sf::Joystick::isButtonPressed(0, 1))
+            rc_control_input.z = -100;
+
+        if (sf::Joystick::isButtonPressed(0, 2))
+            rc_control_input.yaw = 100;
+        if (sf::Joystick::isButtonPressed(0, 3))
+            rc_control_input.yaw = -100;
+    }
+
+
     if (udp_connected && udp_server != nullptr) {
-        sf::Vector3f direction = { 0, 0, 0 };
-
-        if (event.key.code == sf::Keyboard::W) {
-            direction.y = 100;
-        }
-
-        //        if (event.key.code == sf::Keyboard::S) {
-        //            direction.y = -100;
-        //        }
-
-        //        if (event.key.code == sf::Keyboard::D) {
-        //            direction.x = -100;
-        //        }
-
-        //        if (event.key.code == sf::Keyboard::A) {
-        //            direction.x = 100;
-        //        }
-
-        //        if (event.key.code == sf::Keyboard::Up) {
-        //            direction.z = 100;
-        //        }
-
-        //        if (event.key.code == sf::Keyboard::Down) {
-        //            direction.z = 100;
-        //        }
 
         std::stringstream rc_command;
+        rc_command << "rc " << rc_control_input.x << " " << rc_control_input.y << " " << rc_control_input.z << " " << rc_control_input.yaw;
 
-        rc_command << "rc " << direction.x << " " << direction.y << " " << direction.z << " 0";
-
-        udp_server->SDK_SendRequest(rc_command.str(), 100, [this](UDP_Response res) {
-            std::cout << "Sent input" << std::endl;
-        });
-
-        // send rc command even when not recieving events
+        udp_server->SDK_Transmit(rc_command.str());
     }
 }
 

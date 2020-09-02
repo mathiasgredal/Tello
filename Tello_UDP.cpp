@@ -72,6 +72,11 @@ void Tello::UDP::SDK_SendRequest(std::string message, int timeout, std::function
     SDK_requestQueue.push(request);
 }
 
+void Tello::UDP::SDK_Transmit(std::string message)
+{
+    SDK_server->trySend(SDK_Address, SDK_SendPort, message.data(), message.length());
+}
+
 void Tello::UDP::SDK_handle_recieve(const uvw::UDPDataEvent& data, uvw::UDPHandle& handle)
 {
     // This is used to stop the event loop from inside the thread, since libuv is not thread safe
