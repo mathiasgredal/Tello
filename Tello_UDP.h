@@ -4,8 +4,6 @@
 // This is needed because MSVC is weird and requires you to explicitly link windows libraries
 #pragma comment(lib, "bcrypt")
 
-
-
 #include <array>
 #include <atomic>
 #include <chrono>
@@ -46,7 +44,6 @@ private:
     std::shared_ptr<uvw::Loop> SDK_loop;
 
     // UDP Networking
-    std::shared_ptr<uvw::UDPHandle> SDK_server;
 
     u_short SDK_ListenPort;
 
@@ -59,6 +56,8 @@ private:
 public:
     UDP(std::string ip_address, u_short send_port, u_short listen_port);
     ~UDP();
+
+    std::shared_ptr<uvw::UDPHandle> SDK_server;
 
     // SDK UDP Server
     void SDK_SendRequest(std::string message, int timeout, std::function<void(UDP_Response)> callback);

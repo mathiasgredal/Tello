@@ -4,7 +4,7 @@ Tello::UI::UI(sf::RenderWindow& _window)
 {
     window = &_window;
 
-    window->setFramerateLimit(60);
+    window->setFramerateLimit(20);
     ImGui::SFML::Init(*window);
 
 // handle retina screen, we propably shouldn't assume only apple screens have highdpi
@@ -82,17 +82,16 @@ void Tello::UI::Start_Video()
 void Tello::UI::Draw_SFML()
 {
     // We should only draw the video if we know its size
-    if(video_connected && video_server != nullptr) {
+    if (video_connected && video_server != nullptr) {
         // We need to calculate the scale for the sprite, such that it fits half the screen height and 2/3 the screen width
         auto win_size = window->getSize();
         auto sprite_size = video_sprite.getTexture()->getSize();
-        sf::Vector2f sprite_scaling = {(float)sprite_size.x/win_size.x, (float)sprite_size.y/win_size.y};
+        sf::Vector2f sprite_scaling = { (float)sprite_size.x / win_size.x, (float)sprite_size.y / win_size.y };
 
-        video_sprite.setScale((win_size.x*0.666667)/video_texture.getSize().x, (win_size.y*0.5)/video_texture.getSize().y);
+        video_sprite.setScale((win_size.x * 0.666667) / video_texture.getSize().x, (win_size.y * 0.5) / video_texture.getSize().y);
 
         window->draw(video_sprite);
     }
-
 }
 
 void Tello::UI::Draw_ImGui()
@@ -194,9 +193,7 @@ void Tello::UI::Draw_ImGui()
         try {
             if (!udp_connected && udp_server == nullptr) {
                 udp_server = new Tello::UDP(udp_ip_address, udp_send_port, udp_listen_port);
-                udp_server->WriteToTerminal = [this](std::string message){
-                    terminal->add_text("RECIEVED: " + message);
-                };
+                udp_server->WriteToTerminal = [this](std::string message) { HandleUnqueuedUDPData(message); };
                 udp_connected = true;
                 terminal_state.udp_server = udp_server;
             } else if (udp_connected && udp_server != nullptr) {
@@ -216,15 +213,13 @@ void Tello::UI::Draw_ImGui()
         });
     }
 
-    if (ImGui::TreeNode("UDP Request Queue: "))
-    {
+    if (ImGui::TreeNode("UDP Request Queue: ")) {
         ImGui::Columns(1, NULL, false);
-        if(udp_connected && udp_server != nullptr)
-        {
+        if (udp_connected && udp_server != nullptr) {
             auto queue = udp_server->getSDK_requestQueue();
             size_t i = 0;
 
-            while(queue.size() > 0) {
+            while (queue.size() > 0) {
                 std::ostringstream infomessage;
                 infomessage << i << ". {message: \"" << queue.front().sentMessage << "\", timeout: " << queue.front().timeout << "}";
                 ImGui::Text(infomessage.str().c_str());
@@ -248,13 +243,32 @@ void Tello::UI::Draw_ImGui()
     ImGui::Separator();
     ImGui::Spacing();
 
-    ImGui::Columns(4, NULL, false);
+    ImGui::Columns(3, nullptr, false);
 
-    for(int i = 0; i < 12; i++)
-    {
-        ImGui::Text("data");
-        ImGui::NextColumn();
-    }
+    ImGui::Text("pitch:%.2f", telemetry.pitch);
+    ImGui::NextColumn();
+    ImGui::Text("roll:%.2f", telemetry.roll);
+    ImGui::NextColumn();
+    ImGui::Text("yaw:%.2f", telemetry.yaw);
+    ImGui::NextColumn();
+    ImGui::Columns(1);
+
+    ImGui::Text("velocity: (%.3f, %.3f, %.3f)", telemetry.velocity.x, telemetry.velocity.y, telemetry.velocity.z);
+    ImGui::NextColumn();
+
+    ImGui::Text("acceleration: (%.3f, %.3f, %.3f)", telemetry.acceleration.x, telemetry.acceleration.y, telemetry.acceleration.z);
+
+    //    ImGui::Text("height:%.2f", telemetry.height);
+    ImGui::NextColumn();
+
+    ImGui::Columns(3);
+
+    ImGui::Text("height:%.2f", telemetry.height);
+    ImGui::NextColumn();
+    ImGui::Text("time:%.2f", telemetry.flight_time);
+    ImGui::NextColumn();
+    ImGui::Text("distance:%.2f", telemetry.flight_distance);
+    ImGui::NextColumn();
 
     ImGui::Columns(1);
 
@@ -272,4 +286,94 @@ void Tello::UI::Draw_ImGui()
 
 void Tello::UI::HandleEvents(sf::Event event)
 {
+    if (udp_connected && udp_server != nullptr) {
+        sf::Vector3f direction = { 0, 0, 0 };
+
+        if (event.key.code == sf::Keyboard::W) {
+            direction.y = 100;
+        }
+
+        //        if (event.key.code == sf::Keyboard::S) {
+        //            direction.y = -100;
+        //        }
+
+        //        if (event.key.code == sf::Keyboard::D) {
+        //            direction.x = -100;
+        //        }
+
+        //        if (event.key.code == sf::Keyboard::A) {
+        //            direction.x = 100;
+        //        }
+
+        //        if (event.key.code == sf::Keyboard::Up) {
+        //            direction.z = 100;
+        //        }
+
+        //        if (event.key.code == sf::Keyboard::Down) {
+        //            direction.z = 100;
+        //        }
+
+        std::stringstream rc_command;
+
+        rc_command << "rc " << direction.x << " " << direction.y << " " << direction.z << " 0";
+
+        udp_server->SDK_SendRequest(rc_command.str(), 100, [this](UDP_Response res) {
+            std::cout << "Sent input" << std::endl;
+        });
+
+        // send rc command even when not recieving events
+    }
+}
+
+bool istelemetry(std::string message)
+{
+    // Test the first 3 keys, should be enough to decide if it's telemetry data
+    return message.find("pitch:") != std::string::npos
+        && message.find("roll:") != std::string::npos
+        && message.find("yaw:") != std::string::npos;
+}
+
+void extract_segment_data(std::string segment, std::string key, float& target)
+{
+    if (segment.find(key) == 0) {
+        target = static_cast<float>(atof(segment.substr(key.length()).c_str()));
+        std::cout << segment << ": " << target << std::endl;
+    }
+}
+
+void Tello::UI::HandleUnqueuedUDPData(std::string message)
+{
+    // First we test whether it is telemetry data
+    // TODO: We are not handling telemetry when mission pad detection is on
+    if (istelemetry(message)) {
+        std::stringstream input(message);
+        std::string data_segment;
+
+        while (std::getline(input, data_segment, ';')) {
+            extract_segment_data(data_segment, "pitch:", telemetry.pitch);
+            extract_segment_data(data_segment, "yaw:", telemetry.yaw);
+            extract_segment_data(data_segment, "roll:", telemetry.roll);
+
+            extract_segment_data(data_segment, "vgx:", telemetry.velocity.x);
+            extract_segment_data(data_segment, "vgy:", telemetry.velocity.y);
+            extract_segment_data(data_segment, "vgz:", telemetry.velocity.z);
+
+            extract_segment_data(data_segment, "agx:", telemetry.acceleration.x);
+            extract_segment_data(data_segment, "agy:", telemetry.acceleration.y);
+            extract_segment_data(data_segment, "agz:", telemetry.acceleration.z);
+
+            extract_segment_data(data_segment, "h:", telemetry.height);
+
+            extract_segment_data(data_segment, "time:", telemetry.flight_time);
+            extract_segment_data(data_segment, "tof:", telemetry.flight_distance);
+
+            extract_segment_data(data_segment, "templ:", telemetry.lowest_temperature);
+            extract_segment_data(data_segment, "temph:", telemetry.highest_temperature);
+
+            extract_segment_data(data_segment, "bat:", telemetry.batterypercentage);
+            extract_segment_data(data_segment, "baro:", telemetry.barometer);
+        }
+    } else {
+        terminal->add_text("RECIEVED: " + message);
+    }
 }

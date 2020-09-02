@@ -15,15 +15,15 @@
 ///                                                                                                                                     ///
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#include <imgui.h>
-#include <imgui_internal.h>
+#include <algorithm>
 #include <array>
 #include <cctype>
 #include <charconv>
+#include <imgui.h>
+#include <imgui_internal.h>
+#include <iterator>
 #include <map>
 #include <optional>
-#include <iterator>
-#include <algorithm>
 #ifdef IMTERM_ENABLE_REGEX
 #include <regex>
 #endif
@@ -36,15 +36,15 @@ namespace details {
     using is_space_method = decltype(std::declval<T&>().is_space(std::declval<std::string_view>()));
 
     template <typename TerminalHelper>
-    std::enable_if_t<misc::is_detected_v<is_space_method, TerminalHelper>, int>
-    constexpr is_space(std::shared_ptr<TerminalHelper>& t_h, std::string_view str) {
+    std::enable_if_t<misc::is_detected_v<is_space_method, TerminalHelper>, int> constexpr is_space(std::shared_ptr<TerminalHelper>& t_h, std::string_view str)
+    {
         static_assert(std::is_same_v<decltype(t_h->is_space(str)), int>, "TerminalHelper::is_space(std::string_view) should return an int");
         return t_h->is_space(str);
     }
 
     template <typename TerminalHelper>
-    std::enable_if_t<!misc::is_detected_v<is_space_method, TerminalHelper>, int>
-    constexpr is_space(std::shared_ptr<TerminalHelper>&, std::string_view str) {
+    std::enable_if_t<!misc::is_detected_v<is_space_method, TerminalHelper>, int> constexpr is_space(std::shared_ptr<TerminalHelper>&, std::string_view str)
+    {
         return str[0] == ' ' ? 1 : 0;
     }
 
@@ -52,15 +52,15 @@ namespace details {
     using get_length_method = decltype(std::declval<T&>().get_length(std::declval<std::string_view>()));
 
     template <typename TerminalHelper>
-    std::enable_if_t<misc::is_detected_v<get_length_method, TerminalHelper>, unsigned long>
-    constexpr get_length(std::shared_ptr<TerminalHelper>& t_h, std::string_view str) {
+    std::enable_if_t<misc::is_detected_v<get_length_method, TerminalHelper>, unsigned long> constexpr get_length(std::shared_ptr<TerminalHelper>& t_h, std::string_view str)
+    {
         static_assert(std::is_same_v<decltype(t_h->get_length(str)), int>, "TerminalHelper::get_length(std::string_view) should return an int");
         return t_h->get_length(str);
     }
 
     template <typename TerminalHelper>
-    std::enable_if_t<!misc::is_detected_v<get_length_method, TerminalHelper>, unsigned long>
-    constexpr get_length(std::shared_ptr<TerminalHelper>&, std::string_view str) {
+    std::enable_if_t<!misc::is_detected_v<get_length_method, TerminalHelper>, unsigned long> constexpr get_length(std::shared_ptr<TerminalHelper>&, std::string_view str)
+    {
         return str.size();
     }
 
@@ -69,23 +69,25 @@ namespace details {
 
     template <typename TerminalHelper>
     std::enable_if_t<misc::is_detected_v<set_terminal_method, TerminalHelper>>
-    assign_terminal(TerminalHelper& helper, terminal <TerminalHelper>& terminal) {
+    assign_terminal(TerminalHelper& helper, terminal<TerminalHelper>& terminal)
+    {
         helper.set_terminal(terminal);
     }
 
     template <typename TerminalHelper>
     std::enable_if_t<!misc::is_detected_v<set_terminal_method, TerminalHelper>>
-    assign_terminal(TerminalHelper& helper, terminal <TerminalHelper>& terminal) {}
+    assign_terminal(TerminalHelper& helper, terminal<TerminalHelper>& terminal) {}
 
     // simple as in "non regex"
     inline std::map<std::string::const_iterator, std::pair<unsigned long, std::optional<theme::constexpr_color>>>
-    simple_colors_split(std::string_view filter, const message& msg, const std::optional<theme::constexpr_color>& matching_text_color) {
+    simple_colors_split(std::string_view filter, const message& msg, const std::optional<theme::constexpr_color>& matching_text_color)
+    {
 
         std::map<std::string::const_iterator, std::pair<unsigned long, std::optional<theme::constexpr_color>>> colors;
         if (filter.empty()) {
-            colors.emplace(msg.value.cbegin() + msg.color_end, std::pair{msg.value.size() - msg.color_end, std::optional<theme::constexpr_color>{}});
-            colors.emplace(msg.value.cbegin() + msg.color_beg, std::pair{msg.color_end - msg.color_beg, std::optional<theme::constexpr_color>{}});
-            colors.emplace(msg.value.cbegin(), std::pair{msg.color_beg, std::optional<theme::constexpr_color>{}});
+            colors.emplace(msg.value.cbegin() + msg.color_end, std::pair { msg.value.size() - msg.color_end, std::optional<theme::constexpr_color> {} });
+            colors.emplace(msg.value.cbegin() + msg.color_beg, std::pair { msg.color_end - msg.color_beg, std::optional<theme::constexpr_color> {} });
+            colors.emplace(msg.value.cbegin(), std::pair { msg.color_beg, std::optional<theme::constexpr_color> {} });
             return colors;
         }
 
@@ -96,22 +98,22 @@ namespace details {
 
         auto distance = static_cast<unsigned long>(std::distance(msg.value.cbegin(), it));
         if (distance > msg.color_beg) {
-            colors.emplace(msg.value.cbegin(), std::pair{msg.color_beg, std::optional<theme::constexpr_color>{}});
+            colors.emplace(msg.value.cbegin(), std::pair { msg.color_beg, std::optional<theme::constexpr_color> {} });
             if (distance > msg.color_end) {
-                colors.emplace(msg.value.cbegin() + msg.color_beg, std::pair{msg.color_end - msg.color_beg, std::optional<theme::constexpr_color>{}});
-                colors.emplace(msg.value.cbegin() + msg.color_end, std::pair{distance - msg.color_end, std::optional<theme::constexpr_color>{}});
+                colors.emplace(msg.value.cbegin() + msg.color_beg, std::pair { msg.color_end - msg.color_beg, std::optional<theme::constexpr_color> {} });
+                colors.emplace(msg.value.cbegin() + msg.color_end, std::pair { distance - msg.color_end, std::optional<theme::constexpr_color> {} });
             } else {
-                colors.emplace(msg.value.cbegin() + msg.color_beg, std::pair{distance - msg.color_beg, std::optional<theme::constexpr_color>{}});
+                colors.emplace(msg.value.cbegin() + msg.color_beg, std::pair { distance - msg.color_beg, std::optional<theme::constexpr_color> {} });
             }
         } else {
-            colors.emplace(msg.value.cbegin(), std::pair{distance, std::optional<theme::constexpr_color>{}});
-            colors.emplace(msg.value.cbegin() + msg.color_beg, std::pair{0, std::optional<theme::constexpr_color>{}});
+            colors.emplace(msg.value.cbegin(), std::pair { distance, std::optional<theme::constexpr_color> {} });
+            colors.emplace(msg.value.cbegin() + msg.color_beg, std::pair { 0, std::optional<theme::constexpr_color> {} });
         }
-        colors.emplace(msg.value.cbegin() + msg.color_end, std::pair{0, std::optional<theme::constexpr_color>{}});
+        colors.emplace(msg.value.cbegin() + msg.color_end, std::pair { 0, std::optional<theme::constexpr_color> {} });
 
         std::string::const_iterator last_valid;
         do {
-            colors[it] = std::pair{filter.size(), matching_text_color};
+            colors[it] = std::pair { filter.size(), matching_text_color };
             last_valid = it + filter.size();
             it = std::search(last_valid, msg.value.cend(), filter.begin(), filter.end());
 
@@ -119,23 +121,23 @@ namespace details {
             if (last_valid < msg.value.cbegin() + msg.color_beg && last_valid + distance > msg.value.cbegin() + msg.color_beg) {
 
                 auto mid_point = static_cast<unsigned long>(msg.color_beg + msg.value.cbegin() - last_valid);
-                colors[last_valid] = std::pair{mid_point, std::optional<theme::constexpr_color>{}};
+                colors[last_valid] = std::pair { mid_point, std::optional<theme::constexpr_color> {} };
 
                 if (last_valid + distance < msg.value.cbegin() + msg.color_end) {
-                    colors[last_valid + mid_point] = std::pair{distance - mid_point, std::optional<theme::constexpr_color>{}};
+                    colors[last_valid + mid_point] = std::pair { distance - mid_point, std::optional<theme::constexpr_color> {} };
                 } else {
                     auto len = msg.color_end - msg.color_beg;
-                    colors[last_valid + mid_point] = std::pair{len, std::optional<theme::constexpr_color>{}};
-                    colors[last_valid + mid_point + len] = std::pair{distance - mid_point - len, std::optional<theme::constexpr_color>{}};
+                    colors[last_valid + mid_point] = std::pair { len, std::optional<theme::constexpr_color> {} };
+                    colors[last_valid + mid_point + len] = std::pair { distance - mid_point - len, std::optional<theme::constexpr_color> {} };
                 }
 
-            } else if (last_valid < msg.value.cbegin() + msg.color_end && last_valid + distance > msg.value.cbegin() + msg.color_end){
+            } else if (last_valid < msg.value.cbegin() + msg.color_end && last_valid + distance > msg.value.cbegin() + msg.color_end) {
                 auto mid_point = static_cast<unsigned long>(msg.color_end + msg.value.cbegin() - last_valid);
-                colors[last_valid] = std::pair{mid_point, std::optional<theme::constexpr_color>{}};
-                colors[last_valid + mid_point] = std::pair{distance - mid_point, std::optional<theme::constexpr_color>{}};
+                colors[last_valid] = std::pair { mid_point, std::optional<theme::constexpr_color> {} };
+                colors[last_valid + mid_point] = std::pair { distance - mid_point, std::optional<theme::constexpr_color> {} };
 
             } else {
-                colors[last_valid] = std::pair{distance, std::optional<theme::constexpr_color>{}};
+                colors[last_valid] = std::pair { distance, std::optional<theme::constexpr_color> {} };
             }
 
         } while (it != msg.value.cend());
@@ -144,9 +146,10 @@ namespace details {
 
 #ifdef IMTERM_ENABLE_REGEX
     inline std::map<std::string::const_iterator, std::pair<unsigned long, std::optional<theme::constexpr_color>>>
-    regex_colors_split(std::string_view filter, const message& msg, const std::optional<theme::constexpr_color>& matching_text_color) {
+    regex_colors_split(std::string_view filter, const message& msg, const std::optional<theme::constexpr_color>& matching_text_color)
+    {
         auto make_pair = [](auto len, std::optional<theme::constexpr_color> color = {}) {
-            return std::pair{static_cast<unsigned long>(len), color};
+            return std::pair { static_cast<unsigned long>(len), color };
         };
 
         std::map<std::string::const_iterator, std::pair<unsigned long, std::optional<theme::constexpr_color>>> colors;
@@ -176,7 +179,7 @@ namespace details {
                 colors.emplace(msg.value.cbegin() + msg.color_end, make_pair(match_begin - msg.color_end));
                 colors.emplace(msg.value.cbegin() + msg.color_beg, make_pair(msg.color_end - msg.color_beg));
             } else {
-                if (match_end > msg.color_end ) {
+                if (match_end > msg.color_end) {
                     colors.emplace(match.second, make_pair(std::distance(match.second, msg.value.cend())));
                     colors.emplace(msg.value.cbegin() + msg.color_end, make_pair(0u));
                     colors.emplace(msg.value.cbegin() + msg.color_beg, make_pair(match_begin - msg.color_beg));
@@ -212,18 +215,17 @@ namespace details {
 }
 
 template <typename TerminalHelper>
-terminal<TerminalHelper>::terminal(value_type& arg_value, const char* window_name_, int base_width_, int base_height_
-        , std::shared_ptr<TerminalHelper> th, terminal_helper_is_valid&& /*unused*/)
-        : m_argument_value{arg_value}
-        , m_t_helper{std::move(th)}
-        , m_window_name(window_name_)
-        , m_base_width(base_width_)
-        , m_base_height(base_height_)
-        , m_autoscroll_text{"autoscroll"}
-        , m_clear_text{"clear"}
-        , m_log_level_text{"log level"}
-        , m_autowrap_text{"autowrap"}
-        , m_filter_hint{"filter..."}
+terminal<TerminalHelper>::terminal(value_type& arg_value, const char* window_name_, int base_width_, int base_height_, std::shared_ptr<TerminalHelper> th, terminal_helper_is_valid&& /*unused*/)
+    : m_argument_value { arg_value }
+    , m_t_helper { std::move(th) }
+    , m_window_name(window_name_)
+    , m_base_width(base_width_)
+    , m_base_height(base_height_)
+    , m_autoscroll_text { "autoscroll" }
+    , m_clear_text { "clear" }
+    , m_log_level_text { "log level" }
+    , m_autowrap_text { "autowrap" }
+    , m_filter_hint { "filter..." }
 {
     assert(m_t_helper != nullptr);
     details::assign_terminal(*m_t_helper, *this);
@@ -234,7 +236,8 @@ terminal<TerminalHelper>::terminal(value_type& arg_value, const char* window_nam
 }
 
 template <typename TerminalHelper>
-bool terminal<TerminalHelper>::show(const std::vector<config_panels>& panels_order) noexcept {
+bool terminal<TerminalHelper>::show(const std::vector<config_panels>& panels_order) noexcept
+{
     if (m_flush_bit) {
         m_last_flush_at_history = m_command_history.size();
         m_flush_bit = false;
@@ -245,25 +248,25 @@ bool terminal<TerminalHelper>::show(const std::vector<config_panels>& panels_ord
 
     if (m_update_height) {
         if (m_update_width) {
-            ImGui::SetNextWindowSizeConstraints({static_cast<float>(m_base_width), static_cast<float>(m_base_height)},
-                                                {static_cast<float>(m_base_width), static_cast<float>(m_base_height)});
+            ImGui::SetNextWindowSizeConstraints({ static_cast<float>(m_base_width), static_cast<float>(m_base_height) },
+                { static_cast<float>(m_base_width), static_cast<float>(m_base_height) });
             m_update_width = false;
         } else {
-            ImGui::SetNextWindowSizeConstraints({-1.f, static_cast<float>(m_base_height)}, {-1.f, static_cast<float>(m_base_height)});
+            ImGui::SetNextWindowSizeConstraints({ -1.f, static_cast<float>(m_base_height) }, { -1.f, static_cast<float>(m_base_height) });
         }
         m_update_height = false;
     } else if (m_update_width) {
-        ImGui::SetNextWindowSizeConstraints({static_cast<float>(m_base_width), -1.f}, {static_cast<float>(m_base_width), -1.f});
+        ImGui::SetNextWindowSizeConstraints({ static_cast<float>(m_base_width), -1.f }, { static_cast<float>(m_base_width), -1.f });
         m_update_width = false;
     } else {
         if (!m_allow_x_resize) {
             if (!m_allow_y_resize) {
                 ImGui::SetNextWindowSizeConstraints(m_current_size, m_current_size);
             } else {
-                ImGui::SetNextWindowSizeConstraints({m_current_size.x, 0.f}, {m_current_size.x, std::numeric_limits<float>::infinity()});
+                ImGui::SetNextWindowSizeConstraints({ m_current_size.x, 0.f }, { m_current_size.x, std::numeric_limits<float>::infinity() });
             }
         } else if (!m_allow_y_resize) {
-            ImGui::SetNextWindowSizeConstraints({0.f, m_current_size.y}, {std::numeric_limits<float>::infinity(), m_current_size.y});
+            ImGui::SetNextWindowSizeConstraints({ 0.f, m_current_size.y }, { std::numeric_limits<float>::infinity(), m_current_size.y });
         }
     }
 
@@ -317,7 +320,8 @@ bool terminal<TerminalHelper>::show(const std::vector<config_panels>& panels_ord
 }
 
 template <typename TerminalHelper>
-void terminal<TerminalHelper>::reset_colors() noexcept {
+void terminal<TerminalHelper>::reset_colors() noexcept
+{
     for (std::optional<theme::constexpr_color>& color : m_colors.log_level_colors) {
         color.reset();
     }
@@ -355,8 +359,9 @@ void terminal<TerminalHelper>::reset_colors() noexcept {
     m_colors.scrollbar_grab_hovered.reset();
 }
 
-template<typename TerminalHelper>
-void terminal<TerminalHelper>::add_text(std::string str, unsigned int color_beg, unsigned int color_end) {
+template <typename TerminalHelper>
+void terminal<TerminalHelper>::add_text(std::string str, unsigned int color_beg, unsigned int color_end)
+{
     message msg;
     msg.is_term_message = true;
     msg.severity = message::severity::info;
@@ -366,8 +371,9 @@ void terminal<TerminalHelper>::add_text(std::string str, unsigned int color_beg,
     push_message(std::move(msg));
 }
 
-template<typename TerminalHelper>
-void terminal<TerminalHelper>::add_text_err(std::string str, unsigned int color_beg, unsigned int color_end) {
+template <typename TerminalHelper>
+void terminal<TerminalHelper>::add_text_err(std::string str, unsigned int color_beg, unsigned int color_end)
+{
     message msg;
     msg.is_term_message = true;
     msg.severity = message::severity::warn;
@@ -377,8 +383,9 @@ void terminal<TerminalHelper>::add_text_err(std::string str, unsigned int color_
     push_message(std::move(msg));
 }
 
-template<typename TerminalHelper>
-void terminal<TerminalHelper>::add_message(message&& msg) {
+template <typename TerminalHelper>
+void terminal<TerminalHelper>::add_message(message&& msg)
+{
     if (msg.is_term_message && msg.severity != message::severity::warn) {
         msg.severity = message::severity::info;
     }
@@ -386,19 +393,19 @@ void terminal<TerminalHelper>::add_message(message&& msg) {
 }
 
 template <typename TerminalHelper>
-void terminal<TerminalHelper>::clear() {
+void terminal<TerminalHelper>::clear()
+{
     m_flush_bit = true;
     m_logs.clear();
 }
 
 template <typename TerminalHelper>
-void terminal<TerminalHelper>::set_level_list_text(std::string_view trace_str, std::string_view debug_str
-        , std::string_view info_str, std::string_view warn_str, std::string_view err_str, std::string_view critical_str
-        , std::string_view none_str) {
+void terminal<TerminalHelper>::set_level_list_text(std::string_view trace_str, std::string_view debug_str, std::string_view info_str, std::string_view warn_str, std::string_view err_str, std::string_view critical_str, std::string_view none_str)
+{
 
     m_level_list_text.clear();
     m_level_list_text.reserve(
-            trace_str.size() + 1
+        trace_str.size() + 1
         + debug_str.size() + 1
         + info_str.size() + 1
         + warn_str.size() + 1
@@ -406,7 +413,7 @@ void terminal<TerminalHelper>::set_level_list_text(std::string_view trace_str, s
         + critical_str.size() + 1
         + 1);
 
-    const std::string_view* const levels[] = {&trace_str, &debug_str, &info_str, &warn_str, &err_str, &critical_str, &none_str};
+    const std::string_view* const levels[] = { &trace_str, &debug_str, &info_str, &warn_str, &err_str, &critical_str, &none_str };
 
     for (const std::string_view* const lvl : levels) {
         std::copy(lvl->begin(), lvl->end(), std::back_inserter(m_level_list_text));
@@ -417,14 +424,14 @@ void terminal<TerminalHelper>::set_level_list_text(std::string_view trace_str, s
     set_min_log_level(m_lowest_log_level_val);
 }
 
-
 template <typename TerminalHelper>
-void terminal<TerminalHelper>::set_min_log_level(message::severity::severity_t level) {
+void terminal<TerminalHelper>::set_min_log_level(message::severity::severity_t level)
+{
     m_level = m_level + m_lowest_log_level_val - level;
 
     m_lowest_log_level_val = level;
     m_lowest_log_level = m_level_list_text.data();
-    for (int i = level ; i > 0 ; --i) {
+    for (int i = level; i > 0; --i) {
         m_lowest_log_level += std::strlen(m_lowest_log_level) + 1;
     }
 
@@ -432,9 +439,9 @@ void terminal<TerminalHelper>::set_min_log_level(message::severity::severity_t l
     std::size_t longest_len = 0u;
     const char* current_str = m_lowest_log_level;
 
-    for (int i = level ; i < message::severity::critical + 2 ; ++i) {
+    for (int i = level; i < message::severity::critical + 2; ++i) {
         auto length = std::strlen(current_str);
-        auto regular_len = get_length({current_str, length});
+        auto regular_len = get_length({ current_str, length });
         if (regular_len > longest_len) {
             longest_len = regular_len;
             m_longest_log_level = current_str;
@@ -444,13 +451,14 @@ void terminal<TerminalHelper>::set_min_log_level(message::severity::severity_t l
 }
 
 template <typename TerminalHelper>
-void terminal<TerminalHelper>::set_max_log_len(std::vector<message>::size_type max_size) {
+void terminal<TerminalHelper>::set_max_log_len(std::vector<message>::size_type max_size)
+{
     std::vector<message> new_msg_vect;
     new_msg_vect.reserve(max_size);
-    for (auto i = 0u ; i < std::min(max_size, m_logs.size() - m_current_log_oldest_idx) ; ++i) {
+    for (auto i = 0u; i < std::min(max_size, m_logs.size() - m_current_log_oldest_idx); ++i) {
         new_msg_vect.emplace_back(std::move(m_logs[i + m_current_log_oldest_idx]));
     }
-    for (auto i = 0u ; i < std::min(max_size - new_msg_vect.size(), m_logs.size() - new_msg_vect.size()) ; ++i) {
+    for (auto i = 0u; i < std::min(max_size - new_msg_vect.size(), m_logs.size() - new_msg_vect.size()); ++i) {
         new_msg_vect.emplace_back(std::move(m_logs[i]));
     }
     m_logs = std::move(new_msg_vect);
@@ -459,20 +467,21 @@ void terminal<TerminalHelper>::set_max_log_len(std::vector<message>::size_type m
 }
 
 template <typename TerminalHelper>
-void terminal<TerminalHelper>::try_log(std::string_view str, message::type type) {
+void terminal<TerminalHelper>::try_log(std::string_view str, message::type type)
+{
     message::severity::severity_t severity;
     switch (type) {
-        case message::type::user_input:
-            severity = message::severity::trace;
-            break;
-        case message::type::error:
-            severity = message::severity::err;
-            break;
-        case message::type::cmd_history_completion:
-            severity = message::severity::debug;
-            break;
+    case message::type::user_input:
+        severity = message::severity::trace;
+        break;
+    case message::type::error:
+        severity = message::severity::err;
+        break;
+    case message::type::cmd_history_completion:
+        severity = message::severity::debug;
+        break;
     }
-    std::optional<message> msg = m_t_helper->format({str.data(), str.size()}, type);
+    std::optional<message> msg = m_t_helper->format({ str.data(), str.size() }, type);
     if (msg) {
         msg->is_term_message = true;
         msg->severity = severity;
@@ -481,7 +490,8 @@ void terminal<TerminalHelper>::try_log(std::string_view str, message::type type)
 }
 
 template <typename TerminalHelper>
-void terminal<TerminalHelper>::display_settings_bar(const std::vector<config_panels>& panels_order) noexcept {
+void terminal<TerminalHelper>::display_settings_bar(const std::vector<config_panels>& panels_order) noexcept
+{
     if (panels_order.empty()) {
         return;
     }
@@ -505,34 +515,34 @@ void terminal<TerminalHelper>::display_settings_bar(const std::vector<config_pan
     float required_space = ImGui::GetStyle().ItemSpacing.x * (panels_order.size() - 1);
     for (config_panels panel : panels_order) {
         switch (panel) {
-            case config_panels::autoscroll:
-                required_space += autoscroll_size;
-                break;
-            case config_panels::autowrap:
-                required_space += autowrap_size;
-                break;
-            case config_panels::clearbutton:
-                required_space += clearbutton_size;
-                break;
-            case config_panels::filter:
-                required_space += filter_size;
-                break;
-            case config_panels::loglevel:
-                required_space += loglevel_global_size;
-                break;
-            case config_panels::long_filter:
-                [[fallthrough]];
-            case config_panels::blank:
-                ++space_consumer_count;
-                break;
-            default:
-                break;
+        case config_panels::autoscroll:
+            required_space += autoscroll_size;
+            break;
+        case config_panels::autowrap:
+            required_space += autowrap_size;
+            break;
+        case config_panels::clearbutton:
+            required_space += clearbutton_size;
+            break;
+        case config_panels::filter:
+            required_space += filter_size;
+            break;
+        case config_panels::loglevel:
+            required_space += loglevel_global_size;
+            break;
+        case config_panels::long_filter:
+            [[fallthrough]];
+        case config_panels::blank:
+            ++space_consumer_count;
+            break;
+        default:
+            break;
         }
     }
 
     float consumer_width = std::max((ImGui::GetContentRegionAvail().x - required_space) / static_cast<float>(space_consumer_count), 0.1f);
 
-    bool same_line_req{false};
+    bool same_line_req { false };
     auto same_line = [&same_line_req]() {
         if (same_line_req) {
             ImGui::SameLine();
@@ -547,7 +557,7 @@ void terminal<TerminalHelper>::display_settings_bar(const std::vector<config_pan
             pop_count += try_push_style(ImGuiCol_Text, m_colors.filter_text);
 
             ImGui::PushItemWidth(size);
-            if (ImGui::InputTextWithHint("##terminal:settings:text_filter", m_filter_hint->data(), m_log_text_filter_buffer.data(), m_log_text_filter_buffer.size())) {
+            if (ImGui::InputText("##terminal:settings:text_filter", m_log_text_filter_buffer.data(), m_log_text_filter_buffer.size())) {
                 m_log_text_filter_buffer_usage = misc::strnlen(m_log_text_filter_buffer.data(), m_log_text_filter_buffer.size());
             }
             ImGui::PopItemWidth();
@@ -558,55 +568,55 @@ void terminal<TerminalHelper>::display_settings_bar(const std::vector<config_pan
         }
     };
 
-    for (unsigned int i = 0 ; i < panels_order.size() ; ++i) {
+    for (unsigned int i = 0; i < panels_order.size(); ++i) {
         ImGui::PushID(i);
         switch (panels_order[i]) {
-            case config_panels::autoscroll:
-                if (m_autoscroll_text) {
-                    ImGui::Checkbox(m_autoscroll_text->data(), &m_autoscroll);
-                } else {
-                    ImGui::Dummy(ImVec2(autoscroll_size, 1.f));
+        case config_panels::autoscroll:
+            if (m_autoscroll_text) {
+                ImGui::Checkbox(m_autoscroll_text->data(), &m_autoscroll);
+            } else {
+                ImGui::Dummy(ImVec2(autoscroll_size, 1.f));
+            }
+            break;
+        case config_panels::autowrap:
+            if (m_autowrap_text) {
+                ImGui::Checkbox(m_autowrap_text->data(), &m_autowrap);
+            } else {
+                ImGui::Dummy(ImVec2(autowrap_size, 1.f));
+            }
+            break;
+        case config_panels::blank:
+            ImGui::Dummy(ImVec2(consumer_width, 1.f));
+            break;
+        case config_panels::clearbutton:
+            if (m_clear_text) {
+                if (ImGui::Button(m_clear_text->data())) {
+                    clear();
                 }
-                break;
-            case config_panels::autowrap:
-                if (m_autowrap_text) {
-                    ImGui::Checkbox(m_autowrap_text->data(), &m_autowrap);
-                } else {
-                    ImGui::Dummy(ImVec2(autowrap_size, 1.f));
-                }
-                break;
-            case config_panels::blank:
-                ImGui::Dummy(ImVec2(consumer_width, 1.f));
-                break;
-            case config_panels::clearbutton:
-                if (m_clear_text) {
-                    if (ImGui::Button(m_clear_text->data())) {
-                        clear();
-                    }
-                } else {
-                    ImGui::Dummy(ImVec2(clearbutton_size, 1.f));
-                }
-                break;
-            case config_panels::filter:
-                show_filter(filter_size);
-                break;
-            case config_panels::long_filter:
-                show_filter(consumer_width);
-                break;
-            case config_panels::loglevel:
-                if (m_log_level_text) {
-                    ImGui::TextUnformatted(m_log_level_text->data(), m_log_level_text->data() + m_log_level_text->size());
+            } else {
+                ImGui::Dummy(ImVec2(clearbutton_size, 1.f));
+            }
+            break;
+        case config_panels::filter:
+            show_filter(filter_size);
+            break;
+        case config_panels::long_filter:
+            show_filter(consumer_width);
+            break;
+        case config_panels::loglevel:
+            if (m_log_level_text) {
+                ImGui::TextUnformatted(m_log_level_text->data(), m_log_level_text->data() + m_log_level_text->size());
 
-                    ImGui::SameLine();
-                    ImGui::PushItemWidth(loglevel_selector_size);
-                    ImGui::Combo("##terminal:log_level_selector:combo", &m_level, m_lowest_log_level);
-                    ImGui::PopItemWidth();
-                } else {
-                    ImGui::Dummy(ImVec2(loglevel_global_size, 1.f));
-                }
-                break;
-            default:
-                break;
+                ImGui::SameLine();
+                ImGui::PushItemWidth(loglevel_selector_size);
+                ImGui::Combo("##terminal:log_level_selector:combo", &m_level, m_lowest_log_level);
+                ImGui::PopItemWidth();
+            } else {
+                ImGui::Dummy(ImVec2(loglevel_global_size, 1.f));
+            }
+            break;
+        default:
+            break;
         }
         ImGui::PopID();
         ImGui::SameLine();
@@ -615,7 +625,8 @@ void terminal<TerminalHelper>::display_settings_bar(const std::vector<config_pan
 }
 
 template <typename TerminalHelper>
-void terminal<TerminalHelper>::display_messages() noexcept {
+void terminal<TerminalHelper>::display_messages() noexcept
+{
 
     ImVec2 avail_space = ImGui::GetContentRegionAvail();
     float commandline_height = ImGui::CalcTextSize("a").y + ImGui::GetStyle().FramePadding.y * 4.f;
@@ -623,17 +634,17 @@ void terminal<TerminalHelper>::display_messages() noexcept {
 
         int style_push_count = try_push_style(ImGuiCol_ChildBg, m_colors.message_panel);
         if (ImGui::BeginChild("terminal:logs_window", ImVec2(avail_space.x, avail_space.y - commandline_height), false,
-                              ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoTitleBar)) {
+                ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoTitleBar)) {
 
             unsigned traced_count = 0;
-            void (*text_formatted) (const char*, ...);
+            void (*text_formatted)(const char*, ...);
             if (m_autowrap) {
                 text_formatted = ImGui::TextWrapped;
             } else {
                 text_formatted = ImGui::Text;
             }
 
-            auto print_single_message = [this, &traced_count, &text_formatted](const message& msg){
+            auto print_single_message = [this, &traced_count, &text_formatted](const message& msg) {
                 if (msg.severity < (m_level + m_lowest_log_level_val) && !msg.is_term_message) {
                     return;
                 }
@@ -647,17 +658,17 @@ void terminal<TerminalHelper>::display_messages() noexcept {
 #ifdef IMTERM_ENABLE_REGEX
                 if (m_regex_search) {
                     try {
-                        std::string_view filter{m_log_text_filter_buffer.data(), m_log_text_filter_buffer_usage};
+                        std::string_view filter { m_log_text_filter_buffer.data(), m_log_text_filter_buffer_usage };
                         colors = details::regex_colors_split(filter, msg, m_colors.matching_text);
                     } catch (const std::regex_error&) {
                         return; // malformed regex is treated as no match
                     }
                 } else {
-                    std::string_view filter{m_log_text_filter_buffer.data(), m_log_text_filter_buffer_usage};
-                        colors = details::simple_colors_split(filter, msg, m_colors.matching_text);
+                    std::string_view filter { m_log_text_filter_buffer.data(), m_log_text_filter_buffer_usage };
+                    colors = details::simple_colors_split(filter, msg, m_colors.matching_text);
                 }
 #else
-                std::string_view filter{m_log_text_filter_buffer.data(), m_log_text_filter_buffer_usage};
+                std::string_view filter { m_log_text_filter_buffer.data(), m_log_text_filter_buffer_usage };
                 colors = details::simple_colors_split(filter, msg, m_colors.matching_text);
 #endif
                 if (colors.empty()) {
@@ -697,10 +708,10 @@ void terminal<TerminalHelper>::display_messages() noexcept {
                 ImGui::NewLine();
             };
 
-            for (auto i = m_current_log_oldest_idx ; i < m_logs.size() ; ++i) {
+            for (auto i = m_current_log_oldest_idx; i < m_logs.size(); ++i) {
                 print_single_message(m_logs[i]);
             }
-            for (auto i = 0u ; i < m_current_log_oldest_idx ; ++i) {
+            for (auto i = 0u; i < m_current_log_oldest_idx; ++i) {
                 print_single_message(m_logs[i]);
             }
         }
@@ -718,7 +729,8 @@ void terminal<TerminalHelper>::display_messages() noexcept {
 }
 
 template <typename TerminalHelper>
-void terminal<TerminalHelper>::display_command_line() noexcept {
+void terminal<TerminalHelper>::display_command_line() noexcept
+{
     if (!m_command_entered && ImGui::GetActiveID() == m_input_text_id && m_input_text_id != 0 && m_current_autocomplete.empty()) {
         if (m_autocomplete_pos != position::nowhere && m_buffer_usage == 0u && m_current_autocomplete_strings.empty()) {
             m_current_autocomplete = m_t_helper->list_commands();
@@ -732,7 +744,8 @@ void terminal<TerminalHelper>::display_command_line() noexcept {
 }
 
 template <typename TerminalHelper>
-void terminal<TerminalHelper>::show_input_text() noexcept {
+void terminal<TerminalHelper>::show_input_text() noexcept
+{
     ImGui::PushItemWidth(-1.f);
     if (m_should_take_focus) {
         ImGui::SetKeyboardFocusHere();
@@ -741,12 +754,13 @@ void terminal<TerminalHelper>::show_input_text() noexcept {
     m_previous_buffer_usage = m_buffer_usage;
 
     if (ImGui::InputText("##terminal:input_text", m_command_buffer.data(), m_command_buffer.size(),
-                         ImGuiInputTextFlags_CallbackCompletion | ImGuiInputTextFlags_CallbackHistory,
-                         terminal::command_line_callback_st, this) && !m_ignore_next_textinput) {
+            ImGuiInputTextFlags_CallbackCompletion | ImGuiInputTextFlags_CallbackHistory,
+            terminal::command_line_callback_st, this)
+        && !m_ignore_next_textinput) {
         m_current_history_selection = {};
         if (m_buffer_usage > 0u && m_command_buffer[m_buffer_usage - 1] == '\0') {
             --m_buffer_usage;
-        } else if (m_buffer_usage + 1 < m_command_buffer.size() && m_command_buffer[m_buffer_usage + 1] == '\0' && m_command_buffer[m_buffer_usage] != '\0'){
+        } else if (m_buffer_usage + 1 < m_command_buffer.size() && m_command_buffer[m_buffer_usage + 1] == '\0' && m_command_buffer[m_buffer_usage] != '\0') {
             ++m_buffer_usage;
         } else {
             m_buffer_usage = misc::strnlen(m_command_buffer.data(), m_command_buffer.size());
@@ -760,7 +774,7 @@ void terminal<TerminalHelper>::show_input_text() noexcept {
                     --sp_count;
                     return true;
                 } else {
-                    sp_count = is_space({&c, static_cast<unsigned>(m_command_buffer.data() + m_buffer_usage - &c)});
+                    sp_count = is_space({ &c, static_cast<unsigned>(m_command_buffer.data() + m_buffer_usage - &c) });
                     if (sp_count > 0) {
                         --sp_count;
                         return true;
@@ -769,7 +783,7 @@ void terminal<TerminalHelper>::show_input_text() noexcept {
                 }
             };
             char* beg = std::find_if_not(m_command_buffer.data(), m_command_buffer.data() + m_buffer_usage,
-                                        is_space_lbd);
+                is_space_lbd);
             sp_count = 0;
             const char* ed = std::find_if(beg, m_command_buffer.data() + m_buffer_usage, is_space_lbd);
 
@@ -783,10 +797,10 @@ void terminal<TerminalHelper>::show_input_text() noexcept {
                 std::vector<command_type_cref> cmds = m_t_helper->find_commands_by_prefix(beg, ed);
 
                 if (!cmds.empty()) {
-                    std::string_view sv{m_command_buffer.data(), m_buffer_usage};
+                    std::string_view sv { m_command_buffer.data(), m_buffer_usage };
                     std::optional<std::vector<std::string>> splitted = split_by_space(sv, true);
                     assert(splitted);
-                    argument_type arg{m_argument_value, *this, *splitted};
+                    argument_type arg { m_argument_value, *this, *splitted };
                     m_current_autocomplete_strings = cmds[0].get().complete(arg);
                 }
             }
@@ -803,7 +817,8 @@ void terminal<TerminalHelper>::show_input_text() noexcept {
 }
 
 template <typename TerminalHelper>
-void terminal<TerminalHelper>::handle_unfocus() noexcept {
+void terminal<TerminalHelper>::handle_unfocus() noexcept
+{
 
     auto clear_frame = [this]() {
         m_command_buffer[0] = '\0';
@@ -833,17 +848,17 @@ void terminal<TerminalHelper>::handle_unfocus() noexcept {
 }
 
 template <typename TerminalHelper>
-void terminal<TerminalHelper>::show_autocomplete() noexcept {
+void terminal<TerminalHelper>::show_autocomplete() noexcept
+{
     constexpr ImGuiWindowFlags overlay_flags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar
-                                               | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize
-                                               | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav;
+        | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize
+        | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav;
     if (m_autocomplete_pos == position::nowhere) {
         return;
     }
 
-    if ( (m_input_text_id == ImGui::GetActiveID() || m_should_take_focus) && (!m_current_autocomplete.empty() || !m_current_autocomplete_strings.empty())) {
+    if ((m_input_text_id == ImGui::GetActiveID() || m_should_take_focus) && (!m_current_autocomplete.empty() || !m_current_autocomplete_strings.empty())) {
         m_has_focus = true;
-        std::cout << "yeey" << std::endl;
         ImGui::SetNextWindowBgAlpha(0.9f);
         ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
         ImGui::SetNextWindowFocus();
@@ -859,21 +874,22 @@ void terminal<TerminalHelper>::show_autocomplete() noexcept {
         ImVec2 auto_complete_max_size = ImGui::GetItemRectSize();
         auto_complete_max_size.y = -1.f;
         ImGui::SetNextWindowPos(auto_complete_pos);
-        ImGui::SetNextWindowSizeConstraints({0.f, 0.f}, auto_complete_max_size);
+        ImGui::SetNextWindowSizeConstraints({ 0.f, 0.f }, auto_complete_max_size);
         if (ImGui::Begin("##terminal:auto_complete", nullptr, overlay_flags)) {
 
             auto print_separator = [this]() {
                 ImGui::SameLine(0.f, 0.f);
                 int pop = try_push_style(ImGuiCol_Text, m_colors.auto_complete_separator);
                 ImGui::TextUnformatted(m_autocomlete_separator.data(),
-                                       m_autocomlete_separator.data() + m_autocomlete_separator.size());
+                    m_autocomlete_separator.data() + m_autocomlete_separator.size());
                 ImGui::PopStyleColor(pop);
                 ImGui::SameLine(0.f, 0.f);
             };
 
             int max_displayable_sv = 0;
             float separator_length = ImGui::CalcTextSize(m_autocomlete_separator.data(),
-                                                         m_autocomlete_separator.data() + m_autocomlete_separator.size()).x;
+                m_autocomlete_separator.data() + m_autocomlete_separator.size())
+                                         .x;
             float total_text_length = ImGui::CalcTextSize("...").x;
 
             std::vector<std::string_view> autocomplete_text;
@@ -907,7 +923,7 @@ void terminal<TerminalHelper>::show_autocomplete() noexcept {
                 pop_count += try_push_style(ImGuiCol_Text, m_colors.auto_complete_selected);
                 ImGui::TextUnformatted(first.data(), first.data() + first.size());
                 pop_count += try_push_style(ImGuiCol_Text, m_colors.auto_complete_non_selected);
-                for (int i = 1 ; i < max_displayable_sv ; ++i) {
+                for (int i = 1; i < max_displayable_sv; ++i) {
                     const std::string_view vs = autocomplete_text[i];
                     print_separator();
                     ImGui::TextUnformatted(vs.data(), vs.data() + vs.size());
@@ -952,7 +968,8 @@ void terminal<TerminalHelper>::show_autocomplete() noexcept {
 }
 
 template <typename TerminalHelper>
-void terminal<TerminalHelper>::call_command() noexcept {
+void terminal<TerminalHelper>::call_command() noexcept
+{
     if (m_buffer_usage == 0) {
         return;
     }
@@ -960,8 +977,8 @@ void terminal<TerminalHelper>::call_command() noexcept {
     m_current_autocomplete_strings.clear();
     m_current_autocomplete.clear();
 
-    bool modified{};
-    std::pair<bool, std::string> resolved = resolve_history_references({m_command_buffer.data(), m_buffer_usage}, modified);
+    bool modified {};
+    std::pair<bool, std::string> resolved = resolve_history_references({ m_command_buffer.data(), m_buffer_usage }, modified);
 
     if (!resolved.first) {
         try_log(R"(No such event: )" + resolved.second, message::type::error);
@@ -970,12 +987,12 @@ void terminal<TerminalHelper>::call_command() noexcept {
 
     std::optional<std::vector<std::string>> splitted = split_by_space(resolved.second);
     if (!splitted) {
-        try_log({m_command_buffer.data(), m_buffer_usage}, message::type::user_input);
+        try_log({ m_command_buffer.data(), m_buffer_usage }, message::type::user_input);
         try_log("Unmatched \"", message::type::error);
         return;
     }
 
-    try_log({m_command_buffer.data(), m_buffer_usage}, message::type::user_input);
+    try_log({ m_command_buffer.data(), m_buffer_usage }, message::type::user_input);
     if (splitted->empty()) {
         return;
     }
@@ -991,7 +1008,7 @@ void terminal<TerminalHelper>::call_command() noexcept {
         return;
     }
 
-    argument_type arg{m_argument_value, *this, *splitted};
+    argument_type arg { m_argument_value, *this, *splitted };
     m_flush_bit = false;
     matching_command_list[0].get().call(arg);
     m_command_history.emplace_back(std::move(resolved.second)); // resolved.second has ownership over *splitted
@@ -1001,23 +1018,24 @@ void terminal<TerminalHelper>::call_command() noexcept {
 }
 
 template <typename TerminalHelper>
-std::pair<bool, std::string> terminal<TerminalHelper>::resolve_history_references(std::string_view str, bool& modified) const {
+std::pair<bool, std::string> terminal<TerminalHelper>::resolve_history_references(std::string_view str, bool& modified) const
+{
     enum class state {
         nothing, // matched nothing
-        part_1,  // matched one char: '!'
-        part_2,  // matched !-
-        part_3,  // matched !-[n]
-        part_4,  // matched !-[n]:
+        part_1, // matched one char: '!'
+        part_2, // matched !-
+        part_3, // matched !-[n]
+        part_4, // matched !-[n]:
         finalize // matched !-[n]:[n]
     };
 
     modified = false;
     if (str.empty()) {
-        return {true, {}};
+        return { true, {} };
     }
 
     if (str.size() == 1) {
-        return {(str[0] != '!'), {str.data(), str.size()}};
+        return { (str[0] != '!'), { str.data(), str.size() } };
     }
 
     std::string ans;
@@ -1029,14 +1047,14 @@ std::pair<bool, std::string> terminal<TerminalHelper>::resolve_history_reference
     state current_state = state::nothing;
 
     auto resolve = [&](std::string_view history_request, bool add_escaping = true) -> bool {
-        bool local_modified{};
+        bool local_modified {};
         std::optional<std::string> solved = resolve_history_reference(history_request, local_modified);
         if (!solved) {
             return false;
         }
 
         auto is_space_lbd = [&solved, this](char c) {
-            return is_space({&c, static_cast<unsigned>(&solved.value()[solved->size() - 1] + 1 - &c)}) > 0;
+            return is_space({ &c, static_cast<unsigned>(&solved.value()[solved->size() - 1] + 1 - &c) }) > 0;
         };
 
         modified |= local_modified;
@@ -1070,7 +1088,7 @@ std::pair<bool, std::string> terminal<TerminalHelper>::resolve_history_reference
             } while (it != end && *it == '\\');
 
             if (current_state != state::nothing) {
-                return {false, {substr_beg, it}};
+                return { false, { substr_beg, it } };
             }
 
             if (it == end) {
@@ -1078,65 +1096,64 @@ std::pair<bool, std::string> terminal<TerminalHelper>::resolve_history_reference
             }
         }
 
-
         switch (current_state) {
-            case state::nothing:
-                if (*it == '!') {
-                    current_state = state::part_1;
-                    ans += std::string_view{substr_beg, static_cast<unsigned>(it - substr_beg)};
-                    substr_beg = it;
-                }
-                break;
+        case state::nothing:
+            if (*it == '!') {
+                current_state = state::part_1;
+                ans += std::string_view { substr_beg, static_cast<unsigned>(it - substr_beg) };
+                substr_beg = it;
+            }
+            break;
 
-            case state::part_1:
-                if (*it == '-') {
-                    current_state = state::part_2;
-                } else if (*it == ':') {
-                    current_state = state::part_4;
-                } else if (*it == '!') {
-                    if (!resolve("!!", false)) {
-                        return {false, "!!"};
-                    }
-                } else {
-                    current_state = state::nothing;
+        case state::part_1:
+            if (*it == '-') {
+                current_state = state::part_2;
+            } else if (*it == ':') {
+                current_state = state::part_4;
+            } else if (*it == '!') {
+                if (!resolve("!!", false)) {
+                    return { false, "!!" };
                 }
-                break;
-            case state::part_2:
-                if (is_digit(*it)) {
-                    current_state = state::part_3;
-                } else {
-                    return {false, {substr_beg, it}};
+            } else {
+                current_state = state::nothing;
+            }
+            break;
+        case state::part_2:
+            if (is_digit(*it)) {
+                current_state = state::part_3;
+            } else {
+                return { false, { substr_beg, it } };
+            }
+            break;
+        case state::part_3:
+            if (*it == ':') {
+                current_state = state::part_4;
+            } else if (!is_digit(*it)) {
+                if (!resolve({ substr_beg, static_cast<unsigned>(it - substr_beg) }, false)) {
+                    return { false, { substr_beg, it } };
                 }
-                break;
-            case state::part_3:
-                if (*it == ':') {
-                    current_state = state::part_4;
-                } else if (!is_digit(*it)) {
-                    if (!resolve({substr_beg, static_cast<unsigned>(it - substr_beg)}, false)) {
-                        return {false, {substr_beg, it}};
-                    }
+            }
+            break;
+        case state::part_4:
+            if (is_digit(*it)) {
+                current_state = state::finalize;
+            } else if (*it == '*') {
+                if (!resolve({ substr_beg, static_cast<unsigned>(it + 1 - substr_beg) }, false)) {
+                    return { false, { substr_beg, it } };
                 }
-                break;
-            case state::part_4:
-                if (is_digit(*it)) {
-                    current_state = state::finalize;
-                } else if (*it == '*') {
-                    if (!resolve({substr_beg, static_cast<unsigned>(it + 1 - substr_beg)}, false)) {
-                        return {false, {substr_beg, it}};
-                    }
-                } else {
-                    return {false, {substr_beg, it}};
+            } else {
+                return { false, { substr_beg, it } };
+            }
+            break;
+        case state::finalize:
+            if (!is_digit(*it)) {
+                if (!resolve({ substr_beg, static_cast<unsigned>(it - substr_beg) })) {
+                    return { false, { substr_beg, it } };
                 }
-                break;
-            case state::finalize:
-                if (!is_digit(*it)) {
-                    if (!resolve({substr_beg, static_cast<unsigned>(it - substr_beg)})) {
-                        return {false, {substr_beg, it}};
-                    }
-                    substr_beg = it;
-                    continue; // we should loop without incrementing the pointer ; current character was not parsed
-                }
-                break;
+                substr_beg = it;
+                continue; // we should loop without incrementing the pointer ; current character was not parsed
+            }
+            break;
         }
 
         ++it;
@@ -1145,35 +1162,36 @@ std::pair<bool, std::string> terminal<TerminalHelper>::resolve_history_reference
     bool escape = true;
     if (substr_beg != it) {
         switch (current_state) {
-            case state::nothing:
-                [[fallthrough]];
-            case state::part_1:
-                ans += std::string_view{substr_beg, static_cast<unsigned>(it - substr_beg)};
-                break;
-            case state::part_2:
-                [[fallthrough]];
-            case state::part_4:
-                return {false, {substr_beg, it}};
-            case state::part_3:
-                escape = false;
-                [[fallthrough]];
-            case state::finalize:
-                if (!resolve({substr_beg, static_cast<unsigned>(it - substr_beg)}, escape)) {
-                    return {false, {substr_beg, it}};
-                }
-                break;
+        case state::nothing:
+            [[fallthrough]];
+        case state::part_1:
+            ans += std::string_view { substr_beg, static_cast<unsigned>(it - substr_beg) };
+            break;
+        case state::part_2:
+            [[fallthrough]];
+        case state::part_4:
+            return { false, { substr_beg, it } };
+        case state::part_3:
+            escape = false;
+            [[fallthrough]];
+        case state::finalize:
+            if (!resolve({ substr_beg, static_cast<unsigned>(it - substr_beg) }, escape)) {
+                return { false, { substr_beg, it } };
+            }
+            break;
         }
     }
 
-    return {true,std::move(ans)};
+    return { true, std::move(ans) };
 }
 
 template <typename TerminalHelper>
-std::optional<std::string> terminal<TerminalHelper>::resolve_history_reference(std::string_view str, bool& modified) const noexcept {
+std::optional<std::string> terminal<TerminalHelper>::resolve_history_reference(std::string_view str, bool& modified) const noexcept
+{
     modified = false;
 
     if (str.empty() || str[0] != '!') {
-        return std::string{str.begin(), str.end()};
+        return std::string { str.begin(), str.end() };
     }
 
     if (str.size() < 2) {
@@ -1185,7 +1203,7 @@ std::optional<std::string> terminal<TerminalHelper>::resolve_history_reference(s
             return {};
         } else {
             modified = true;
-            return {m_command_history.back()};
+            return { m_command_history.back() };
         }
     }
 
@@ -1197,7 +1215,7 @@ std::optional<std::string> terminal<TerminalHelper>::resolve_history_reference(s
             return {};
         }
 
-        unsigned int val{0};
+        unsigned int val { 0 };
         std::from_chars_result res = std::from_chars(str.data() + 2, str.data() + str.size(), val, 10);
         if (val == 0) {
             return {}; // val == 0  <=> (garbage input || user inputted 0)
@@ -1220,7 +1238,6 @@ std::optional<std::string> terminal<TerminalHelper>::resolve_history_reference(s
         return {};
     }
 
-
     ++char_idx;
     if (str.size() <= char_idx) {
         return {};
@@ -1231,12 +1248,12 @@ std::optional<std::string> terminal<TerminalHelper>::resolve_history_reference(s
         const std::string& cmd = m_command_history[m_command_history.size() - backward_jump];
 
         int sp_count = 0;
-        auto is_space_lbd = [&sp_count, &cmd, this] (char c) {
+        auto is_space_lbd = [&sp_count, &cmd, this](char c) {
             if (sp_count > 0) {
                 --sp_count;
                 return true;
             }
-            sp_count = is_space({&c, static_cast<unsigned>(&*cmd.end() - &c)});
+            sp_count = is_space({ &c, static_cast<unsigned>(&*cmd.end() - &c) });
             if (sp_count > 0) {
                 --sp_count;
                 return true;
@@ -1251,16 +1268,16 @@ std::optional<std::string> terminal<TerminalHelper>::resolve_history_reference(s
         first_non_space = std::find_if_not(first_space, cmd.end(), is_space_lbd);
 
         if (first_non_space == cmd.end()) {
-            return std::string{""};
+            return std::string { "" };
         }
-        return std::string{first_non_space, cmd.end()};
+        return std::string { first_non_space, cmd.end() };
     }
 
     if (!is_digit(str[char_idx])) {
         return {};
     }
 
-    unsigned int val1{};
+    unsigned int val1 {};
     std::from_chars_result res1 = std::from_chars(str.data() + char_idx, str.data() + str.size(), val1, 10);
     if (!misc::success(res1.ec) || res1.ptr != str.data() + str.size()) { // either unsuccessful or we didn't reach the end of the string
         return {};
@@ -1275,16 +1292,17 @@ std::optional<std::string> terminal<TerminalHelper>::resolve_history_reference(s
 
     modified = true;
     return (*args)[val1];
-
 }
 
 template <typename TerminalHelper>
-int terminal<TerminalHelper>::command_line_callback_st(ImGuiInputTextCallbackData * data) noexcept {
-    return reinterpret_cast<terminal *>(data->UserData)->command_line_callback(data);
+int terminal<TerminalHelper>::command_line_callback_st(ImGuiInputTextCallbackData* data) noexcept
+{
+    return reinterpret_cast<terminal*>(data->UserData)->command_line_callback(data);
 }
 
 template <typename TerminalHelper>
-int terminal<TerminalHelper>::command_line_callback(ImGuiInputTextCallbackData* data) noexcept {
+int terminal<TerminalHelper>::command_line_callback(ImGuiInputTextCallbackData* data) noexcept
+{
 
     auto paste_buffer = [data](auto begin, auto end, auto buffer_shift) {
         misc::copy(begin, end, data->Buf + buffer_shift, data->Buf + data->BufSize - 1);
@@ -1296,8 +1314,7 @@ int terminal<TerminalHelper>::command_line_callback(ImGuiInputTextCallbackData* 
     };
 
     auto auto_complete_buffer = [data, this](std::string&& str, auto reference_size) {
-        auto buff_end = misc::erase_insert(str.begin(), str.end(), data->Buf + data->CursorPos - reference_size
-                , data->Buf + m_buffer_usage, data->Buf + data->BufSize, reference_size);
+        auto buff_end = misc::erase_insert(str.begin(), str.end(), data->Buf + data->CursorPos - reference_size, data->Buf + m_buffer_usage, data->Buf + data->BufSize, reference_size);
 
         data->BufTextLen = static_cast<unsigned>(std::distance(data->Buf, buff_end));
         data->Buf[data->BufTextLen] = '\0';
@@ -1321,7 +1338,6 @@ int terminal<TerminalHelper>::command_line_callback(ImGuiInputTextCallbackData* 
             }
         }
 
-
         if (autocomplete_text.empty()) {
             if (m_buffer_usage == 0 || data->CursorPos < 2) {
                 return 0;
@@ -1334,16 +1350,16 @@ int terminal<TerminalHelper>::command_line_callback(ImGuiInputTextCallbackData* 
             if (excl == m_command_buffer.data() + data->CursorPos - 1 && m_command_buffer[data->CursorPos - 2] == '!') {
                 --excl;
             }
-            bool modified{};
-            std::string_view reference{excl, static_cast<unsigned>(m_command_buffer.data() + data->CursorPos - excl)};
+            bool modified {};
+            std::string_view reference { excl, static_cast<unsigned>(m_command_buffer.data() + data->CursorPos - excl) };
             std::optional<std::string> val = resolve_history_reference(reference, modified);
             if (!modified) {
                 return 0;
             }
 
             if (reference.substr(reference.size() - 2) != ":*" && reference.find(':') != std::string_view::npos) {
-                auto is_space_lbd = [&val, this] (char c) {
-                    return is_space({&c, static_cast<unsigned>(&val.value()[val->size()] + 1 - &c)}) > 0;
+                auto is_space_lbd = [&val, this](char c) {
+                    return is_space({ &c, static_cast<unsigned>(&val.value()[val->size()] + 1 - &c) }) > 0;
                 };
 
                 if (std::find_if(val->begin(), val->end(), is_space_lbd) != val->end()) {
@@ -1362,13 +1378,11 @@ int terminal<TerminalHelper>::command_line_callback(ImGuiInputTextCallbackData* 
         if (quote_count % 2) {
             command_beg = misc::find_last(m_command_buffer.data(), m_command_buffer.data() + m_buffer_usage, '"');
         } else {
-            command_beg = misc::find_terminating_word(m_command_buffer.data(), m_command_buffer.data() + m_buffer_usage
-                    , [this](std::string_view sv) { return is_space(sv); });;
+            command_beg = misc::find_terminating_word(m_command_buffer.data(), m_command_buffer.data() + m_buffer_usage, [this](std::string_view sv) { return is_space(sv); });
+            ;
         }
 
-
-        bool space_found = std::find_if(complete_sv.begin(), complete_sv.end(), [this,&complete_sv](char c)
-                { return is_space({&c, static_cast<unsigned>(&complete_sv[complete_sv.size() - 1] + 1 - &c)}) > 0; }) != complete_sv.end();
+        bool space_found = std::find_if(complete_sv.begin(), complete_sv.end(), [this, &complete_sv](char c) { return is_space({ &c, static_cast<unsigned>(&complete_sv[complete_sv.size() - 1] + 1 - &c) }) > 0; }) != complete_sv.end();
 
         if (space_found) {
             std::string complete;
@@ -1399,7 +1413,7 @@ int terminal<TerminalHelper>::command_line_callback(ImGuiInputTextCallbackData* 
 
             auto is_space_lbd = [this](unsigned int idx) {
                 const char* ptr = &m_command_line_backup_prefix[idx];
-                return is_space({ptr, static_cast<unsigned>(m_command_line_backup_prefix.size() - idx)});
+                return is_space({ ptr, static_cast<unsigned>(m_command_line_backup_prefix.size() - idx) });
             };
             unsigned int idx = 0;
             int space_count = 0;
@@ -1416,16 +1430,11 @@ int terminal<TerminalHelper>::command_line_callback(ImGuiInputTextCallbackData* 
         }
 
         auto it = misc::find_first_prefixed(
-                m_command_line_backup_prefix
-                , std::reverse_iterator(*m_current_history_selection)
-                , m_command_history.rend()
-                , [this](std::string_view str) { return is_space(str); }
-        );
+            m_command_line_backup_prefix, std::reverse_iterator(*m_current_history_selection), m_command_history.rend(), [this](std::string_view str) { return is_space(str); });
 
         if (it != m_command_history.rend()) {
             m_current_history_selection = std::prev(it.base());
-            paste_buffer((*m_current_history_selection)->begin() + m_command_line_backup_prefix.size()
-                    , (*m_current_history_selection)->end(), m_command_line_backup.size());
+            paste_buffer((*m_current_history_selection)->begin() + m_command_line_backup_prefix.size(), (*m_current_history_selection)->end(), m_command_line_backup.size());
             m_buffer_usage = static_cast<unsigned>(data->BufTextLen);
         } else {
             if (m_current_history_selection == m_command_history.end()) {
@@ -1445,15 +1454,10 @@ int terminal<TerminalHelper>::command_line_callback(ImGuiInputTextCallbackData* 
         m_ignore_next_textinput = true;
 
         m_current_history_selection = misc::find_first_prefixed(
-                m_command_line_backup_prefix
-                , std::next(*m_current_history_selection)
-                , m_command_history.end()
-                , [this](std::string_view str) { return is_space(str); }
-        );
+            m_command_line_backup_prefix, std::next(*m_current_history_selection), m_command_history.end(), [this](std::string_view str) { return is_space(str); });
 
         if (m_current_history_selection != m_command_history.end()) {
-            paste_buffer((*m_current_history_selection)->begin() + m_command_line_backup_prefix.size()
-                    , (*m_current_history_selection)->end(), m_command_line_backup.size());
+            paste_buffer((*m_current_history_selection)->begin() + m_command_line_backup_prefix.size(), (*m_current_history_selection)->end(), m_command_line_backup.size());
             m_buffer_usage = static_cast<unsigned>(data->BufTextLen);
 
         } else {
@@ -1476,23 +1480,27 @@ int terminal<TerminalHelper>::command_line_callback(ImGuiInputTextCallbackData* 
     return 0;
 }
 
-template<typename TerminalHelper>
-int terminal<TerminalHelper>::is_space(std::string_view str) const {
+template <typename TerminalHelper>
+int terminal<TerminalHelper>::is_space(std::string_view str) const
+{
     return details::is_space(m_t_helper, str);
 }
 
-template<typename TerminalHelper>
-bool terminal<TerminalHelper>::is_digit(char c) const {
+template <typename TerminalHelper>
+bool terminal<TerminalHelper>::is_digit(char c) const
+{
     return c >= '0' && c <= '9';
 }
 
-template<typename TerminalHelper>
-unsigned long terminal<TerminalHelper>::get_length(std::string_view str) const {
+template <typename TerminalHelper>
+unsigned long terminal<TerminalHelper>::get_length(std::string_view str) const
+{
     return details::get_length(m_t_helper, str);
 }
 
 template <typename TerminalHelper>
-std::optional<std::vector<std::string>> terminal<TerminalHelper>::split_by_space(std::string_view in, bool ignore_non_match) const {
+std::optional<std::vector<std::string>> terminal<TerminalHelper>::split_by_space(std::string_view in, bool ignore_non_match) const
+{
     std::vector<std::string> out;
 
     const char* it = &in[0];
@@ -1501,7 +1509,7 @@ std::optional<std::vector<std::string>> terminal<TerminalHelper>::split_by_space
     auto skip_spaces = [&]() {
         int space_count;
         do {
-            space_count = is_space({it, static_cast<unsigned>(in_end - it)});
+            space_count = is_space({ it, static_cast<unsigned>(in_end - it) });
             it += space_count;
         } while (it != in_end && space_count > 0);
     };
@@ -1514,9 +1522,9 @@ std::optional<std::vector<std::string>> terminal<TerminalHelper>::split_by_space
         return out;
     }
 
-    bool matched_quote{};
-    bool matched_space{};
-    std::string current_string{};
+    bool matched_quote {};
+    bool matched_space {};
+    std::string current_string {};
     do {
         if (*it == '"') {
             bool escaped;
@@ -1548,7 +1556,7 @@ std::optional<std::vector<std::string>> terminal<TerminalHelper>::split_by_space
             matched_quote = true;
             matched_space = false;
 
-        } else if (is_space({it, static_cast<unsigned>(in_end - it)}) > 0) {
+        } else if (is_space({ it, static_cast<unsigned>(in_end - it) }) > 0) {
             out.emplace_back(std::move(current_string));
             current_string = {};
             skip_spaces();
@@ -1582,7 +1590,8 @@ std::optional<std::vector<std::string>> terminal<TerminalHelper>::split_by_space
 }
 
 template <typename TerminalHelper>
-void terminal<TerminalHelper>::push_message(message&& msg) {
+void terminal<TerminalHelper>::push_message(message&& msg)
+{
     if (m_logs.size() == m_max_log_len) {
         m_logs[m_current_log_oldest_idx] = std::move(msg);
         m_current_log_oldest_idx = (m_current_log_oldest_idx + 1) % m_logs.size();

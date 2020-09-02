@@ -75,22 +75,18 @@ void Tello::UDP::SDK_SendRequest(std::string message, int timeout, std::function
 void Tello::UDP::SDK_handle_recieve(const uvw::UDPDataEvent& data, uvw::UDPHandle& handle)
 {
     // This is used to stop the event loop from inside the thread, since libuv is not thread safe
-    UDP_Response response;    
+    UDP_Response response;
     std::string message = std::string(data.data.get(), data.length);
+
+    if (WriteToTerminal == nullptr)
+        std::cout << "RECIEVED: " << message << std::endl;
+    else
+        WriteToTerminal(message);
 
     if (SDK_requestQueue.size() > 0) {
         auto first = SDK_requestQueue.front();
         SDK_requestQueue.pop();
         response.message = message;
         first.callback(response);
-    }
-    // else if(is telemetry response) {
-
-    //}
-    else {
-        if(WriteToTerminal == nullptr)
-            std::cout << "RECIEVED: " << message << std::endl;
-        else
-            WriteToTerminal(message);
     }
 }

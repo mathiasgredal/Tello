@@ -19,6 +19,22 @@
 
 namespace Tello {
 
+struct TelemetryData {
+    float pitch;
+    float roll;
+    float yaw;
+    sf::Vector3f velocity;
+    sf::Vector3f acceleration;
+    float height;
+    float flight_time;
+    float flight_distance;
+
+    float lowest_temperature;
+    float highest_temperature;
+    float batterypercentage;
+    float barometer;
+};
+
 class UI {
 public:
     UI(sf::RenderWindow& _window);
@@ -47,16 +63,18 @@ private:
 
     // UDP Coms
     Tello::UDP* udp_server = nullptr;
-    std::string udp_ip_address = std::string("127.0.0.1", 1024);
+    std::string udp_ip_address = std::string("192.168.10.1", 1024);
     int udp_send_port = 8889;
     int udp_listen_port = 8890;
     bool udp_connected = false;
+    void HandleUnqueuedUDPData(std::string message);
+    TelemetryData telemetry;
 
     // Video
     Tello::Video* video_server = nullptr;
     sf::Sprite video_sprite;
     sf::Texture video_texture;
-    std::string video_url = std::string("rtsp://freja.hiof.no:1935/rtplive/definst/hessdalen03.stream", 1024);
+    std::string video_url = std::string("udp://192.168.10.1:11111", 1024);
     std::string video_save_location = std::string("", 1024);
     bool video_connected = false;
 };
