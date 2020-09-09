@@ -15,14 +15,9 @@ Tello::UI::UI(sf::RenderWindow& _window)
 
     video_save_location = std::filesystem::current_path().string();
 
-    // Perhaps make some kind if connect dialog where ip and port can be selected, and when we click connect then call this function
-    //udp_server.SDK_StartServer();
-
-    // This feels unsafe, perhaps there is a better way?
+    // We should propably use std::optional from c++ 17, since the handle lifetime in a better way with exceptions
     terminal_state.udp_server = nullptr;
     terminal = new ImTerm::terminal<Tello_Terminal>(terminal_state);
-
-    //Start_VideoServer("udp://192.168.10.1:11111");
 }
 
 Tello::UI::~UI()
@@ -196,7 +191,8 @@ void Tello::UI::Draw_ImGui()
         try {
             if (!udp_connected && udp_server == nullptr) {
                 udp_server = new Tello::UDP(udp_ip_address, udp_send_port, udp_listen_port);
-                udp_server->WriteToTerminal = [this](std::string message) { HandleUnqueuedUDPData(message); };
+                udp_server->WriteToTerminal = [this](std::string message) { terminal->add_text("RECIEVED: " + message); };
+                udp_server->RecievedTelemetry = [this](std::string message) { ParseTelemetryData(message); };
                 udp_connected = true;
                 terminal_state.udp_server = udp_server;
             } else if (udp_connected && udp_server != nullptr) {
@@ -277,7 +273,6 @@ void Tello::UI::Draw_ImGui()
 
     ImGui::Text("RC Input:%.2f, %.2f, %.2f, %.2f", (float)rc_control_input.x, (float)rc_control_input.y, (float)rc_control_input.z, (float)rc_control_input.yaw);
 
-
     ImGui::End();
 
     ImVec2 term_size = { win_size.x * 0.666667f, win_size.y * 0.5f };
@@ -290,15 +285,14 @@ void Tello::UI::Draw_ImGui()
     terminal->show();
 }
 
-
 void Tello::UI::HandleEvents(sf::Event event)
 {
-
 }
 
+// Called every frame
 void Tello::UI::GetRCInput()
 {
-    rc_control_input = {0, 0, 0, 0};
+    rc_control_input = { 0, 0, 0, 0 };
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         rc_control_input.y = 100;
@@ -307,10 +301,10 @@ void Tello::UI::GetRCInput()
         rc_control_input.y = -100;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        rc_control_input.x = -100;
+        rc_control_input.x = 100;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        rc_control_input.x = 100;
+        rc_control_input.x = -100;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         rc_control_input.z = 100;
@@ -318,8 +312,13 @@ void Tello::UI::GetRCInput()
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         rc_control_input.z = -100;
 
-    if (sf::Joystick::isConnected(0))
-    {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        rc_control_input.yaw = -100;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        rc_control_input.yaw = 100;
+
+    if (sf::Joystick::isConnected(0)) {
         // joystick number 0 is connected
         rc_control_input.x = -sf::Joystick::getAxisPosition(0, sf::Joystick::X);
         rc_control_input.y = -sf::Joystick::getAxisPosition(0, sf::Joystick::Y);
@@ -335,7 +334,6 @@ void Tello::UI::GetRCInput()
             rc_control_input.yaw = -100;
     }
 
-
     if (udp_connected && udp_server != nullptr) {
 
         std::stringstream rc_command;
@@ -345,55 +343,42 @@ void Tello::UI::GetRCInput()
     }
 }
 
-bool istelemetry(std::string message)
-{
-    // Test the first 3 keys, should be enough to decide if it's telemetry data
-    return message.find("pitch:") != std::string::npos
-        && message.find("roll:") != std::string::npos
-        && message.find("yaw:") != std::string::npos;
-}
-
 void extract_segment_data(std::string segment, std::string key, float& target)
 {
     if (segment.find(key) == 0) {
         target = static_cast<float>(atof(segment.substr(key.length()).c_str()));
-        std::cout << segment << ": " << target << std::endl;
+        //std::cout << segment << ": " << target << std::endl;
     }
 }
 
-void Tello::UI::HandleUnqueuedUDPData(std::string message)
+// Called everytime we have recieved telemetry
+void Tello::UI::ParseTelemetryData(std::string message)
 {
-    // First we test whether it is telemetry data
-    // TODO: We are not handling telemetry when mission pad detection is on
-    if (istelemetry(message)) {
-        std::stringstream input(message);
-        std::string data_segment;
+    std::stringstream input(message);
+    std::string data_segment;
 
-        while (std::getline(input, data_segment, ';')) {
-            extract_segment_data(data_segment, "pitch:", telemetry.pitch);
-            extract_segment_data(data_segment, "yaw:", telemetry.yaw);
-            extract_segment_data(data_segment, "roll:", telemetry.roll);
+    while (std::getline(input, data_segment, ';')) {
+        extract_segment_data(data_segment, "pitch:", telemetry.pitch);
+        extract_segment_data(data_segment, "yaw:", telemetry.yaw);
+        extract_segment_data(data_segment, "roll:", telemetry.roll);
 
-            extract_segment_data(data_segment, "vgx:", telemetry.velocity.x);
-            extract_segment_data(data_segment, "vgy:", telemetry.velocity.y);
-            extract_segment_data(data_segment, "vgz:", telemetry.velocity.z);
+        extract_segment_data(data_segment, "vgx:", telemetry.velocity.x);
+        extract_segment_data(data_segment, "vgy:", telemetry.velocity.y);
+        extract_segment_data(data_segment, "vgz:", telemetry.velocity.z);
 
-            extract_segment_data(data_segment, "agx:", telemetry.acceleration.x);
-            extract_segment_data(data_segment, "agy:", telemetry.acceleration.y);
-            extract_segment_data(data_segment, "agz:", telemetry.acceleration.z);
+        extract_segment_data(data_segment, "agx:", telemetry.acceleration.x);
+        extract_segment_data(data_segment, "agy:", telemetry.acceleration.y);
+        extract_segment_data(data_segment, "agz:", telemetry.acceleration.z);
 
-            extract_segment_data(data_segment, "h:", telemetry.height);
+        extract_segment_data(data_segment, "h:", telemetry.height);
 
-            extract_segment_data(data_segment, "time:", telemetry.flight_time);
-            extract_segment_data(data_segment, "tof:", telemetry.flight_distance);
+        extract_segment_data(data_segment, "time:", telemetry.flight_time);
+        extract_segment_data(data_segment, "tof:", telemetry.flight_distance);
 
-            extract_segment_data(data_segment, "templ:", telemetry.lowest_temperature);
-            extract_segment_data(data_segment, "temph:", telemetry.highest_temperature);
+        extract_segment_data(data_segment, "templ:", telemetry.lowest_temperature);
+        extract_segment_data(data_segment, "temph:", telemetry.highest_temperature);
 
-            extract_segment_data(data_segment, "bat:", telemetry.batterypercentage);
-            extract_segment_data(data_segment, "baro:", telemetry.barometer);
-        }
-    } else {
-        terminal->add_text("RECIEVED: " + message);
+        extract_segment_data(data_segment, "bat:", telemetry.batterypercentage);
+        extract_segment_data(data_segment, "baro:", telemetry.barometer);
     }
 }

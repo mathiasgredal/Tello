@@ -77,21 +77,39 @@ void Tello::UDP::SDK_Transmit(std::string message)
     SDK_server->trySend(SDK_Address, SDK_SendPort, message.data(), message.length());
 }
 
+// This function should propably not be here, since it deals with the drone sdk
+bool istelemetry(std::string message)
+{
+    // Test the first 3 keys, should be enough to decide if it's telemetry data
+    return message.find("pitch:") != std::string::npos
+        && message.find("roll:") != std::string::npos
+        && message.find("yaw:") != std::string::npos;
+}
+
 void Tello::UDP::SDK_handle_recieve(const uvw::UDPDataEvent& data, uvw::UDPHandle& handle)
 {
-    // This is used to stop the event loop from inside the thread, since libuv is not thread safe
     UDP_Response response;
     std::string message = std::string(data.data.get(), data.length);
 
-    if (WriteToTerminal == nullptr)
-        std::cout << "RECIEVED: " << message << std::endl;
-    else
-        WriteToTerminal(message);
+    // If we are recieving telemetry, we should just call the parse function and stop, otherwise we will just pollute the terminal
+    if (istelemetry(message)) {
+        std::cout << message << std::endl;
 
+        if (RecievedTelemetry != nullptr)
+            RecievedTelemetry(message);
+        else
+            std::cout << "TELEMETRY: " << message << std::endl;
+        return;
+    }
+
+    // If there is an element in the request queue, we should call that elements callback function
     if (SDK_requestQueue.size() > 0) {
         auto first = SDK_requestQueue.front();
         SDK_requestQueue.pop();
         response.message = message;
         first.callback(response);
-    }
+    } else if (WriteToTerminal == nullptr) // We have recieved a unqueued response, we should just print to terminal
+        std::cout << "RECIEVED: " << message << std::endl;
+    else
+        WriteToTerminal(message);
 }

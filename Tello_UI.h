@@ -27,19 +27,19 @@ struct RCData {
 };
 
 struct TelemetryData {
-    float pitch;
-    float roll;
-    float yaw;
-    sf::Vector3f velocity;
-    sf::Vector3f acceleration;
-    float height;
-    float flight_time;
-    float flight_distance;
+    float pitch = 0;
+    float roll = 0;
+    float yaw = 0;
+    sf::Vector3f velocity = { 0, 0, 0 };
+    sf::Vector3f acceleration = { 0, 0, 0 };
+    float height = 0;
+    float flight_time = 0;
+    float flight_distance = 0;
 
-    float lowest_temperature;
-    float highest_temperature;
-    float batterypercentage;
-    float barometer;
+    float lowest_temperature = 0;
+    float highest_temperature = 0;
+    float batterypercentage = 0;
+    float barometer = 0;
 };
 
 class UI {
@@ -61,7 +61,7 @@ private:
     // Handle Events for eg. controlling drone
     void HandleEvents(sf::Event event);
     void GetRCInput();
-    RCData rc_control_input = {0, 0, 0, 0};
+    RCData rc_control_input = { 0, 0, 0, 0 };
 
     sf::Clock deltaClock;
     sf::RenderWindow* window;
@@ -77,13 +77,14 @@ private:
     int udp_listen_port = 8890;
     bool udp_connected = false;
     void HandleUnqueuedUDPData(std::string message);
+    void ParseTelemetryData(std::string message);
     TelemetryData telemetry;
 
     // Video
     Tello::Video* video_server = nullptr;
     sf::Sprite video_sprite;
     sf::Texture video_texture;
-    std::string video_url = std::string("rtsp://freja.hiof.no:1935/rtplive/definst/hessdalen03.stream", 1024);
+    std::string video_url = std::string("udp://192.168.10.1:11111", 1024);
     std::string video_save_location = std::string("", 1024);
     bool video_connected = false;
 };

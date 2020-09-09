@@ -71,6 +71,7 @@ public:
 
     // Printing to terminal
     std::function<void(std::string)> WriteToTerminal = nullptr;
+    std::function<void(std::string)> RecievedTelemetry = nullptr;
     std::queue<UDP_Request> getSDK_requestQueue() const;
 };
 
