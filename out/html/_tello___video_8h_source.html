@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.20"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Tello: Kildefilen Tello_Video.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Tello
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Genereret af Doxygen 1.8.20 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Søg');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Søg');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Tello_Video.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_tello___video_8h.html">Hop til denne fils dokumentation.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef TELLO_VIDEO_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define TELLO_VIDEO_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">// This is needed because MSVC is weird and requires you to explicitly link windows libraries</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#pragma comment(lib, &quot;wsock32&quot;)</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#pragma comment(lib, &quot;ws2_32&quot;)</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#pragma comment(lib, &quot;crypt32&quot;)</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#pragma comment(lib, &quot;advapi32&quot;)</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#pragma comment(lib, &quot;ole32&quot;)</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#pragma comment(lib, &quot;cfgmgr32&quot;)</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#pragma comment(lib, &quot;secur32&quot;)</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#pragma comment(lib, &quot;bcrypt&quot;)</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;chrono&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;libavcodec/avcodec.h&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;libavformat/avformat.h&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;libavformat/avio.h&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;libavutil/imgutils.h&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;libswscale/swscale.h&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Texture.hpp&gt;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;SFML/OpenGL.hpp&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;SFML/System/Vector2.hpp&gt;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="_tello___video_8h.html#a042e13d7e40b6a804e22e1089a8074ec">   33</a></span>&#160;<span class="preprocessor">#define ENABLE_LOGGING false</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_tello.html">Tello</a> {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="namespace_tello.html#a7b3ec93f3c5b9259ab739b5ca3fbfb1f">   37</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="namespace_tello.html#a7b3ec93f3c5b9259ab739b5ca3fbfb1f">Video_Connection_Status</a> {</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="namespace_tello.html#a7b3ec93f3c5b9259ab739b5ca3fbfb1fae3d2b3db9b79d4c79c5533944112ceb3">   38</a></span>&#160;    <a class="code" href="namespace_tello.html#a7b3ec93f3c5b9259ab739b5ca3fbfb1fae3d2b3db9b79d4c79c5533944112ceb3">Disconnected</a>,</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="namespace_tello.html#a7b3ec93f3c5b9259ab739b5ca3fbfb1faf547f5b8a649306e4407357aaf8985f1">   39</a></span>&#160;    <a class="code" href="namespace_tello.html#a7b3ec93f3c5b9259ab739b5ca3fbfb1faf547f5b8a649306e4407357aaf8985f1">Connecting</a>,</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="namespace_tello.html#a7b3ec93f3c5b9259ab739b5ca3fbfb1fadc61cad110c6f428234afea9259aca1b">Connected</a></div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="namespace_tello.html#a7b3ec93f3c5b9259ab739b5ca3fbfb1fadc61cad110c6f428234afea9259aca1b">   41</a></span>&#160;};</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html">   43</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_tello_1_1_video.html">Video</a> {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#a3525aead26ff03a62b3b95d687a299e4">   45</a></span>&#160;    AVFormatContext* <a class="code" href="class_tello_1_1_video.html#a3525aead26ff03a62b3b95d687a299e4">stream_context</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#ae159abc61e5758c022de9067dc4d1c1e">   46</a></span>&#160;    AVPacket <a class="code" href="class_tello_1_1_video.html#ae159abc61e5758c022de9067dc4d1c1e">packet</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#a0696f46036ce0b4ebd8df5c72e8e2419">   47</a></span>&#160;    AVFormatContext* <a class="code" href="class_tello_1_1_video.html#a0696f46036ce0b4ebd8df5c72e8e2419">allocation_context</a>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#ac5faf542e5c98052c30d88ad40e1ee69">   48</a></span>&#160;    AVStream* <a class="code" href="class_tello_1_1_video.html#ac5faf542e5c98052c30d88ad40e1ee69">stream</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#a58139444950a1a3d4c5aa3fb0d7797b5">   49</a></span>&#160;    AVCodec* <a class="code" href="class_tello_1_1_video.html#a58139444950a1a3d4c5aa3fb0d7797b5">codec</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#a3b281dd989a9fe2c819ee4afed3126a2">   50</a></span>&#160;    AVCodecContext* <a class="code" href="class_tello_1_1_video.html#a3b281dd989a9fe2c819ee4afed3126a2">video_context</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#a3e840151b7ba48b042b49401808b6a05">   52</a></span>&#160;    SwsContext* <a class="code" href="class_tello_1_1_video.html#a3e840151b7ba48b042b49401808b6a05">yuv420p_to_rgb24_ctx</a>; <span class="comment">// This converts YUV420P to RGB24</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#a3c5452f9baf3260d9100667295664ca3">   54</a></span>&#160;    std::vector&lt;uint8_t&gt; <a class="code" href="class_tello_1_1_video.html#a3c5452f9baf3260d9100667295664ca3">yuv420p_picturebuffer</a>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#a162388de1eca9224047e5089412e4cbc">   55</a></span>&#160;    std::vector&lt;uint8_t&gt; <a class="code" href="class_tello_1_1_video.html#a162388de1eca9224047e5089412e4cbc">rgb24_picturebuffer</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#a0b7439456951301453de2d6f25905e4a">   57</a></span>&#160;    AVFrame* <a class="code" href="class_tello_1_1_video.html#a0b7439456951301453de2d6f25905e4a">yuv420p_frame</a>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#a3e53c08c303262acbc1af59e5674eedd">   58</a></span>&#160;    AVFrame* <a class="code" href="class_tello_1_1_video.html#a3e53c08c303262acbc1af59e5674eedd">rgb24_frame</a>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#aab5045bb7d39d93bb77478c00cd955f6">   60</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_tello_1_1_video.html#aab5045bb7d39d93bb77478c00cd955f6">frame_count</a> = 0;</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#a9d9836dced97a0156301338de508841e">   61</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_tello_1_1_video.html#a9d9836dced97a0156301338de508841e">video_stream_index</a> = -1; <span class="comment">// This is the index of the video within the h264 UDP stream</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#a3e64676ec47a452021dc830c185cfce7">   63</a></span>&#160;    std::thread <a class="code" href="class_tello_1_1_video.html#a3e64676ec47a452021dc830c185cfce7">t1</a>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#a7b15ef6eff9d6a504830d2b1dcb7c5bc">   64</a></span>&#160;    std::atomic_bool <a class="code" href="class_tello_1_1_video.html#a7b15ef6eff9d6a504830d2b1dcb7c5bc">stop_thread</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#aceb471e3512aa3df82f9bab925c05363">   66</a></span>&#160;    sf::Vector2f <a class="code" href="class_tello_1_1_video.html#aceb471e3512aa3df82f9bab925c05363">video_size</a> = { -1, -1 };</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">// A mutex could be used instead of this janky mess</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#a91c1e2a2c1aed8de0b00cd88fa2cab04">   69</a></span>&#160;    std::atomic_bool <a class="code" href="class_tello_1_1_video.html#a91c1e2a2c1aed8de0b00cd88fa2cab04">writing_buffer</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#a06ee7448a7959a06e93cc4f1790f5cc4">   70</a></span>&#160;    std::atomic_bool <a class="code" href="class_tello_1_1_video.html#a06ee7448a7959a06e93cc4f1790f5cc4">reading_buffer</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="class_tello_1_1_video.html#ae5598bbeb5fa9cd9ed9ea6fbee364243">Video</a>(std::string url);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="class_tello_1_1_video.html#aca968152fd5387d59046f4a8f0eec56e">~Video</a>();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#aabf2c0a06059025c62b311366ece3310">   76</a></span>&#160;    <a class="code" href="namespace_tello.html#a7b3ec93f3c5b9259ab739b5ca3fbfb1f">Video_Connection_Status</a> <a class="code" href="class_tello_1_1_video.html#aabf2c0a06059025c62b311366ece3310">status</a> = <a class="code" href="namespace_tello.html#a7b3ec93f3c5b9259ab739b5ca3fbfb1fae3d2b3db9b79d4c79c5533944112ceb3">Video_Connection_Status::Disconnected</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tello_1_1_video.html#adf58f2464fe2685c6e183427e30dd8ec">Decode_Stream</a>();</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    sf::Vector2f <a class="code" href="class_tello_1_1_video.html#a81d75d31551f8fff267bf34081106c1e">getVideo_size</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tello_1_1_video.html#a8ccd24ea97657027bce6a1ef5f3ab1f1">applyBufferToTexture</a>(sf::Texture&amp; texture);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;};</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#endif // TELLO_VIDEO_H</span></div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclass_tello_1_1_video_html_aab5045bb7d39d93bb77478c00cd955f6"><div class="ttname"><a href="class_tello_1_1_video.html#aab5045bb7d39d93bb77478c00cd955f6">Tello::Video::frame_count</a></div><div class="ttdeci">int frame_count</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00060">Tello_Video.h:60</a></div></div>
+<div class="ttc" id="anamespace_tello_html_a7b3ec93f3c5b9259ab739b5ca3fbfb1fae3d2b3db9b79d4c79c5533944112ceb3"><div class="ttname"><a href="namespace_tello.html#a7b3ec93f3c5b9259ab739b5ca3fbfb1fae3d2b3db9b79d4c79c5533944112ceb3">Tello::Disconnected</a></div><div class="ttdeci">@ Disconnected</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00038">Tello_Video.h:38</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_adf58f2464fe2685c6e183427e30dd8ec"><div class="ttname"><a href="class_tello_1_1_video.html#adf58f2464fe2685c6e183427e30dd8ec">Tello::Video::Decode_Stream</a></div><div class="ttdeci">void Decode_Stream()</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8cpp_source.html#l00123">Tello_Video.cpp:123</a></div></div>
+<div class="ttc" id="anamespace_tello_html_a7b3ec93f3c5b9259ab739b5ca3fbfb1fadc61cad110c6f428234afea9259aca1b"><div class="ttname"><a href="namespace_tello.html#a7b3ec93f3c5b9259ab739b5ca3fbfb1fadc61cad110c6f428234afea9259aca1b">Tello::Connected</a></div><div class="ttdeci">@ Connected</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00041">Tello_Video.h:40</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a3e53c08c303262acbc1af59e5674eedd"><div class="ttname"><a href="class_tello_1_1_video.html#a3e53c08c303262acbc1af59e5674eedd">Tello::Video::rgb24_frame</a></div><div class="ttdeci">AVFrame * rgb24_frame</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00058">Tello_Video.h:58</a></div></div>
+<div class="ttc" id="anamespace_tello_html_a7b3ec93f3c5b9259ab739b5ca3fbfb1f"><div class="ttname"><a href="namespace_tello.html#a7b3ec93f3c5b9259ab739b5ca3fbfb1f">Tello::Video_Connection_Status</a></div><div class="ttdeci">Video_Connection_Status</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00037">Tello_Video.h:37</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_ae159abc61e5758c022de9067dc4d1c1e"><div class="ttname"><a href="class_tello_1_1_video.html#ae159abc61e5758c022de9067dc4d1c1e">Tello::Video::packet</a></div><div class="ttdeci">AVPacket packet</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00046">Tello_Video.h:46</a></div></div>
+<div class="ttc" id="anamespace_tello_html"><div class="ttname"><a href="namespace_tello.html">Tello</a></div><div class="ttdef"><b>Definition:</b> <a href="tello___a_p_i_8h_source.html#l00004">tello_API.h:4</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a3e64676ec47a452021dc830c185cfce7"><div class="ttname"><a href="class_tello_1_1_video.html#a3e64676ec47a452021dc830c185cfce7">Tello::Video::t1</a></div><div class="ttdeci">std::thread t1</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00063">Tello_Video.h:63</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a162388de1eca9224047e5089412e4cbc"><div class="ttname"><a href="class_tello_1_1_video.html#a162388de1eca9224047e5089412e4cbc">Tello::Video::rgb24_picturebuffer</a></div><div class="ttdeci">std::vector&lt; uint8_t &gt; rgb24_picturebuffer</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00055">Tello_Video.h:55</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a7b15ef6eff9d6a504830d2b1dcb7c5bc"><div class="ttname"><a href="class_tello_1_1_video.html#a7b15ef6eff9d6a504830d2b1dcb7c5bc">Tello::Video::stop_thread</a></div><div class="ttdeci">std::atomic_bool stop_thread</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00064">Tello_Video.h:64</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a8ccd24ea97657027bce6a1ef5f3ab1f1"><div class="ttname"><a href="class_tello_1_1_video.html#a8ccd24ea97657027bce6a1ef5f3ab1f1">Tello::Video::applyBufferToTexture</a></div><div class="ttdeci">void applyBufferToTexture(sf::Texture &amp;texture)</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8cpp_source.html#l00022">Tello_Video.cpp:22</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_ae5598bbeb5fa9cd9ed9ea6fbee364243"><div class="ttname"><a href="class_tello_1_1_video.html#ae5598bbeb5fa9cd9ed9ea6fbee364243">Tello::Video::Video</a></div><div class="ttdeci">Video(std::string url)</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8cpp_source.html#l00039">Tello_Video.cpp:39</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a06ee7448a7959a06e93cc4f1790f5cc4"><div class="ttname"><a href="class_tello_1_1_video.html#a06ee7448a7959a06e93cc4f1790f5cc4">Tello::Video::reading_buffer</a></div><div class="ttdeci">std::atomic_bool reading_buffer</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00070">Tello_Video.h:70</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a3e840151b7ba48b042b49401808b6a05"><div class="ttname"><a href="class_tello_1_1_video.html#a3e840151b7ba48b042b49401808b6a05">Tello::Video::yuv420p_to_rgb24_ctx</a></div><div class="ttdeci">SwsContext * yuv420p_to_rgb24_ctx</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00052">Tello_Video.h:52</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a3525aead26ff03a62b3b95d687a299e4"><div class="ttname"><a href="class_tello_1_1_video.html#a3525aead26ff03a62b3b95d687a299e4">Tello::Video::stream_context</a></div><div class="ttdeci">AVFormatContext * stream_context</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00045">Tello_Video.h:45</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_aceb471e3512aa3df82f9bab925c05363"><div class="ttname"><a href="class_tello_1_1_video.html#aceb471e3512aa3df82f9bab925c05363">Tello::Video::video_size</a></div><div class="ttdeci">sf::Vector2f video_size</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00066">Tello_Video.h:66</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_aca968152fd5387d59046f4a8f0eec56e"><div class="ttname"><a href="class_tello_1_1_video.html#aca968152fd5387d59046f4a8f0eec56e">Tello::Video::~Video</a></div><div class="ttdeci">~Video()</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8cpp_source.html#l00105">Tello_Video.cpp:105</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a3b281dd989a9fe2c819ee4afed3126a2"><div class="ttname"><a href="class_tello_1_1_video.html#a3b281dd989a9fe2c819ee4afed3126a2">Tello::Video::video_context</a></div><div class="ttdeci">AVCodecContext * video_context</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00050">Tello_Video.h:50</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a0b7439456951301453de2d6f25905e4a"><div class="ttname"><a href="class_tello_1_1_video.html#a0b7439456951301453de2d6f25905e4a">Tello::Video::yuv420p_frame</a></div><div class="ttdeci">AVFrame * yuv420p_frame</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00057">Tello_Video.h:57</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a81d75d31551f8fff267bf34081106c1e"><div class="ttname"><a href="class_tello_1_1_video.html#a81d75d31551f8fff267bf34081106c1e">Tello::Video::getVideo_size</a></div><div class="ttdeci">sf::Vector2f getVideo_size() const</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8cpp_source.html#l00017">Tello_Video.cpp:17</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a3c5452f9baf3260d9100667295664ca3"><div class="ttname"><a href="class_tello_1_1_video.html#a3c5452f9baf3260d9100667295664ca3">Tello::Video::yuv420p_picturebuffer</a></div><div class="ttdeci">std::vector&lt; uint8_t &gt; yuv420p_picturebuffer</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00054">Tello_Video.h:54</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a58139444950a1a3d4c5aa3fb0d7797b5"><div class="ttname"><a href="class_tello_1_1_video.html#a58139444950a1a3d4c5aa3fb0d7797b5">Tello::Video::codec</a></div><div class="ttdeci">AVCodec * codec</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00049">Tello_Video.h:49</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html"><div class="ttname"><a href="class_tello_1_1_video.html">Tello::Video</a></div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00043">Tello_Video.h:43</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a0696f46036ce0b4ebd8df5c72e8e2419"><div class="ttname"><a href="class_tello_1_1_video.html#a0696f46036ce0b4ebd8df5c72e8e2419">Tello::Video::allocation_context</a></div><div class="ttdeci">AVFormatContext * allocation_context</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00047">Tello_Video.h:47</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_aabf2c0a06059025c62b311366ece3310"><div class="ttname"><a href="class_tello_1_1_video.html#aabf2c0a06059025c62b311366ece3310">Tello::Video::status</a></div><div class="ttdeci">Video_Connection_Status status</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00076">Tello_Video.h:76</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_ac5faf542e5c98052c30d88ad40e1ee69"><div class="ttname"><a href="class_tello_1_1_video.html#ac5faf542e5c98052c30d88ad40e1ee69">Tello::Video::stream</a></div><div class="ttdeci">AVStream * stream</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00048">Tello_Video.h:48</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a91c1e2a2c1aed8de0b00cd88fa2cab04"><div class="ttname"><a href="class_tello_1_1_video.html#a91c1e2a2c1aed8de0b00cd88fa2cab04">Tello::Video::writing_buffer</a></div><div class="ttdeci">std::atomic_bool writing_buffer</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00069">Tello_Video.h:69</a></div></div>
+<div class="ttc" id="anamespace_tello_html_a7b3ec93f3c5b9259ab739b5ca3fbfb1faf547f5b8a649306e4407357aaf8985f1"><div class="ttname"><a href="namespace_tello.html#a7b3ec93f3c5b9259ab739b5ca3fbfb1faf547f5b8a649306e4407357aaf8985f1">Tello::Connecting</a></div><div class="ttdeci">@ Connecting</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00039">Tello_Video.h:39</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a9d9836dced97a0156301338de508841e"><div class="ttname"><a href="class_tello_1_1_video.html#a9d9836dced97a0156301338de508841e">Tello::Video::video_stream_index</a></div><div class="ttdeci">int video_stream_index</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00061">Tello_Video.h:61</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Genereret Ons Sep 16 2020 21:18:42 for Tello af&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
+</small></address>
+</body>
+</html>

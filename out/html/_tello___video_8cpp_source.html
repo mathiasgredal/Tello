@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.20"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Tello: Kildefilen Tello_Video.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Tello
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Genereret af Doxygen 1.8.20 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Søg');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Søg');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Tello_Video.cpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_tello___video_8cpp.html">Hop til denne fils dokumentation.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_tello___video_8h.html">Tello_Video.h</a>&quot;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno"><a class="line" href="_tello___video_8cpp.html#a8afe4a62ec5da7b34ed6e020c222bed9">    3</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="_tello___video_8cpp.html#a8afe4a62ec5da7b34ed6e020c222bed9">Logging_Callback</a>(<span class="keywordtype">void</span>* ptr, <span class="keywordtype">int</span> level, <span class="keyword">const</span> <span class="keywordtype">char</span>* fmt, va_list vargs)</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">char</span> message[8192];</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>* module = NULL;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keywordflow">if</span> (ptr) {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        AVClass* avc = *(AVClass**)ptr;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        module = avc-&gt;item_name(ptr);</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    }</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    vsnprintf(message, <span class="keyword">sizeof</span>(message), fmt, vargs);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    std::cout &lt;&lt; <span class="stringliteral">&quot;LOG: &quot;</span> &lt;&lt; message &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#a81d75d31551f8fff267bf34081106c1e">   17</a></span>&#160;sf::Vector2f <a class="code" href="class_tello_1_1_video.html#a81d75d31551f8fff267bf34081106c1e">Tello::Video::getVideo_size</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_tello_1_1_video.html#aceb471e3512aa3df82f9bab925c05363">video_size</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#a8ccd24ea97657027bce6a1ef5f3ab1f1">   22</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_tello_1_1_video.html#a8ccd24ea97657027bce6a1ef5f3ab1f1">Tello::Video::applyBufferToTexture</a>(sf::Texture&amp; texture)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">// Wait until the decoder thread has stopped writing to the buffer</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">while</span> (writing_buffer) {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    reading_buffer = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    GLint textureBinding;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    glGetIntegerv(GL_TEXTURE_BINDING_2D, &amp;textureBinding);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    sf::Texture::bind(&amp;texture);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, video_context-&gt;width, video_context-&gt;height, 0, GL_RGB, GL_UNSIGNED_BYTE, rgb24_picturebuffer.data());</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    glBindTexture(GL_TEXTURE_2D, textureBinding);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    reading_buffer = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#ae5598bbeb5fa9cd9ed9ea6fbee364243">   39</a></span>&#160;<a class="code" href="class_tello_1_1_video.html#ae5598bbeb5fa9cd9ed9ea6fbee364243">Tello::Video::Video</a>(std::string url)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    stream_context = avformat_alloc_context();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    av_register_all();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    avformat_network_init();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">//av_log_set_level(AV_LOG_QUIET);</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#if ENABLE_LOGGING</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    av_log_set_callback(&amp;<a class="code" href="_tello___video_8cpp.html#a8afe4a62ec5da7b34ed6e020c222bed9">Logging_Callback</a>);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">if</span> (avformat_open_input(&amp;stream_context, url.c_str(), NULL, NULL))</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;ERROR: Unable to connect to url: &quot;</span> + url);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">if</span> (avformat_find_stream_info(stream_context, NULL) &lt; 0)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;ERROR: Unable to find stream info&quot;</span>);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">for</span> (uint32_t i = 0; i &lt; stream_context-&gt;nb_streams; i++) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">if</span> (stream_context-&gt;streams[i]-&gt;codecpar-&gt;codec_type == AVMEDIA_TYPE_VIDEO)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            video_stream_index = i;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">if</span> (video_stream_index == -1)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;ERROR: Unable to find video in requested stream&quot;</span>);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    av_init_packet(&amp;packet);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    allocation_context = avformat_alloc_context();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="comment">// Now we can start reading the video packets</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    av_read_play(stream_context);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">// We know the Tello drone sends an encoded h264 stream</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    codec = avcodec_find_decoder(AV_CODEC_ID_H264);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">if</span> (!codec)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;ERROR: The linked ffmpeg library seems not to have an h264 decoder&quot;</span>);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    video_context = avcodec_alloc_context3(codec);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    avcodec_copy_context(video_context, stream_context-&gt;streams[video_stream_index]-&gt;codec);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">if</span> (avcodec_open2(video_context, codec, <span class="keyword">nullptr</span>) &lt; 0)</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;ERROR: Unable to initialize the video context with the given AVCodec&quot;</span>);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="comment">// Initializing the converter that will convert the decoded YUV420P frames to RGB24 frames that we can render with SFML</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    yuv420p_to_rgb24_ctx = sws_getContext(video_context-&gt;width, video_context-&gt;height, video_context-&gt;pix_fmt, video_context-&gt;width, video_context-&gt;height,</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        AV_PIX_FMT_RGB24, SWS_BICUBIC, NULL, NULL, NULL);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">int</span> yuv420p_size = av_image_get_buffer_size(AV_PIX_FMT_YUV420P, video_context-&gt;width, video_context-&gt;height, 1);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    yuv420p_picturebuffer.resize(yuv420p_size);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">int</span> rgb24_size = av_image_get_buffer_size(AV_PIX_FMT_RGB24, video_context-&gt;width, video_context-&gt;height, 1);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    rgb24_picturebuffer.resize(rgb24_size);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    yuv420p_frame = av_frame_alloc();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    av_image_fill_arrays(yuv420p_frame-&gt;data, yuv420p_frame-&gt;linesize, yuv420p_picturebuffer.data(), AV_PIX_FMT_YUV420P, video_context-&gt;width, video_context-&gt;height, 1);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    rgb24_frame = av_frame_alloc();</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    av_image_fill_arrays(rgb24_frame-&gt;data, rgb24_frame-&gt;linesize, rgb24_picturebuffer.data(), AV_PIX_FMT_RGB24, video_context-&gt;width, video_context-&gt;height, 1);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    video_size = { (float)video_context-&gt;width, (<span class="keywordtype">float</span>)video_context-&gt;height };</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="comment">// Now most of the preliminary work is done, so now we can fire up a new thread for decoding</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    t1 = std::thread([<span class="keyword">this</span>]() { Decode_Stream(); });</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;}</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#aca968152fd5387d59046f4a8f0eec56e">  105</a></span>&#160;<a class="code" href="class_tello_1_1_video.html#aca968152fd5387d59046f4a8f0eec56e">Tello::Video::~Video</a>()</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;{</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="comment">// Close thread</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    stop_thread = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    t1.join();</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="comment">// Clear heap</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    av_free(yuv420p_frame);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    av_free(rgb24_frame);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    av_read_pause(stream_context);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    avio_close(allocation_context-&gt;pb);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    avformat_free_context(allocation_context);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    avformat_close_input(&amp;stream_context);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    avformat_network_deinit();</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    std::cout &lt;&lt; <span class="stringliteral">&quot;Video destroyed&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="class_tello_1_1_video.html#adf58f2464fe2685c6e183427e30dd8ec">  123</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_tello_1_1_video.html#adf58f2464fe2685c6e183427e30dd8ec">Tello::Video::Decode_Stream</a>()</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;{</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    uint64_t time = std::chrono::duration_cast&lt;std::chrono::seconds&gt;(std::chrono::system_clock::now().time_since_epoch()).count();</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">while</span> (av_read_frame(stream_context, &amp;packet) &gt;= 0 &amp;&amp; stop_thread != <span class="keyword">true</span>) {</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="comment">// Check whether this packet belongs to the videostream</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordflow">if</span> (packet.stream_index == video_stream_index) {</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            <span class="keywordflow">if</span> (stream == <span class="keyword">nullptr</span>) { <span class="comment">// This will only be run once</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                stream = avformat_new_stream(allocation_context, stream_context-&gt;streams[video_stream_index]-&gt;codec-&gt;codec);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                avcodec_copy_context(stream-&gt;codec, stream_context-&gt;streams[video_stream_index]-&gt;codec);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                stream-&gt;sample_aspect_ratio = stream_context-&gt;streams[video_stream_index]-&gt;codec-&gt;sample_aspect_ratio;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            }</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            <span class="keywordtype">int</span> check = 0;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            packet.stream_index = stream-&gt;id;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            avcodec_decode_video2(video_context, yuv420p_frame, &amp;check, &amp;packet);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            <span class="keywordflow">if</span> (check) {</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                <span class="keywordflow">while</span> (reading_buffer) {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                }</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                writing_buffer = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                <span class="comment">// We have succesfully decoded a frame</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                sws_scale(yuv420p_to_rgb24_ctx, yuv420p_frame-&gt;data, yuv420p_frame-&gt;linesize, 0, video_context-&gt;height, rgb24_frame-&gt;data, rgb24_frame-&gt;linesize);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                writing_buffer = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                <span class="comment">// Update sfml video image thing</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                std::cout &lt;&lt; <span class="stringliteral">&quot;Frame: &quot;</span> &lt;&lt; frame_count &lt;&lt; <span class="stringliteral">&quot;, FPS: &quot;</span> &lt;&lt; frame_count / (float)(std::chrono::duration_cast&lt;std::chrono::seconds&gt;(std::chrono::system_clock::now().time_since_epoch()).count() - time) &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                frame_count++;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            }</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        }</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        av_packet_unref(&amp;packet);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        av_init_packet(&amp;packet);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    }</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclass_tello_1_1_video_html_adf58f2464fe2685c6e183427e30dd8ec"><div class="ttname"><a href="class_tello_1_1_video.html#adf58f2464fe2685c6e183427e30dd8ec">Tello::Video::Decode_Stream</a></div><div class="ttdeci">void Decode_Stream()</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8cpp_source.html#l00123">Tello_Video.cpp:123</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a8ccd24ea97657027bce6a1ef5f3ab1f1"><div class="ttname"><a href="class_tello_1_1_video.html#a8ccd24ea97657027bce6a1ef5f3ab1f1">Tello::Video::applyBufferToTexture</a></div><div class="ttdeci">void applyBufferToTexture(sf::Texture &amp;texture)</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8cpp_source.html#l00022">Tello_Video.cpp:22</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_ae5598bbeb5fa9cd9ed9ea6fbee364243"><div class="ttname"><a href="class_tello_1_1_video.html#ae5598bbeb5fa9cd9ed9ea6fbee364243">Tello::Video::Video</a></div><div class="ttdeci">Video(std::string url)</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8cpp_source.html#l00039">Tello_Video.cpp:39</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_aceb471e3512aa3df82f9bab925c05363"><div class="ttname"><a href="class_tello_1_1_video.html#aceb471e3512aa3df82f9bab925c05363">Tello::Video::video_size</a></div><div class="ttdeci">sf::Vector2f video_size</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00066">Tello_Video.h:66</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_aca968152fd5387d59046f4a8f0eec56e"><div class="ttname"><a href="class_tello_1_1_video.html#aca968152fd5387d59046f4a8f0eec56e">Tello::Video::~Video</a></div><div class="ttdeci">~Video()</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8cpp_source.html#l00105">Tello_Video.cpp:105</a></div></div>
+<div class="ttc" id="a_tello___video_8h_html"><div class="ttname"><a href="_tello___video_8h.html">Tello_Video.h</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html_a81d75d31551f8fff267bf34081106c1e"><div class="ttname"><a href="class_tello_1_1_video.html#a81d75d31551f8fff267bf34081106c1e">Tello::Video::getVideo_size</a></div><div class="ttdeci">sf::Vector2f getVideo_size() const</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8cpp_source.html#l00017">Tello_Video.cpp:17</a></div></div>
+<div class="ttc" id="a_tello___video_8cpp_html_a8afe4a62ec5da7b34ed6e020c222bed9"><div class="ttname"><a href="_tello___video_8cpp.html#a8afe4a62ec5da7b34ed6e020c222bed9">Logging_Callback</a></div><div class="ttdeci">void Logging_Callback(void *ptr, int level, const char *fmt, va_list vargs)</div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8cpp_source.html#l00003">Tello_Video.cpp:3</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Genereret Ons Sep 16 2020 21:18:42 for Tello af&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
+</small></address>
+</body>
+</html>

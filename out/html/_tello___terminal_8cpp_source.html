@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.20"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Tello: Kildefilen Tello_Terminal.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Tello
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Genereret af Doxygen 1.8.20 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Søg');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Søg');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Tello_Terminal.cpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_tello___terminal_8cpp.html">Hop til denne fils dokumentation.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_tello___terminal_8h.html">Tello_Terminal.h</a>&quot;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno"><a class="line" href="class_tello___terminal.html#aeb2ab90903785620eec0728e29718f37">    3</a></span>&#160;<a class="code" href="class_tello___terminal.html#aeb2ab90903785620eec0728e29718f37">Tello_Terminal::Tello_Terminal</a>()</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    <a class="code" href="class_im_term_1_1basic__terminal__helper.html#a9e71c0395b41ee1402d8bcbee00acda4">add_command_</a>({ <span class="stringliteral">&quot;clear&quot;</span>, <span class="stringliteral">&quot;clears the terminal screen&quot;</span>, <a class="code" href="class_tello___terminal.html#add887bfa60b56e6a11fc9799b2c22fe0">Tello_Terminal::clear</a>, <a class="code" href="class_tello___terminal.html#aa0afa37b5cab72305911c7b5f1cb697b">Tello_Terminal::no_completion</a> });</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    <a class="code" href="class_im_term_1_1basic__terminal__helper.html#a9e71c0395b41ee1402d8bcbee00acda4">add_command_</a>({ <span class="stringliteral">&quot;echo&quot;</span>, <span class="stringliteral">&quot;prints to terminal screen&quot;</span>, <a class="code" href="class_tello___terminal.html#a8c1efc060523beee915b771b80d05ce4">Tello_Terminal::echo</a>, <a class="code" href="class_tello___terminal.html#aa0afa37b5cab72305911c7b5f1cb697b">Tello_Terminal::no_completion</a> });</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <a class="code" href="class_im_term_1_1basic__terminal__helper.html#a9e71c0395b41ee1402d8bcbee00acda4">add_command_</a>({ <span class="stringliteral">&quot;quit&quot;</span>, <span class="stringliteral">&quot;quits the program&quot;</span>, <a class="code" href="class_tello___terminal.html#a8542997cbc25a86fc11189859f254606">Tello_Terminal::exit</a>, <a class="code" href="class_tello___terminal.html#aa0afa37b5cab72305911c7b5f1cb697b">Tello_Terminal::no_completion</a> });</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <a class="code" href="class_im_term_1_1basic__terminal__helper.html#a9e71c0395b41ee1402d8bcbee00acda4">add_command_</a>({ <span class="stringliteral">&quot;udp&quot;</span>, <span class="stringliteral">&quot;send any string over udp&quot;</span>, <a class="code" href="class_tello___terminal.html#a1106baa614d54515494adf8ae1c59c20">Tello_Terminal::udp</a>, <a class="code" href="class_tello___terminal.html#aa0afa37b5cab72305911c7b5f1cb697b">Tello_Terminal::no_completion</a> });</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="class_im_term_1_1basic__terminal__helper.html#a9e71c0395b41ee1402d8bcbee00acda4">add_command_</a>({ <span class="stringliteral">&quot;sdk?&quot;</span>, <span class="stringliteral">&quot;gets the sdk version for drone&quot;</span>, <a class="code" href="class_tello___terminal.html#a26a8a0f9cbeb8e8f58ce0d81d64a7e5c">Tello_Terminal::sdk</a>, <a class="code" href="class_tello___terminal.html#aa0afa37b5cab72305911c7b5f1cb697b">Tello_Terminal::no_completion</a> });</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;}</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_tello___terminal.html#add887bfa60b56e6a11fc9799b2c22fe0">   12</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_tello___terminal.html#add887bfa60b56e6a11fc9799b2c22fe0">Tello_Terminal::clear</a>(argument_type&amp; arg)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    arg.term.clear();</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_tello___terminal.html#a8c1efc060523beee915b771b80d05ce4">   17</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_tello___terminal.html#a8c1efc060523beee915b771b80d05ce4">Tello_Terminal::echo</a>(argument_type&amp; arg)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">if</span> (arg.command_line.size() &lt; 2) {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        arg.term.add_text(<span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    }</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    std::string str {};</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">auto</span> it = std::next(arg.command_line.begin(), 1);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">while</span> (it != arg.command_line.end() &amp;&amp; it-&gt;empty()) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        ++it;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    }</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">if</span> (it != arg.command_line.end()) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        str = *it;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">for</span> (++it; it != arg.command_line.end(); ++it) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keywordflow">if</span> (it-&gt;empty()) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            str.reserve(str.size() + it-&gt;size() + 1);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            str += <span class="charliteral">&#39; &#39;</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            str += *it;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    arg.term.add_text(str);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="class_tello___terminal.html#a8542997cbc25a86fc11189859f254606">   46</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_tello___terminal.html#a8542997cbc25a86fc11189859f254606">Tello_Terminal::exit</a>(argument_type&amp; arg)</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    arg.val.ShouldQuit = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="class_tello___terminal.html#a1106baa614d54515494adf8ae1c59c20">   51</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_tello___terminal.html#a1106baa614d54515494adf8ae1c59c20">Tello_Terminal::udp</a>(argument_type&amp; arg)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">if</span> (arg.command_line.size() &lt; 2) {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        arg.term.add_text(<span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    std::string str {};</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">auto</span> it = std::next(arg.command_line.begin(), 1);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">while</span> (it != arg.command_line.end() &amp;&amp; it-&gt;empty()) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        ++it;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">if</span> (it != arg.command_line.end()) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        str = *it;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">for</span> (++it; it != arg.command_line.end(); ++it) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <span class="keywordflow">if</span> (it-&gt;empty()) {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            str.reserve(str.size() + it-&gt;size() + 1);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            str += <span class="charliteral">&#39; &#39;</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            str += *it;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">if</span> (arg.val.udp_server != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        arg.val.udp_server-&gt;SDK_SendRequest(str, 2000, [arg](<a class="code" href="struct_tello_1_1_u_d_p___response.html">Tello::UDP_Response</a> response) {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            arg.term.add_text(<span class="stringliteral">&quot;\t - &quot;</span>+response.<a class="code" href="struct_tello_1_1_u_d_p___response.html#a8337eda253db242014b7f8806cf8195d">message</a>);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        });</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        arg.term.add_text(<span class="stringliteral">&quot;UDP server not connected&quot;</span>);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="class_tello___terminal.html#a26a8a0f9cbeb8e8f58ce0d81d64a7e5c">   85</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_tello___terminal.html#a26a8a0f9cbeb8e8f58ce0d81d64a7e5c">Tello_Terminal::sdk</a>(argument_type&amp; arg)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;{</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">if</span> (arg.val.udp_server != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        arg.val.udp_server-&gt;SDK_SendRequest(<span class="stringliteral">&quot;sdk?&quot;</span>, 2000, [arg](<a class="code" href="struct_tello_1_1_u_d_p___response.html">Tello::UDP_Response</a> response) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            arg.term.add_text(response.<a class="code" href="struct_tello_1_1_u_d_p___response.html#a8337eda253db242014b7f8806cf8195d">message</a>);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        });</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        arg.term.add_text(<span class="stringliteral">&quot;UDP server not connected&quot;</span>);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclass_tello___terminal_html_add887bfa60b56e6a11fc9799b2c22fe0"><div class="ttname"><a href="class_tello___terminal.html#add887bfa60b56e6a11fc9799b2c22fe0">Tello_Terminal::clear</a></div><div class="ttdeci">static void clear(argument_type &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="_tello___terminal_8cpp_source.html#l00012">Tello_Terminal.cpp:12</a></div></div>
+<div class="ttc" id="a_tello___terminal_8h_html"><div class="ttname"><a href="_tello___terminal_8h.html">Tello_Terminal.h</a></div></div>
+<div class="ttc" id="astruct_tello_1_1_u_d_p___response_html"><div class="ttname"><a href="struct_tello_1_1_u_d_p___response.html">Tello::UDP_Response</a></div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_d_p_8h_source.html#l00030">Tello_UDP.h:30</a></div></div>
+<div class="ttc" id="aclass_tello___terminal_html_aeb2ab90903785620eec0728e29718f37"><div class="ttname"><a href="class_tello___terminal.html#aeb2ab90903785620eec0728e29718f37">Tello_Terminal::Tello_Terminal</a></div><div class="ttdeci">Tello_Terminal()</div><div class="ttdef"><b>Definition:</b> <a href="_tello___terminal_8cpp_source.html#l00003">Tello_Terminal.cpp:3</a></div></div>
+<div class="ttc" id="aclass_tello___terminal_html_a8c1efc060523beee915b771b80d05ce4"><div class="ttname"><a href="class_tello___terminal.html#a8c1efc060523beee915b771b80d05ce4">Tello_Terminal::echo</a></div><div class="ttdeci">static void echo(argument_type &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="_tello___terminal_8cpp_source.html#l00017">Tello_Terminal.cpp:17</a></div></div>
+<div class="ttc" id="aclass_tello___terminal_html_a26a8a0f9cbeb8e8f58ce0d81d64a7e5c"><div class="ttname"><a href="class_tello___terminal.html#a26a8a0f9cbeb8e8f58ce0d81d64a7e5c">Tello_Terminal::sdk</a></div><div class="ttdeci">static void sdk(argument_type &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="_tello___terminal_8cpp_source.html#l00085">Tello_Terminal.cpp:85</a></div></div>
+<div class="ttc" id="aclass_tello___terminal_html_a1106baa614d54515494adf8ae1c59c20"><div class="ttname"><a href="class_tello___terminal.html#a1106baa614d54515494adf8ae1c59c20">Tello_Terminal::udp</a></div><div class="ttdeci">static void udp(argument_type &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="_tello___terminal_8cpp_source.html#l00051">Tello_Terminal.cpp:51</a></div></div>
+<div class="ttc" id="aclass_tello___terminal_html_aa0afa37b5cab72305911c7b5f1cb697b"><div class="ttname"><a href="class_tello___terminal.html#aa0afa37b5cab72305911c7b5f1cb697b">Tello_Terminal::no_completion</a></div><div class="ttdeci">static std::vector&lt; std::string &gt; no_completion(argument_type &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="_tello___terminal_8h_source.html#l00023">Tello_Terminal.h:23</a></div></div>
+<div class="ttc" id="aclass_tello___terminal_html_a8542997cbc25a86fc11189859f254606"><div class="ttname"><a href="class_tello___terminal.html#a8542997cbc25a86fc11189859f254606">Tello_Terminal::exit</a></div><div class="ttdeci">static void exit(argument_type &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="_tello___terminal_8cpp_source.html#l00046">Tello_Terminal.cpp:46</a></div></div>
+<div class="ttc" id="astruct_tello_1_1_u_d_p___response_html_a8337eda253db242014b7f8806cf8195d"><div class="ttname"><a href="struct_tello_1_1_u_d_p___response.html#a8337eda253db242014b7f8806cf8195d">Tello::UDP_Response::message</a></div><div class="ttdeci">std::string message</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_d_p_8h_source.html#l00031">Tello_UDP.h:31</a></div></div>
+<div class="ttc" id="aclass_im_term_1_1basic__terminal__helper_html_a9e71c0395b41ee1402d8bcbee00acda4"><div class="ttname"><a href="class_im_term_1_1basic__terminal__helper.html#a9e71c0395b41ee1402d8bcbee00acda4">ImTerm::basic_terminal_helper&lt; Tello_Terminal, Terminal_State &gt;::add_command_</a></div><div class="ttdeci">void add_command_(const command_type &amp;cmd)</div><div class="ttdef"><b>Definition:</b> <a href="terminal__helpers_8hpp_source.html#l00182">terminal_helpers.hpp:182</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Genereret Ons Sep 16 2020 21:18:42 for Tello af&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
+</small></address>
+</body>
+</html>

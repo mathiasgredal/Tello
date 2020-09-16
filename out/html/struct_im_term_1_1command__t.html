@@ -1,0 +1,375 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.20"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Tello: ImTerm::command_t&lt; Terminal &gt;  Datastruktur-skabelon-reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Tello
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Genereret af Doxygen 1.8.20 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Søg');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Søg');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespace_im_term.html">ImTerm</a></li><li class="navelem"><a class="el" href="struct_im_term_1_1command__t.html">command_t</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Offentlige typer</a> &#124;
+<a href="#pub-attribs">Datafelter</a> &#124;
+<a href="#friends">Friends</a>  </div>
+  <div class="headertitle">
+<div class="title">ImTerm::command_t&lt; Terminal &gt; Datastruktur-skabelon-reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="utils_8hpp_source.html">utils.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Samarbejdsdiagram for ImTerm::command_t&lt; Terminal &gt;:</div>
+<div class="dyncontent">
+<div class="center"><img src="struct_im_term_1_1command__t__coll__graph.png" border="0" usemap="#a_im_term_1_1command__t_3_01_terminal_01_4_coll__map" alt="Collaboration graph"/></div>
+<map name="_im_term_1_1command__t_3_01_terminal_01_4_coll__map" id="a_im_term_1_1command__t_3_01_terminal_01_4_coll__map">
+<area shape="rect" title=" " alt="" coords="137,471,286,563"/>
+<area shape="rect" title=" " alt="" coords="5,301,132,393"/>
+<area shape="rect" title="STL class." alt="" coords="156,309,267,386"/>
+<area shape="rect" title="STL class." alt="" coords="137,147,286,239"/>
+<area shape="rect" title=" " alt="" coords="291,309,455,386"/>
+<area shape="rect" title="STL class." alt="" coords="333,154,413,231"/>
+<area shape="rect" title="STL class." alt="" coords="309,5,436,97"/>
+</map>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Offentlige typer</h2></td></tr>
+<tr class="memitem:ac86918d247877cc6bbb34adfceb204c2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_im_term_1_1command__t.html#ac86918d247877cc6bbb34adfceb204c2">command_function</a> = void(*)(<a class="el" href="struct_im_term_1_1argument__t.html">argument_t</a>&lt; Terminal &gt; &amp;)</td></tr>
+<tr class="separator:ac86918d247877cc6bbb34adfceb204c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a511023f0d2b91cb63efc28931f06009a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_im_term_1_1command__t.html#a511023f0d2b91cb63efc28931f06009a">further_completion_function</a> = std::vector&lt; std::string &gt;(*)(<a class="el" href="struct_im_term_1_1argument__t.html">argument_t</a>&lt; Terminal &gt; &amp;argument_line)</td></tr>
+<tr class="separator:a511023f0d2b91cb63efc28931f06009a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Datafelter</h2></td></tr>
+<tr class="memitem:ad4da45f5920c8bdbc30dfde3ff8e4f3b"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_im_term_1_1command__t.html#ad4da45f5920c8bdbc30dfde3ff8e4f3b">name</a> {}</td></tr>
+<tr class="separator:ad4da45f5920c8bdbc30dfde3ff8e4f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45581af29bbf4f404bd88af03dfc9938"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_im_term_1_1command__t.html#a45581af29bbf4f404bd88af03dfc9938">description</a> {}</td></tr>
+<tr class="separator:a45581af29bbf4f404bd88af03dfc9938"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06d7e0319db1ade8a4db80e34182df7e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_im_term_1_1command__t.html#ac86918d247877cc6bbb34adfceb204c2">command_function</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_im_term_1_1command__t.html#a06d7e0319db1ade8a4db80e34182df7e">call</a> {}</td></tr>
+<tr class="separator:a06d7e0319db1ade8a4db80e34182df7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fffc29b2cd3879e44d86039c5c704ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_im_term_1_1command__t.html#a511023f0d2b91cb63efc28931f06009a">further_completion_function</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_im_term_1_1command__t.html#a5fffc29b2cd3879e44d86039c5c704ab">complete</a> {}</td></tr>
+<tr class="separator:a5fffc29b2cd3879e44d86039c5c704ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a375e374d66d70bd642023d105ad2884a"><td class="memItemLeft" align="right" valign="top">constexpr friend bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_im_term_1_1command__t.html#a375e374d66d70bd642023d105ad2884a">operator&lt;</a> (const <a class="el" href="struct_im_term_1_1command__t.html">command_t</a> &amp;lhs, const <a class="el" href="struct_im_term_1_1command__t.html">command_t</a> &amp;rhs)</td></tr>
+<tr class="separator:a375e374d66d70bd642023d105ad2884a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ddbd16ed7382c1001ad928a3ae3c5af"><td class="memItemLeft" align="right" valign="top">constexpr friend bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_im_term_1_1command__t.html#a6ddbd16ed7382c1001ad928a3ae3c5af">operator&lt;</a> (const <a class="el" href="struct_im_term_1_1command__t.html">command_t</a> &amp;lhs, const std::string_view &amp;rhs)</td></tr>
+<tr class="separator:a6ddbd16ed7382c1001ad928a3ae3c5af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abea3e26c1c4275386873827875366ca8"><td class="memItemLeft" align="right" valign="top">constexpr friend bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_im_term_1_1command__t.html#abea3e26c1c4275386873827875366ca8">operator&lt;</a> (const std::string_view &amp;lhs, const <a class="el" href="struct_im_term_1_1command__t.html">command_t</a> &amp;rhs)</td></tr>
+<tr class="separator:abea3e26c1c4275386873827875366ca8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detaljeret beskrivelse</h2>
+<div class="textblock"><h3>template&lt;typename Terminal&gt;<br />
+struct ImTerm::command_t&lt; Terminal &gt;</h3>
+
+
+<p class="definition">Defineret på linje <a class="el" href="utils_8hpp_source.html#l00044">44</a> i filen <a class="el" href="utils_8hpp_source.html">utils.hpp</a>.</p>
+</div><h2 class="groupheader">Dokumentation af medlems-typedefinitioner</h2>
+<a id="ac86918d247877cc6bbb34adfceb204c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac86918d247877cc6bbb34adfceb204c2">&#9670;&nbsp;</a></span>command_function</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Terminal &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="struct_im_term_1_1command__t.html">ImTerm::command_t</a>&lt; Terminal &gt;::<a class="el" href="struct_im_term_1_1command__t.html#ac86918d247877cc6bbb34adfceb204c2">command_function</a> =  void (*)(<a class="el" href="struct_im_term_1_1argument__t.html">argument_t</a>&lt;Terminal&gt;&amp;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Defineret på linje <a class="el" href="utils_8hpp_source.html#l00045">45</a> i filen <a class="el" href="utils_8hpp_source.html">utils.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a511023f0d2b91cb63efc28931f06009a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a511023f0d2b91cb63efc28931f06009a">&#9670;&nbsp;</a></span>further_completion_function</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Terminal &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="struct_im_term_1_1command__t.html">ImTerm::command_t</a>&lt; Terminal &gt;::<a class="el" href="struct_im_term_1_1command__t.html#a511023f0d2b91cb63efc28931f06009a">further_completion_function</a> =  std::vector&lt;std::string&gt; (*)(<a class="el" href="struct_im_term_1_1argument__t.html">argument_t</a>&lt;Terminal&gt;&amp; argument_line)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Defineret på linje <a class="el" href="utils_8hpp_source.html#l00046">46</a> i filen <a class="el" href="utils_8hpp_source.html">utils.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Dokumentation af friends og af relaterede funktioner</h2>
+<a id="a375e374d66d70bd642023d105ad2884a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a375e374d66d70bd642023d105ad2884a">&#9670;&nbsp;</a></span>operator&lt; <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Terminal &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr friend bool operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_im_term_1_1command__t.html">command_t</a>&lt; Terminal &gt; &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_im_term_1_1command__t.html">command_t</a>&lt; Terminal &gt; &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Defineret på linje <a class="el" href="utils_8hpp_source.html#l00055">55</a> i filen <a class="el" href="utils_8hpp_source.html">utils.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                                                                                    {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordflow">return</span> lhs.name &lt; rhs.name;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a6ddbd16ed7382c1001ad928a3ae3c5af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ddbd16ed7382c1001ad928a3ae3c5af">&#9670;&nbsp;</a></span>operator&lt; <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Terminal &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr friend bool operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_im_term_1_1command__t.html">command_t</a>&lt; Terminal &gt; &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Defineret på linje <a class="el" href="utils_8hpp_source.html#l00059">59</a> i filen <a class="el" href="utils_8hpp_source.html">utils.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                                                                         {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keywordflow">return</span> lhs.name &lt; rhs;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="abea3e26c1c4275386873827875366ca8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abea3e26c1c4275386873827875366ca8">&#9670;&nbsp;</a></span>operator&lt; <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Terminal &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr friend bool operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_im_term_1_1command__t.html">command_t</a>&lt; Terminal &gt; &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Defineret på linje <a class="el" href="utils_8hpp_source.html#l00063">63</a> i filen <a class="el" href="utils_8hpp_source.html">utils.hpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                                                                         {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordflow">return</span> lhs &lt; rhs.name;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Felt-dokumentation</h2>
+<a id="a06d7e0319db1ade8a4db80e34182df7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06d7e0319db1ade8a4db80e34182df7e">&#9670;&nbsp;</a></span>call</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Terminal &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_im_term_1_1command__t.html#ac86918d247877cc6bbb34adfceb204c2">command_function</a> <a class="el" href="struct_im_term_1_1command__t.html">ImTerm::command_t</a>&lt; Terminal &gt;::call {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Defineret på linje <a class="el" href="utils_8hpp_source.html#l00050">50</a> i filen <a class="el" href="utils_8hpp_source.html">utils.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5fffc29b2cd3879e44d86039c5c704ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fffc29b2cd3879e44d86039c5c704ab">&#9670;&nbsp;</a></span>complete</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Terminal &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_im_term_1_1command__t.html#a511023f0d2b91cb63efc28931f06009a">further_completion_function</a> <a class="el" href="struct_im_term_1_1command__t.html">ImTerm::command_t</a>&lt; Terminal &gt;::complete {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Defineret på linje <a class="el" href="utils_8hpp_source.html#l00052">52</a> i filen <a class="el" href="utils_8hpp_source.html">utils.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a45581af29bbf4f404bd88af03dfc9938"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45581af29bbf4f404bd88af03dfc9938">&#9670;&nbsp;</a></span>description</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Terminal &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view <a class="el" href="struct_im_term_1_1command__t.html">ImTerm::command_t</a>&lt; Terminal &gt;::description {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Defineret på linje <a class="el" href="utils_8hpp_source.html#l00049">49</a> i filen <a class="el" href="utils_8hpp_source.html">utils.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad4da45f5920c8bdbc30dfde3ff8e4f3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4da45f5920c8bdbc30dfde3ff8e4f3b">&#9670;&nbsp;</a></span>name</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Terminal &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view <a class="el" href="struct_im_term_1_1command__t.html">ImTerm::command_t</a>&lt; Terminal &gt;::name {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Defineret på linje <a class="el" href="utils_8hpp_source.html#l00048">48</a> i filen <a class="el" href="utils_8hpp_source.html">utils.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>Dokumentationen for denne datastruktur blev genereret ud fra filen:<ul>
+<li>libs/ImTerm/include/imterm/<a class="el" href="utils_8hpp_source.html">utils.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Genereret Ons Sep 16 2020 21:18:43 for Tello af&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
+</small></address>
+</body>
+</html>

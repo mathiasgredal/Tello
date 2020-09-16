@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.20"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Tello: Table of Contents</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Tello
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Genereret af Doxygen 1.8.20 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Søg');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Søg');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="PageDoc"><div class="header">
+  <div class="headertitle">
+<div class="title">Table of Contents </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><ul>
+<li><a href="#about-imterm">About ImTerm</a><ul>
+<li><a href="#features">Features</a></li>
+<li><a href="#how-to-include-in-your-project">How to include in your project</a></li>
+</ul>
+</li>
+<li><a href="#how-does-it-work">How does it work</a><ul>
+<li><a href="#basic-usage">Basic usage</a><ul>
+<li><a href="#terminalhelpers">TerminalHeplers</a></li>
+<li><a href="#command_type">command_type</a></li>
+</ul>
+</li>
+<li><a href="#tuning">Tuning</a><ul>
+<li><a href="#colors-and-text">colors and text</a></li>
+<li><a href="#non-ascii-characters">non-ascii characters</a></li>
+<li><a href="#spdlog-integration">spdlog integratino</a></li>
+<li><a href="#extra">extra</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#author">Author</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md1"></a>
+About ImTerm</h1>
+<p><a class="el" href="namespace_im_term.html">ImTerm</a> is a header only "terminal" library for ImGui, intended to help you build a debug console for your application. <a class="el" href="namespace_im_term.html">ImTerm</a> does not implement commands on its own, but tries to make it easier to have a nice feeling terminal where you can type in your custom commands, and aims to be utf8 friendly. It also comes with an optional spdlog integration if you happen to use it.</p>
+<p><img src="demo.gif" alt="" class="inline"/></p>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Features</h2>
+<p><a class="el" href="namespace_im_term.html">ImTerm</a> features revolves mainly around completion:</p>
+<ul>
+<li>basic tab completion</li>
+<li>contextual tab completion</li>
+<li>OSD for completion</li>
+<li>history completion support, expanding on a <code>tab</code> press<ul>
+<li>!! refers to previous command</li>
+<li>!-n refers to nth command, starting from the last one</li>
+<li>!:m refers to mth argument of last command, (with m=0, you are referring to the last command name)</li>
+<li>!-n:m refers to the mth argument of the nth command, starting from the last command</li>
+</ul>
+</li>
+<li>prefixed history search (type your prefix, hit the arrow keys, and you're done!).</li>
+</ul>
+<p>If you want to type in <code>!:</code> or <code>!!</code> if your command argument, you'll have to escape one of the exclamation marks with <code>\</code></p>
+<p>Typing <code>command_name Hello, World!</code> will call <code>command_name</code> with two arguments, <code>Hello,</code> and <code>World!</code>. To merge the two arguments, simply add surrounding quotes: <code>command_name "Hello, World!"</code>.</p>
+<h2><a class="anchor" id="autotoc_md3"></a>
+How to include in your project</h2>
+<p><a class="el" href="namespace_im_term.html">ImTerm</a> only has <a href="https://github.com/ocornut/imgui">ImGui</a> as mandatory dependency, and has spdlog as an optional depency. If you use <a href="https://github.com/gabime/spdlog">spdlog</a>, then you'll get an easier integration, otherwise that's not a problem, and you won't need to add spdlog to your project.</p>
+<p>Since <a class="el" href="namespace_im_term.html">ImTerm</a> is a header only library, appart from its ImGui dependency (that you probably already use if you came there) you'll just need to get <a class="el" href="namespace_im_term.html">ImTerm</a> headers, <code>#include &lt;<a class="el" href="terminal_8hpp.html">imterm/terminal.hpp</a>&gt;</code>, and you should be done!</p>
+<p><a class="el" href="namespace_im_term.html">ImTerm</a> requires C++17 or above.</p>
+<h1><a class="anchor" id="autotoc_md4"></a>
+How does it work</h1>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Basic usage</h2>
+<h2><a class="anchor" id="autotoc_md6"></a>
+command_type and argument_type</h2>
+<p>Adding commands to an <a class="el" href="class_im_term_1_1terminal.html">ImTerm::terminal</a> is done via the types <code>command_type_cref</code>, <code>command_type</code> and <code>argument_type</code></p>
+<p>The <code>command_type</code> type (which I should rather call <code><a class="el" href="struct_im_term_1_1command__t.html">ImTerm::command_t</a>&lt;<a class="el" href="class_im_term_1_1terminal.html">ImTerm::terminal</a>&lt;TerminalHelper&gt;&gt;</code>) is a structured used to represent a command, and contains the following attributes:</p>
+<ul>
+<li>the command name name (as an <code>std::string_view</code>)</li>
+<li>a short description of the command(as an <code>std::string_view</code>)</li>
+<li>the command callback (as a function pointer)</li>
+<li>the completion callback (as a function pointer)</li>
+</ul>
+<p><code>command_type_cref</code> is the type <code>std::reference_wrapper&lt;const command_type&gt;</code> (ie: a const reference that you can store in a vector).</p>
+<p>The command callback function can do whatever it wants and takes as a parameter an <code>argument_t&lt;<a class="el" href="class_im_term_1_1terminal.html">ImTerm::terminal</a>&lt;TerminalHelper&gt;&gt;</code>, containing:</p>
+<ul>
+<li>a reference to your custom argument (of type <code>TerminalHelper::value_type</code>, can be void)</li>
+<li>a reference to the terminal instance that called the method</li>
+<li>the list of arguments (including the command name), as an <code>std::vector&lt;std::string&gt;</code></li>
+</ul>
+<p>The completion callback function takes the same type of argument and should return an <code>std::vector&lt;std::string&gt;</code> containing a list of possible contextual completion (you may return an empty vector if you don't want to autocomplete user's inputs).</p>
+<h2><a class="anchor" id="autotoc_md7"></a>
+TerminalHelpers</h2>
+<p>To use <code><a class="el" href="class_im_term_1_1terminal.html">ImTerm::terminal</a></code>'s class, you must supply it a TerminalHelper. The TerminalHelper class is responsible for command management. Because It is expected that your commands will need some kind of argument to interact with the rest of your application, your TerminalHelper must define the type <code>TerminalHelper::value_type</code>. That value will be passed to your commands as part of their arguments.</p>
+<p>It must implement the following methods:</p>
+<ul>
+<li><code>std::vector&lt;command_type_cref&gt; find_command_by_prefix(std::string_view prefix)</code>, which shall return the list of commands starting by <code>prefix</code> (you might want to use <code>ImTerm::misc::prefix_search</code>)</li>
+<li><code>std::vector&lt;command_type_cref&gt; find_command_by_prefix(const char* beg, const char* end)</code>, which shall return the list of commands starting by the string formed by <code>[beg, end)</code> (that might just disappear from the needed methods soon)</li>
+<li><code>std::vector&lt;command_type_cref&gt; list_commands()</code>, which shall return the list of all commands</li>
+<li><code>std::optional&lt;<a class="el" href="struct_im_term_1_1message.html">ImTerm::message</a>&gt; format(std::string msg, message::type msg_type)</code>, which shall format a string to your liking, or return an empty optional so that it won't be logged (<a class="el" href="class_im_term_1_1terminal.html">ImTerm::terminal</a> will invoke this methods when it wants to emit feedback to the user).</li>
+</ul>
+<p>Of course, it's a bit of a bummer to have to implement all those methods, so if you want you can also simply inherit from <code><a class="el" href="class_im_term_1_1basic__terminal__helper.html">ImTerm::basic_terminal_helper</a></code> (defined in <code><a class="el" href="terminal__helpers_8hpp.html">imterm/terminal_helpers.hpp</a></code>), which does all that for you. Afterward, you just have to add your commands using <code>basic_terminal_helper::add_command_(const command_type&amp;)</code></p>
+<p>Here is a basic example of what a TerminalHelper can look like: </p><div class="fragment"><div class="line"><span class="keyword">class </span>terminal_helper_example : <a class="code" href="class_im_term_1_1basic__terminal__helper.html">ImTerm::basic_terminal_helper</a>&lt;terminal_helper_example, void&gt; {</div>
+<div class="line"><span class="keyword">public</span>:</div>
+<div class="line">    <span class="keyword">static</span> std::vector&lt;std::string&gt; no_completion(std::string_view) { <span class="keywordflow">return</span> {}; }</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// clears the logging screen. argument_type is aliased in ImTerm::basic_terminal_helper</span></div>
+<div class="line">    <span class="keyword">static</span> <span class="keywordtype">void</span> clear(argument_type&amp; arg) {</div>
+<div class="line">        arg.term.clear();</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// prints the text passed as parameter to the logging screen. argument_type is aliased in ImTerm::basic_terminal_helper</span></div>
+<div class="line">    <span class="keyword">static</span> <span class="keywordtype">void</span> echo(argument_type&amp; arg) {</div>
+<div class="line">        <span class="keywordflow">if</span> (arg.command_line.size() &lt; 2) {</div>
+<div class="line">            <span class="keywordflow">return</span>;</div>
+<div class="line">        }</div>
+<div class="line">        std::string str = std::move(arg.command_line[1]);</div>
+<div class="line">        <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = std::next(arg.command_line.begin(), 2) ; it != arg.command_line.end() ; ++it) {</div>
+<div class="line">            str += <span class="stringliteral">&quot; &quot;</span> + std::move(*it);</div>
+<div class="line">        }</div>
+<div class="line">        message msg;</div>
+<div class="line">        msg.value = std::move(str);</div>
+<div class="line">        msg.color_beg = msg.color_end = 0; <span class="comment">// color is disabled when color_beg == color_end</span></div>
+<div class="line">        <span class="comment">// other parameters are ignored</span></div>
+<div class="line">        arg.term.add_message(std::move(msg));</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    terminal_helper_example() {</div>
+<div class="line">        <a class="code" href="class_im_term_1_1basic__terminal__helper.html#a9e71c0395b41ee1402d8bcbee00acda4">add_command_</a>({<span class="stringliteral">&quot;clear&quot;</span>, <span class="stringliteral">&quot;clear the screen&quot;</span>, clear, no_completion});</div>
+<div class="line">        <a class="code" href="class_im_term_1_1basic__terminal__helper.html#a9e71c0395b41ee1402d8bcbee00acda4">add_command_</a>({<span class="stringliteral">&quot;echo&quot;</span>, <span class="stringliteral">&quot;echoes your text&quot;</span>, echo, no_completion});</div>
+<div class="line">    }</div>
+<div class="line">};</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md8"></a>
+Tuning</h2>
+<h2><a class="anchor" id="autotoc_md9"></a>
+colors and text</h2>
+<p><code><a class="el" href="class_im_term_1_1terminal.html">ImTerm::terminal</a></code> manages almost every aforementioned feature. Pretty much every property you could think of is configurable, either be it via an optional or via your TerminalHelper implementation (or will be in the (hopefully near) future).</p>
+<p>Regarding optionals, if any of them is empty, it will be ignored. For colors, that means <a class="el" href="namespace_im_term.html">ImTerm</a> will use the default color instead of a custom one. For the top bar texts (used for the terminal user options such as the <code>clear</code> button), that means the option will not be available for the end user.</p>
+<h2><a class="anchor" id="autotoc_md10"></a>
+non-ascii characters</h2>
+<p>You can also tune space detection and string length calculation. Why would you want to do that? Well, that's if you happen to use non-ascii characters:</p>
+<ul>
+<li>tab completion might behave in a peculiar way due to the size not being computed correctly</li>
+<li>you might use a non ascii character to represent a space, leading to unexpected tokenization.</li>
+</ul>
+<p>To do this, you'll need to implement two extra methods in your TerminalHelper:</p><ul>
+<li><code>int is_space(std::string_view)</code> shall return the number of char participating in the representation of the beginning space (in the ascii world, that means that it returns 1 if the string starts by a space, and 0 otherwise). It shall not return a value greater than the size of the string.</li>
+<li><code>int get_length(std::string_view)</code> shall return the number of glyphs represented in the given string (in the ascii world, this methods simply returns <code>.size()</code>)</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md11"></a>
+spdlog integration</h2>
+<p>If spdlog can be included (that is <code>__has_include("spdlog/spdlog.h")</code> is resolved as <code>true</code> by the compiler), an extra class is defined in <code><a class="el" href="terminal__helpers_8hpp.html">terminal_helpers.hpp</a></code>: <code>basic_spdlog_terminal_helper</code>. It does the same thing as <code>basic_terminal_helper</code> from which it inherits, but it also inherits from <code>spdlog::sinks::sink</code>, which mean you can use it as a sink for any of your spdlog logger. Messages will be logged to the terminal if you use it this way. It also furnishes spdlog style formatting facility for messages comming from the terminal intended to be logged to the terminal.</p>
+<h2><a class="anchor" id="autotoc_md12"></a>
+extra</h2>
+<p>If you want to be able to interact with the terminal directly from you TerminalHelper, you may define the extra method <code>void set_terminal(terminal&lt;TerminalHelper&gt;&amp; term)</code>. This method will be invoked right after the instantiation of <a class="el" href="class_im_term_1_1terminal.html">ImTerm::terminal</a> if it exists, and the passed reference will be valid throughout the whole lifetime of the terminal.</p>
+<h1><a class="anchor" id="autotoc_md13"></a>
+Author</h1>
+<p>Lucas Lazare, a computer engineering student.</p>
+<h1><a class="anchor" id="autotoc_md14"></a>
+License</h1>
+<p>This project is under the MIT license. </p>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+<div class="ttc" id="aclass_im_term_1_1basic__terminal__helper_html"><div class="ttname"><a href="class_im_term_1_1basic__terminal__helper.html">ImTerm::basic_terminal_helper</a></div><div class="ttdef"><b>Definition:</b> <a href="terminal__helpers_8hpp_source.html#l00141">terminal_helpers.hpp:141</a></div></div>
+<div class="ttc" id="aclass_im_term_1_1basic__terminal__helper_html_a9e71c0395b41ee1402d8bcbee00acda4"><div class="ttname"><a href="class_im_term_1_1basic__terminal__helper.html#a9e71c0395b41ee1402d8bcbee00acda4">ImTerm::basic_terminal_helper::add_command_</a></div><div class="ttdeci">void add_command_(const command_type &amp;cmd)</div><div class="ttdef"><b>Definition:</b> <a href="terminal__helpers_8hpp_source.html#l00182">terminal_helpers.hpp:182</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Genereret Ons Sep 16 2020 21:18:43 for Tello af&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
+</small></address>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.20"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Tello: Drone styring program</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Tello
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Genereret af Doxygen 1.8.20 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Søg');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Søg');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="PageDoc"><div class="header">
+  <div class="headertitle">
+<div class="title">Drone styring program </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="el" href="class_tello_1_1_video.html">Tello::Video</a></p>
+<ul>
+<li>Recieve encoded video signal</li>
+<li>Decode and apply to SFML texture</li>
+</ul>
+<p>Tello::Detection</p>
+<ul>
+<li>For different detection algorithms that can highlight things in the viewport or steer the drone, eg. chasing down redheads and tasing them.</li>
+</ul>
+<p><a class="el" href="class_tello_1_1_u_i.html">Tello::UI</a></p>
+<ul>
+<li>Setup of SFML</li>
+<li>Display drone telemetry like speed, height, battery and other stuff. Perhaps debug console for viewing which data has been sent and what has been received, along with input for sending custom commands</li>
+<li>Display video and allow for recording video and taking images</li>
+<li>Enable different detection algorithms and allow them to take control of the drone</li>
+<li>Drone control by keyboard</li>
+</ul>
+<p><a class="el" href="class_tello_1_1_a_p_i.html">Tello::API</a></p>
+<ul>
+<li>All of the api calls, including setting and recieving speed...</li>
+<li>Initialization and connection to the drone</li>
+</ul>
+<p><a class="el" href="class_tello_1_1_u_d_p.html">Tello::UDP</a></p>
+<ul>
+<li>Here we run a server on another thread, where we handle communications</li>
+<li>Server setup:<ul>
+<li>There is a queue</li>
+<li>When we send a command to the drone, an ID for the request will be made an that ID will be returned immediately.</li>
+<li>A response server, that is run on another thread will continuously check for responses from the drone.</li>
+<li>The next response from the drone will be coubled to the ID from the latest command sent. That pair will then be saved in memory, that can later be accessed.</li>
+</ul>
+</li>
+<li>Video<ul>
+<li>Video will also be handled in the UDP class</li>
+<li>A thread will be created for recieving video frames from the drone, which will be saved in a framebuffer that can be accessed by <a class="el" href="class_tello_1_1_video.html">Tello::Video</a></li>
+<li></li>
+</ul>
+</li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Genereret Ons Sep 16 2020 21:18:43 for Tello af&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
+</small></address>
+</body>
+</html>

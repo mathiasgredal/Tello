@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.20"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Tello: CMakeLists.txt filreference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Tello
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Genereret af Doxygen 1.8.20 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Søg');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Søg');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Funktioner</a>  </div>
+  <div class="headertitle">
+<div class="title">CMakeLists.txt filreference</div>  </div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Funktioner</h2></td></tr>
+<tr class="memitem:a6b80ded2c1c8e716b17a31b854d31882"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_make_lists_8txt.html#a6b80ded2c1c8e716b17a31b854d31882">cmake_minimum_required</a> (VERSION 3.15) project(Tello LANGUAGES CXX C) <a class="el" href="libs_2imgui-sfml_2_c_make_lists_8txt.html#adc4919b79293f9de5d3a8907302bfd19">set</a>(CMAKE_CXX_STANDARD 17) <a class="el" href="libs_2imgui-sfml_2_c_make_lists_8txt.html#adc4919b79293f9de5d3a8907302bfd19">set</a>(CMAKE_CXX_STANDARD_REQUIRED ON) add_executable(Tello main.cpp Tello_API.cpp Tello_API.h Tello_UDP.cpp Tello_UDP.h Tello_Video.cpp Tello_Video.h Tello_UI.cpp Tello_UI.h Tello_Terminal.cpp Tello_Terminal.h Tello_Telemetry.cpp Tello_Telemetry.h) if(WIN32) include($</td></tr>
+<tr class="separator:a6b80ded2c1c8e716b17a31b854d31882"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6edc039ebd16c68d80d86d374dd3225c"><td class="memItemLeft" align="right" valign="top">cmake automate vcpkg cmake&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_make_lists_8txt.html#a6edc039ebd16c68d80d86d374dd3225c">vcpkg_bootstrap</a> () vcpkg_install_packages(ffmpeg imgui-sfml uvw tinyfiledialogs freetype) if(CMAKE_BUILD_TYPE STREQUAL &quot;Debug&quot;) file(GLOB FFMPEG_LIBRARIES &quot;$</td></tr>
+<tr class="separator:a6edc039ebd16c68d80d86d374dd3225c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Funktions-dokumentation</h2>
+<a id="a6b80ded2c1c8e716b17a31b854d31882"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b80ded2c1c8e716b17a31b854d31882">&#9670;&nbsp;</a></span>cmake_minimum_required()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">cmake_minimum_required </td>
+          <td>(</td>
+          <td class="paramtype">VERSION 3.&#160;</td>
+          <td class="paramname"><em>15</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Defineret på linje <a class="el" href="_c_make_lists_8txt_source.html#l00001">1</a> i filen <a class="el" href="_c_make_lists_8txt_source.html">CMakeLists.txt</a>.</p>
+<div class="fragment"><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;             {CMAKE_SOURCE_DIR}/cmake/automate-vcpkg.cmake)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a6edc039ebd16c68d80d86d374dd3225c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6edc039ebd16c68d80d86d374dd3225c">&#9670;&nbsp;</a></span>vcpkg_bootstrap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">cmake automate vcpkg cmake vcpkg_bootstrap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Defineret på linje <a class="el" href="_c_make_lists_8txt_source.html#l00020">20</a> i filen <a class="el" href="_c_make_lists_8txt_source.html">CMakeLists.txt</a>.</p>
+<div class="fragment"><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                                         {CMAKE_BINARY_DIR}/vcpkg/installed/x64-windows-<span class="keyword">static</span>/debug/lib<span class="comment">/*.lib&quot;)</span></div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Genereret Ons Sep 16 2020 21:18:42 for Tello af&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
+</small></address>
+</body>
+</html>

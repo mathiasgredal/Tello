@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.20"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Tello: Kildefilen Tello_UI.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Tello
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Genereret af Doxygen 1.8.20 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Søg');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Søg');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Tello_UI.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_tello___u_i_8h.html">Hop til denne fils dokumentation.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef TELLO_UI_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define TELLO_UI_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;imgui-SFML.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;imgui.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;SFML/Window.hpp&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;tinyfiledialogs.h&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_tello___telemetry_8h.html">Tello_Telemetry.h</a>&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_tello___terminal_8h.html">Tello_Terminal.h</a>&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_tello___u_d_p_8h.html">Tello_UDP.h</a>&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_tello___video_8h.html">Tello_Video.h</a>&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_tello.html">Tello</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="struct_tello_1_1_r_c_data.html">   23</a></span>&#160;<span class="keyword">struct </span><a class="code" href="struct_tello_1_1_r_c_data.html">RCData</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="struct_tello_1_1_r_c_data.html#af71aae4ce785b9e2dc640f58ee3d3700">   24</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="struct_tello_1_1_r_c_data.html#af71aae4ce785b9e2dc640f58ee3d3700">x</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="struct_tello_1_1_r_c_data.html#aba13792a5929ca7c6d35268f16ab23f4">   25</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="struct_tello_1_1_r_c_data.html#aba13792a5929ca7c6d35268f16ab23f4">y</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="struct_tello_1_1_r_c_data.html#a41fc4ea51327328f034f1de3ed445709">   26</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="struct_tello_1_1_r_c_data.html#a41fc4ea51327328f034f1de3ed445709">z</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="struct_tello_1_1_r_c_data.html#a3a8ffac6ea5567cb543dc405f9cb09ee">   27</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="struct_tello_1_1_r_c_data.html#a3a8ffac6ea5567cb543dc405f9cb09ee">yaw</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_tello_1_1_u_i.html">UI</a> {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="class_tello_1_1_u_i.html#a3794b2e9261344d8add75226bae2670d">UI</a>(sf::RenderWindow&amp; _window);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="class_tello_1_1_u_i.html#a652f53d70508a3e1cfa32f8cb163fcc1">~UI</a>();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="comment">// Initializes main loop</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tello_1_1_u_i.html#a0b3debf32b197a5b7b64320914d63862">Run</a>();</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#a458feba67b6e7264c49d609830c8aa10">   37</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tello_1_1_u_i.html#a458feba67b6e7264c49d609830c8aa10">Stop</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tello_1_1_u_i.html#ade5afc2a09fc779372d209ba0fb57181">Start_Video</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="comment">// Drawing</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tello_1_1_u_i.html#a94f6441e1ec3f77a9f56047d6330ad57">Draw_SFML</a>();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tello_1_1_u_i.html#a47f644ecfa823d5a2e3f0cdaf65bdccc">Draw_ImGui</a>();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">// Handle Events for eg. controlling drone</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tello_1_1_u_i.html#a763f6b5be43df6714f3a5fbe8f199f84">HandleEvents</a>(sf::Event event);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tello_1_1_u_i.html#a5c97c0a5f028998ebf3012d28f7be4f8">GetRCInput</a>();</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#ae38a29e07f0cdf34bad800fbafe02c73">   49</a></span>&#160;    <a class="code" href="struct_tello_1_1_r_c_data.html">RCData</a> <a class="code" href="class_tello_1_1_u_i.html#ae38a29e07f0cdf34bad800fbafe02c73">rc_control_input</a> = { 0, 0, 0, 0 };</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#a1e9ee7971104debc4c679d5230190e4f">   51</a></span>&#160;    sf::Clock <a class="code" href="class_tello_1_1_u_i.html#a1e9ee7971104debc4c679d5230190e4f">deltaClock</a>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#a4212c5e27aeabde7bf40c9783306f3ac">   52</a></span>&#160;    sf::RenderWindow* <a class="code" href="class_tello_1_1_u_i.html#a4212c5e27aeabde7bf40c9783306f3ac">window</a>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">// Terminal</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#a5a4c9dd6044069bc5490a82c8908e408">   55</a></span>&#160;    <a class="code" href="struct_terminal___state.html">Terminal_State</a> <a class="code" href="class_tello_1_1_u_i.html#a5a4c9dd6044069bc5490a82c8908e408">terminal_state</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#a4b54d250d45d6271d829ecad9a1ecc25">   56</a></span>&#160;    <a class="code" href="class_im_term_1_1terminal.html">ImTerm::terminal&lt;Tello_Terminal&gt;</a>* <a class="code" href="class_tello_1_1_u_i.html#a4b54d250d45d6271d829ecad9a1ecc25">terminal</a>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">// UDP Coms</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#a9c5ee6b7fc138c8e39649286a161e027">   59</a></span>&#160;    <a class="code" href="class_tello_1_1_u_d_p.html">Tello::UDP</a>* <a class="code" href="class_tello_1_1_u_i.html#a9c5ee6b7fc138c8e39649286a161e027">udp_server</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#a3e3ef6b1c74d375dfc9a24e62feae0d0">   60</a></span>&#160;    std::string <a class="code" href="class_tello_1_1_u_i.html#a3e3ef6b1c74d375dfc9a24e62feae0d0">udp_ip_address</a> = std::string(<span class="stringliteral">&quot;192.168.10.1&quot;</span>, 1024);</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#aee8f0725558399d39afcda087db01b71">   61</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_tello_1_1_u_i.html#aee8f0725558399d39afcda087db01b71">udp_send_port</a> = 8889;</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#a6ed23c96f977dfdc0d5c101383b0215e">   62</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_tello_1_1_u_i.html#a6ed23c96f977dfdc0d5c101383b0215e">udp_listen_port</a> = 8890;</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#a3ba039b78773e7f4e5701865203fe54e">   63</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_tello_1_1_u_i.html#a3ba039b78773e7f4e5701865203fe54e">udp_connected</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#a11819035024ecbe82a13d503d9749754">   64</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_tello_1_1_u_i.html#a11819035024ecbe82a13d503d9749754">HandleUnqueuedUDPData</a>(std::string message);</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#a827e8eb97f0fb1bb5d624e5e019b5cf1">   65</a></span>&#160;    <a class="code" href="class_tello_1_1_telemetry.html">Tello::Telemetry</a> <a class="code" href="class_tello_1_1_u_i.html#a827e8eb97f0fb1bb5d624e5e019b5cf1">telemetry</a>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="comment">// Video</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#ab1e1f80b35d167ea3111e37b6eafdad9">   68</a></span>&#160;    <a class="code" href="class_tello_1_1_video.html">Tello::Video</a>* <a class="code" href="class_tello_1_1_u_i.html#ab1e1f80b35d167ea3111e37b6eafdad9">video_server</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#aa622b3b644a4f09d9db3c0ed319ca281">   69</a></span>&#160;    sf::Sprite <a class="code" href="class_tello_1_1_u_i.html#aa622b3b644a4f09d9db3c0ed319ca281">video_sprite</a>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#a4ae949efce534241646bd7b35e6345f4">   70</a></span>&#160;    sf::Texture <a class="code" href="class_tello_1_1_u_i.html#a4ae949efce534241646bd7b35e6345f4">video_texture</a>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#af8e499967a3f8d4395feacfe8b60e1b4">   71</a></span>&#160;    std::string <a class="code" href="class_tello_1_1_u_i.html#af8e499967a3f8d4395feacfe8b60e1b4">video_url</a> = std::string(<span class="stringliteral">&quot;rtsp://freja.hiof.no:1935/rtplive/definst/hessdalen03.stream&quot;</span>, 1024);</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#ab2c978fd032ee5db9ef12b3ffc31c992">   72</a></span>&#160;    std::string <a class="code" href="class_tello_1_1_u_i.html#ab2c978fd032ee5db9ef12b3ffc31c992">video_save_location</a> = std::string(<span class="stringliteral">&quot;&quot;</span>, 1024);</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="class_tello_1_1_u_i.html#a4d97adca69992d81134e01a6a0f675e3">   73</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_tello_1_1_u_i.html#a4d97adca69992d81134e01a6a0f675e3">video_connected</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#endif // TELLO_UI_H</span></div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a94f6441e1ec3f77a9f56047d6330ad57"><div class="ttname"><a href="class_tello_1_1_u_i.html#a94f6441e1ec3f77a9f56047d6330ad57">Tello::UI::Draw_SFML</a></div><div class="ttdeci">void Draw_SFML()</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8cpp_source.html#l00080">Tello_UI.cpp:80</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a458feba67b6e7264c49d609830c8aa10"><div class="ttname"><a href="class_tello_1_1_u_i.html#a458feba67b6e7264c49d609830c8aa10">Tello::UI::Stop</a></div><div class="ttdeci">void Stop()</div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_aa622b3b644a4f09d9db3c0ed319ca281"><div class="ttname"><a href="class_tello_1_1_u_i.html#aa622b3b644a4f09d9db3c0ed319ca281">Tello::UI::video_sprite</a></div><div class="ttdeci">sf::Sprite video_sprite</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00069">Tello_UI.h:69</a></div></div>
+<div class="ttc" id="a_tello___terminal_8h_html"><div class="ttname"><a href="_tello___terminal_8h.html">Tello_Terminal.h</a></div></div>
+<div class="ttc" id="aclass_im_term_1_1terminal_html"><div class="ttname"><a href="class_im_term_1_1terminal.html">ImTerm::terminal&lt; Tello_Terminal &gt;</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a1e9ee7971104debc4c679d5230190e4f"><div class="ttname"><a href="class_tello_1_1_u_i.html#a1e9ee7971104debc4c679d5230190e4f">Tello::UI::deltaClock</a></div><div class="ttdeci">sf::Clock deltaClock</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00051">Tello_UI.h:51</a></div></div>
+<div class="ttc" id="astruct_tello_1_1_r_c_data_html_af71aae4ce785b9e2dc640f58ee3d3700"><div class="ttname"><a href="struct_tello_1_1_r_c_data.html#af71aae4ce785b9e2dc640f58ee3d3700">Tello::RCData::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00024">Tello_UI.h:24</a></div></div>
+<div class="ttc" id="astruct_tello_1_1_r_c_data_html_a3a8ffac6ea5567cb543dc405f9cb09ee"><div class="ttname"><a href="struct_tello_1_1_r_c_data.html#a3a8ffac6ea5567cb543dc405f9cb09ee">Tello::RCData::yaw</a></div><div class="ttdeci">float yaw</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00027">Tello_UI.h:27</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_telemetry_html"><div class="ttname"><a href="class_tello_1_1_telemetry.html">Tello::Telemetry</a></div><div class="ttdef"><b>Definition:</b> <a href="_tello___telemetry_8h_source.html#l00011">Tello_Telemetry.h:11</a></div></div>
+<div class="ttc" id="astruct_tello_1_1_r_c_data_html"><div class="ttname"><a href="struct_tello_1_1_r_c_data.html">Tello::RCData</a></div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00023">Tello_UI.h:23</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_ab1e1f80b35d167ea3111e37b6eafdad9"><div class="ttname"><a href="class_tello_1_1_u_i.html#ab1e1f80b35d167ea3111e37b6eafdad9">Tello::UI::video_server</a></div><div class="ttdeci">Tello::Video * video_server</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00068">Tello_UI.h:68</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a4d97adca69992d81134e01a6a0f675e3"><div class="ttname"><a href="class_tello_1_1_u_i.html#a4d97adca69992d81134e01a6a0f675e3">Tello::UI::video_connected</a></div><div class="ttdeci">bool video_connected</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00073">Tello_UI.h:73</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a11819035024ecbe82a13d503d9749754"><div class="ttname"><a href="class_tello_1_1_u_i.html#a11819035024ecbe82a13d503d9749754">Tello::UI::HandleUnqueuedUDPData</a></div><div class="ttdeci">void HandleUnqueuedUDPData(std::string message)</div></div>
+<div class="ttc" id="astruct_tello_1_1_r_c_data_html_aba13792a5929ca7c6d35268f16ab23f4"><div class="ttname"><a href="struct_tello_1_1_r_c_data.html#aba13792a5929ca7c6d35268f16ab23f4">Tello::RCData::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00025">Tello_UI.h:25</a></div></div>
+<div class="ttc" id="a_tello___telemetry_8h_html"><div class="ttname"><a href="_tello___telemetry_8h.html">Tello_Telemetry.h</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a9c5ee6b7fc138c8e39649286a161e027"><div class="ttname"><a href="class_tello_1_1_u_i.html#a9c5ee6b7fc138c8e39649286a161e027">Tello::UI::udp_server</a></div><div class="ttdeci">Tello::UDP * udp_server</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00059">Tello_UI.h:59</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_d_p_html"><div class="ttname"><a href="class_tello_1_1_u_d_p.html">Tello::UDP</a></div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_d_p_8h_source.html#l00042">Tello_UDP.h:42</a></div></div>
+<div class="ttc" id="astruct_terminal___state_html"><div class="ttname"><a href="struct_terminal___state.html">Terminal_State</a></div><div class="ttdef"><b>Definition:</b> <a href="_tello___terminal_8h_source.html#l00013">Tello_Terminal.h:13</a></div></div>
+<div class="ttc" id="anamespace_tello_html"><div class="ttname"><a href="namespace_tello.html">Tello</a></div><div class="ttdef"><b>Definition:</b> <a href="tello___a_p_i_8h_source.html#l00004">tello_API.h:4</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a5c97c0a5f028998ebf3012d28f7be4f8"><div class="ttname"><a href="class_tello_1_1_u_i.html#a5c97c0a5f028998ebf3012d28f7be4f8">Tello::UI::GetRCInput</a></div><div class="ttdeci">void GetRCInput()</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8cpp_source.html#l00293">Tello_UI.cpp:293</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_ab2c978fd032ee5db9ef12b3ffc31c992"><div class="ttname"><a href="class_tello_1_1_u_i.html#ab2c978fd032ee5db9ef12b3ffc31c992">Tello::UI::video_save_location</a></div><div class="ttdeci">std::string video_save_location</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00072">Tello_UI.h:72</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_ae38a29e07f0cdf34bad800fbafe02c73"><div class="ttname"><a href="class_tello_1_1_u_i.html#ae38a29e07f0cdf34bad800fbafe02c73">Tello::UI::rc_control_input</a></div><div class="ttdeci">RCData rc_control_input</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00049">Tello_UI.h:49</a></div></div>
+<div class="ttc" id="a_tello___u_d_p_8h_html"><div class="ttname"><a href="_tello___u_d_p_8h.html">Tello_UDP.h</a></div></div>
+<div class="ttc" id="a_tello___video_8h_html"><div class="ttname"><a href="_tello___video_8h.html">Tello_Video.h</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a3794b2e9261344d8add75226bae2670d"><div class="ttname"><a href="class_tello_1_1_u_i.html#a3794b2e9261344d8add75226bae2670d">Tello::UI::UI</a></div><div class="ttdeci">UI(sf::RenderWindow &amp;_window)</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8cpp_source.html#l00003">Tello_UI.cpp:3</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a4b54d250d45d6271d829ecad9a1ecc25"><div class="ttname"><a href="class_tello_1_1_u_i.html#a4b54d250d45d6271d829ecad9a1ecc25">Tello::UI::terminal</a></div><div class="ttdeci">ImTerm::terminal&lt; Tello_Terminal &gt; * terminal</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00056">Tello_UI.h:56</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a652f53d70508a3e1cfa32f8cb163fcc1"><div class="ttname"><a href="class_tello_1_1_u_i.html#a652f53d70508a3e1cfa32f8cb163fcc1">Tello::UI::~UI</a></div><div class="ttdeci">~UI()</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8cpp_source.html#l00023">Tello_UI.cpp:23</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a6ed23c96f977dfdc0d5c101383b0215e"><div class="ttname"><a href="class_tello_1_1_u_i.html#a6ed23c96f977dfdc0d5c101383b0215e">Tello::UI::udp_listen_port</a></div><div class="ttdeci">int udp_listen_port</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00062">Tello_UI.h:62</a></div></div>
+<div class="ttc" id="astruct_tello_1_1_r_c_data_html_a41fc4ea51327328f034f1de3ed445709"><div class="ttname"><a href="struct_tello_1_1_r_c_data.html#a41fc4ea51327328f034f1de3ed445709">Tello::RCData::z</a></div><div class="ttdeci">float z</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00026">Tello_UI.h:26</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_video_html"><div class="ttname"><a href="class_tello_1_1_video.html">Tello::Video</a></div><div class="ttdef"><b>Definition:</b> <a href="_tello___video_8h_source.html#l00043">Tello_Video.h:43</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_af8e499967a3f8d4395feacfe8b60e1b4"><div class="ttname"><a href="class_tello_1_1_u_i.html#af8e499967a3f8d4395feacfe8b60e1b4">Tello::UI::video_url</a></div><div class="ttdeci">std::string video_url</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00071">Tello_UI.h:71</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a763f6b5be43df6714f3a5fbe8f199f84"><div class="ttname"><a href="class_tello_1_1_u_i.html#a763f6b5be43df6714f3a5fbe8f199f84">Tello::UI::HandleEvents</a></div><div class="ttdeci">void HandleEvents(sf::Event event)</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8cpp_source.html#l00288">Tello_UI.cpp:288</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a3ba039b78773e7f4e5701865203fe54e"><div class="ttname"><a href="class_tello_1_1_u_i.html#a3ba039b78773e7f4e5701865203fe54e">Tello::UI::udp_connected</a></div><div class="ttdeci">bool udp_connected</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00063">Tello_UI.h:63</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a3e3ef6b1c74d375dfc9a24e62feae0d0"><div class="ttname"><a href="class_tello_1_1_u_i.html#a3e3ef6b1c74d375dfc9a24e62feae0d0">Tello::UI::udp_ip_address</a></div><div class="ttdeci">std::string udp_ip_address</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00060">Tello_UI.h:60</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_aee8f0725558399d39afcda087db01b71"><div class="ttname"><a href="class_tello_1_1_u_i.html#aee8f0725558399d39afcda087db01b71">Tello::UI::udp_send_port</a></div><div class="ttdeci">int udp_send_port</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00061">Tello_UI.h:61</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a5a4c9dd6044069bc5490a82c8908e408"><div class="ttname"><a href="class_tello_1_1_u_i.html#a5a4c9dd6044069bc5490a82c8908e408">Tello::UI::terminal_state</a></div><div class="ttdeci">Terminal_State terminal_state</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00055">Tello_UI.h:55</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html"><div class="ttname"><a href="class_tello_1_1_u_i.html">Tello::UI</a></div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00030">Tello_UI.h:30</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a827e8eb97f0fb1bb5d624e5e019b5cf1"><div class="ttname"><a href="class_tello_1_1_u_i.html#a827e8eb97f0fb1bb5d624e5e019b5cf1">Tello::UI::telemetry</a></div><div class="ttdeci">Tello::Telemetry telemetry</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00065">Tello_UI.h:65</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_ade5afc2a09fc779372d209ba0fb57181"><div class="ttname"><a href="class_tello_1_1_u_i.html#ade5afc2a09fc779372d209ba0fb57181">Tello::UI::Start_Video</a></div><div class="ttdeci">void Start_Video()</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8cpp_source.html#l00062">Tello_UI.cpp:62</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a4212c5e27aeabde7bf40c9783306f3ac"><div class="ttname"><a href="class_tello_1_1_u_i.html#a4212c5e27aeabde7bf40c9783306f3ac">Tello::UI::window</a></div><div class="ttdeci">sf::RenderWindow * window</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00052">Tello_UI.h:52</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a0b3debf32b197a5b7b64320914d63862"><div class="ttname"><a href="class_tello_1_1_u_i.html#a0b3debf32b197a5b7b64320914d63862">Tello::UI::Run</a></div><div class="ttdeci">void Run()</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8cpp_source.html#l00031">Tello_UI.cpp:31</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a47f644ecfa823d5a2e3f0cdaf65bdccc"><div class="ttname"><a href="class_tello_1_1_u_i.html#a47f644ecfa823d5a2e3f0cdaf65bdccc">Tello::UI::Draw_ImGui</a></div><div class="ttdeci">void Draw_ImGui()</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8cpp_source.html#l00095">Tello_UI.cpp:95</a></div></div>
+<div class="ttc" id="aclass_tello_1_1_u_i_html_a4ae949efce534241646bd7b35e6345f4"><div class="ttname"><a href="class_tello_1_1_u_i.html#a4ae949efce534241646bd7b35e6345f4">Tello::UI::video_texture</a></div><div class="ttdeci">sf::Texture video_texture</div><div class="ttdef"><b>Definition:</b> <a href="_tello___u_i_8h_source.html#l00070">Tello_UI.h:70</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Genereret Ons Sep 16 2020 21:18:42 for Tello af&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
+</small></address>
+</body>
+</html>
