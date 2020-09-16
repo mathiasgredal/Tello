@@ -14,6 +14,8 @@
 
 #include <uvw.hpp>
 
+#include "Tello_Telemetry.h"
+
 using namespace std::chrono;
 
 namespace Tello {

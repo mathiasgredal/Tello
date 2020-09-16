@@ -13,6 +13,7 @@
 
 #include <tinyfiledialogs.h>
 
+#include "Tello_Telemetry.h"
 #include "Tello_Terminal.h"
 #include "Tello_UDP.h"
 #include "Tello_Video.h"
@@ -24,22 +25,6 @@ struct RCData {
     float y;
     float z;
     float yaw;
-};
-
-struct TelemetryData {
-    float pitch = 0;
-    float roll = 0;
-    float yaw = 0;
-    sf::Vector3f velocity = { 0, 0, 0 };
-    sf::Vector3f acceleration = { 0, 0, 0 };
-    float height = 0;
-    float flight_time = 0;
-    float flight_distance = 0;
-
-    float lowest_temperature = 0;
-    float highest_temperature = 0;
-    float batterypercentage = 0;
-    float barometer = 0;
 };
 
 class UI {
@@ -77,8 +62,7 @@ private:
     int udp_listen_port = 8890;
     bool udp_connected = false;
     void HandleUnqueuedUDPData(std::string message);
-    void ParseTelemetryData(std::string message);
-    TelemetryData telemetry;
+    Tello::Telemetry telemetry;
 
     // Video
     Tello::Video* video_server = nullptr;

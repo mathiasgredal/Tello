@@ -192,7 +192,7 @@ void Tello::UI::Draw_ImGui()
             if (!udp_connected && udp_server == nullptr) {
                 udp_server = new Tello::UDP(udp_ip_address, udp_send_port, udp_listen_port);
                 udp_server->WriteToTerminal = [this](std::string message) { terminal->add_text("RECIEVED: " + message); };
-                udp_server->RecievedTelemetry = [this](std::string message) { ParseTelemetryData(message); };
+                udp_server->RecievedTelemetry = [this](std::string message) { telemetry = Telemetry(message); };
                 udp_connected = true;
                 terminal_state.udp_server = udp_server;
             } else if (udp_connected && udp_server != nullptr) {
@@ -340,45 +340,5 @@ void Tello::UI::GetRCInput()
         rc_command << "rc " << rc_control_input.x << " " << rc_control_input.y << " " << rc_control_input.z << " " << rc_control_input.yaw;
 
         udp_server->SDK_Transmit(rc_command.str());
-    }
-}
-
-void extract_segment_data(std::string segment, std::string key, float& target)
-{
-    if (segment.find(key) == 0) {
-        target = static_cast<float>(atof(segment.substr(key.length()).c_str()));
-        //std::cout << segment << ": " << target << std::endl;
-    }
-}
-
-// Called everytime we have recieved telemetry
-void Tello::UI::ParseTelemetryData(std::string message)
-{
-    std::stringstream input(message);
-    std::string data_segment;
-
-    while (std::getline(input, data_segment, ';')) {
-        extract_segment_data(data_segment, "pitch:", telemetry.pitch);
-        extract_segment_data(data_segment, "yaw:", telemetry.yaw);
-        extract_segment_data(data_segment, "roll:", telemetry.roll);
-
-        extract_segment_data(data_segment, "vgx:", telemetry.velocity.x);
-        extract_segment_data(data_segment, "vgy:", telemetry.velocity.y);
-        extract_segment_data(data_segment, "vgz:", telemetry.velocity.z);
-
-        extract_segment_data(data_segment, "agx:", telemetry.acceleration.x);
-        extract_segment_data(data_segment, "agy:", telemetry.acceleration.y);
-        extract_segment_data(data_segment, "agz:", telemetry.acceleration.z);
-
-        extract_segment_data(data_segment, "h:", telemetry.height);
-
-        extract_segment_data(data_segment, "time:", telemetry.flight_time);
-        extract_segment_data(data_segment, "tof:", telemetry.flight_distance);
-
-        extract_segment_data(data_segment, "templ:", telemetry.lowest_temperature);
-        extract_segment_data(data_segment, "temph:", telemetry.highest_temperature);
-
-        extract_segment_data(data_segment, "bat:", telemetry.batterypercentage);
-        extract_segment_data(data_segment, "baro:", telemetry.barometer);
     }
 }

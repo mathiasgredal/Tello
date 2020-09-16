@@ -77,22 +77,13 @@ void Tello::UDP::SDK_Transmit(std::string message)
     SDK_server->trySend(SDK_Address, SDK_SendPort, message.data(), message.length());
 }
 
-// This function should propably not be here, since it deals with the drone sdk
-bool istelemetry(std::string message)
-{
-    // Test the first 3 keys, should be enough to decide if it's telemetry data
-    return message.find("pitch:") != std::string::npos
-        && message.find("roll:") != std::string::npos
-        && message.find("yaw:") != std::string::npos;
-}
-
 void Tello::UDP::SDK_handle_recieve(const uvw::UDPDataEvent& data, uvw::UDPHandle& handle)
 {
     UDP_Response response;
     std::string message = std::string(data.data.get(), data.length);
 
     // If we are recieving telemetry, we should just call the parse function and stop, otherwise we will just pollute the terminal
-    if (istelemetry(message)) {
+    if (Tello::Telemetry::CheckIfTelemetry(message)) {
         std::cout << message << std::endl;
 
         if (RecievedTelemetry != nullptr)

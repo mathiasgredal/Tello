@@ -12,6 +12,7 @@ add_executable(Tello main.cpp
 		Tello_Video.cpp Tello_Video.h
 		Tello_UI.cpp Tello_UI.h
 		Tello_Terminal.cpp Tello_Terminal.h
+		Tello_Telemetry.cpp Tello_Telemetry.h
 		)
 
 
