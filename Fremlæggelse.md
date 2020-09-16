@@ -74,7 +74,7 @@ Koden indeholder ikke sådan rigtigt et "rent" logik lag. Dette er fordi logikke
 
 **Funktionskald diagram:**
 
-![image-20200916220258929](C:\Users\mathi\AppData\Roaming\Typora\typora-user-images\image-20200916220258929.png)
+![image-20200916220258929](Logik_lag.png)
 
 
 
