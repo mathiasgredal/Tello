@@ -92,6 +92,18 @@ void Tello::UI::Draw_SFML()
     }
 }
 
+const std::string currentDateTime() {
+    time_t     now = time(0);
+    struct tm  tstruct;
+    char       buf[80];
+    tstruct = *localtime(&now);
+    // Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
+    // for more information about date/time format
+    strftime(buf, sizeof(buf), "%Y-%m-%d.%H.%M.%S", &tstruct);
+
+    return buf;
+}
+
 void Tello::UI::Draw_ImGui()
 {
     auto win_size = window->getSize();
@@ -134,7 +146,18 @@ void Tello::UI::Draw_ImGui()
     else
         ImGui::TextColored({ 255, 0, 0, 255 }, "Disconnected");
 
-    ImGui::Button("Capture Image");
+    if (ImGui::Button("Capture Image")) {
+        if (video_connected && video_server != nullptr) {
+            auto t = std::time(nullptr);
+            std::string image_name = std::string("Tello image - ") +  currentDateTime()  +".png";
+            std::cout << image_name << std::endl;
+#if WIN32
+            video_texture.copyToImage().saveToFile(video_save_location+"\\"+image_name);
+#else
+            video_texture.copyToImage().saveToFile(video_save_location+"/"+image_name);
+#endif
+        }
+    }
     ImGui::SameLine();
     ImGui::Button("Record Video");
 

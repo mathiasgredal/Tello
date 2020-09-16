@@ -77,7 +77,6 @@ else()
 endif()
 
 add_subdirectory(libs/imterm)
-include_directories(libs/stb)
 
 
 target_include_directories( Tello PRIVATE ${LIBAV_INCLUDE_DIRS} libs/imterm/include )
