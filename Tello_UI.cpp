@@ -92,10 +92,11 @@ void Tello::UI::Draw_SFML()
     }
 }
 
-const std::string currentDateTime() {
-    time_t     now = time(0);
-    struct tm  tstruct;
-    char       buf[80];
+const std::string currentDateTime()
+{
+    time_t now = time(0);
+    struct tm tstruct;
+    char buf[80];
     tstruct = *localtime(&now);
     // Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
     // for more information about date/time format
@@ -149,12 +150,12 @@ void Tello::UI::Draw_ImGui()
     if (ImGui::Button("Capture Image")) {
         if (video_connected && video_server != nullptr) {
             auto t = std::time(nullptr);
-            std::string image_name = std::string("Tello image - ") +  currentDateTime()  +".png";
+            std::string image_name = std::string("Tello image - ") + currentDateTime() + ".png";
             std::cout << image_name << std::endl;
 #if WIN32
-            video_texture.copyToImage().saveToFile(video_save_location+"\\"+image_name);
+            video_texture.copyToImage().saveToFile(video_save_location + "\\" + image_name);
 #else
-            video_texture.copyToImage().saveToFile(video_save_location+"/"+image_name);
+            video_texture.copyToImage().saveToFile(video_save_location + "/" + image_name);
 #endif
         }
     }
@@ -229,11 +230,47 @@ void Tello::UI::Draw_ImGui()
         }
     }
 
-    if (ImGui::Button("Send test") && udp_connected && udp_server != nullptr) {
-        udp_server->SDK_SendRequest("yeeet", 1200, [](UDP_Response res) {
-            std::cout << "response" << std::endl;
-        });
+    if (udp_connected && udp_server != nullptr) {
+        ImGui::Columns(2, nullptr, false);
+
+        if (ImGui::Button("Command", { window->getSize().x * 0.1666f, 0 })) {
+            udp_server->SDK_SendRequest("command", 1200, [](UDP_Response res) {
+                std::cout << "command response: " << res.message << std::endl;
+            });
+        }
+
+        ImGui::NextColumn();
+
+        if (ImGui::Button("Take Off", { window->getSize().x * 0.1666f, 0 })) {
+            udp_server->SDK_SendRequest("takeoff", 1200, [](UDP_Response res) {
+                std::cout << "takeoff response: " << res.message << std::endl;
+            });
+        }
+
+        ImGui::NextColumn();
+        if (ImGui::Button("Stream On", { window->getSize().x * 0.1666f, 0 })) {
+            udp_server->SDK_SendRequest("streamon", 1200, [](UDP_Response res) {
+                std::cout << "streamon response: " << res.message << std::endl;
+            });
+        }
+
+        ImGui::NextColumn();
+
+        if (ImGui::Button("Land", { window->getSize().x * 0.1666f, 0 })) {
+            udp_server->SDK_SendRequest("land", 1200, [](UDP_Response res) {
+                std::cout << "land response: " << res.message << std::endl;
+            });
+        }
+        ImGui::NextColumn();
+
+        ImGui::Columns(1);
     }
+
+    //    if (ImGui::Button("Send test") && udp_connected && udp_server != nullptr) {
+    //        udp_server->SDK_SendRequest("yeeet", 1200, [](UDP_Response res) {
+    //            std::cout << "response" << std::endl;
+    //        });
+    //    }
 
     if (ImGui::TreeNode("UDP Request Queue: ")) {
         ImGui::Columns(1, NULL, false);
