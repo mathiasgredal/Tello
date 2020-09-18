@@ -234,31 +234,31 @@ void Tello::UI::Draw_ImGui()
         ImGui::Columns(2, nullptr, false);
 
         if (ImGui::Button("Command", { window->getSize().x * 0.1666f, 0 })) {
-            udp_server->SDK_SendRequest("command", 1200, [](UDP_Response res) {
-                std::cout << "command response: " << res.message << std::endl;
+            udp_server->SDK_SendRequest("command", 1200, [this](UDP_Response res) {
+                terminal->add_text(std::string("command response: ") + res.message);
             });
         }
 
         ImGui::NextColumn();
 
         if (ImGui::Button("Take Off", { window->getSize().x * 0.1666f, 0 })) {
-            udp_server->SDK_SendRequest("takeoff", 1200, [](UDP_Response res) {
-                std::cout << "takeoff response: " << res.message << std::endl;
+            udp_server->SDK_SendRequest("takeoff", 1200, [this](UDP_Response res) {
+                terminal->add_text(std::string("takeoff response: ") + res.message);
             });
         }
 
         ImGui::NextColumn();
         if (ImGui::Button("Stream On", { window->getSize().x * 0.1666f, 0 })) {
-            udp_server->SDK_SendRequest("streamon", 1200, [](UDP_Response res) {
-                std::cout << "streamon response: " << res.message << std::endl;
+            udp_server->SDK_SendRequest("streamon", 1200, [this](UDP_Response res) {
+                terminal->add_text(std::string("streamon response: ") + res.message);
             });
         }
 
         ImGui::NextColumn();
 
         if (ImGui::Button("Land", { window->getSize().x * 0.1666f, 0 })) {
-            udp_server->SDK_SendRequest("land", 1200, [](UDP_Response res) {
-                std::cout << "land response: " << res.message << std::endl;
+            udp_server->SDK_SendRequest("land", 1200, [this](UDP_Response res) {
+                terminal->add_text(std::string("land response: ") + res.message);
             });
         }
         ImGui::NextColumn();
@@ -327,6 +327,13 @@ void Tello::UI::Draw_ImGui()
     ImGui::Text("time:%.2f", telemetry.flight_time);
     ImGui::NextColumn();
     ImGui::Text("distance:%.2f", telemetry.flight_distance);
+    ImGui::NextColumn();
+
+    ImGui::Text("battery:%.2f", telemetry.batterypercentage);
+    ImGui::NextColumn();
+    ImGui::Text("min temp:%.2f", telemetry.lowest_temperature);
+    ImGui::NextColumn();
+    ImGui::Text("max temp:%.2f", telemetry.highest_temperature);
     ImGui::NextColumn();
 
     ImGui::Columns(1);
